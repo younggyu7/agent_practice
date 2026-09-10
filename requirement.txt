@@ -1,0 +1,6 @@
+pydantic
+python-dotenv
+pytest
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+sqlalchemy>=2.0
