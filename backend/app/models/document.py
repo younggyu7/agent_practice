@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from datetime import date
 from sqlalchemy import ForeignKey, String, UniqueConstraint
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base import Base, TimestampMixin
 
 
@@ -23,3 +24,18 @@ class Document(Base, TimestampMixin):
     version: Mapped[list["DocumentVersion"]] = relationship(
         back_populates="document", cascade="all, delete-orphan"
     )
+
+
+class DocumentVersion(Base, TimestampMixin):
+    __tablename__ = "document_versions"
+    __table_args__ = (
+        UniqueConstraint("doc_id", "version", name="uq_document_version"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    doc_id: Mapped[int] = mapped_column(ForeignKey("documents.id"), index=True)
+    version: Mapped[str] = mapped_column(String(20))
+    status: Mapped[str] = mapped_column(String(20), default="현행", index=True)
+    effective_date: Mapped[date | None]
+    file_path: Mapped[str] = mapped_column(String(500))
+    page_count: Mapped[int] = mapped_column(default=0)
+    document: Mapped[Document] = relationship(back_populates="versions")
