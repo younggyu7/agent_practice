@@ -10,6 +10,7 @@ class Base(DeclarativeBase):
 
 
 # DB 테이블 또는 공통 기반 클래스 정의 : 생성일, 수정일은 거의 모든 테이블에 공통적으로 들어가는 컬럼이다.
+# 등록일, 수정일상속으로 처리
 class TimestampMixin:
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(

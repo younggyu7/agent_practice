@@ -1,4 +1,4 @@
-# 문서 관련 쿼리문을 모아 둔곳.
+# 문서 관련 쿼리문을 모아 둔곳. (DB요청)
 from __future__ import annotations
 
 from sqlalchemy import Row, desc, or_, select
@@ -9,7 +9,7 @@ from app.models.document import Document, DocumentVersion
 
 # 문서 목록 조회
 def list_documents(
-    session: Session,  # DB 세션
+    session: Session,  # DB 세션 : 서비스에서 전달해줄거임
     *,
     dept_id: str | None = None,
     security_level: str | None = None,
@@ -36,7 +36,7 @@ def list_documents(
             or_(Document.title.ilike(f"%{q}%"), Document.id.ilike(f"%{q}%"))
         )
 
-    # 로딩 전력 : 즉시 로딩
+    # 로딩 전력 : 즉시 로딩 : 부서 테이블도 조인해서 함께 가져오기
     stmt = stmt.options(joinedload(Document.dept))
     # 정렬, 개수 제한
     stmt = stmt.order_by(Document.id, desc(DocumentVersion.version)).limit(limit)
