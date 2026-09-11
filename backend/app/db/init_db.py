@@ -1,10 +1,13 @@
+from __future__ import annotations
 from sqlalchemy import Engine
-from app.db.session import engine as default_engine
-from app.models import Base
+from app.db.session import get_engine
 
 
 def init_db(engine: Engine | None = None) -> None:
-    Base.metadata.create_all(engine or default_engine)
+
+    from app.models import Base
+
+    Base.metadata.create_all(engine or get_engine())
 
 
 def main() -> None:
@@ -12,6 +15,5 @@ def main() -> None:
     print("테이블 생성 완료")
 
 
-# 이 파일 실행할 때만 테이블 생성
 if __name__ == "__main__":
     main()

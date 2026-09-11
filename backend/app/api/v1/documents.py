@@ -90,3 +90,27 @@ def get_document(doc_id: str) -> dict:
             return doc
 
     raise NotFound(f"문서를 찾지 못했습니다.: {doc_id}")
+
+
+# 잘못된 예시
+/
+"""
+@router.get("/List")
+def get_list(
+    dept_id=None,
+    security_level=None,
+    status=None,
+    q=None,
+):
+    sql = "SELECT * FROM documents WHERE 1=1"
+    if dept_id:
+        sql += f" AND dept_id = '{dept_id}'"
+    if security_level:
+        sql += f" AND secuirty_level = '{secuirty_level}'"
+    # ...
+    session.excute(sql)
+    # 로직처리
+    # DB접속해서 쿼리문 실행
+    # 돌려받은 데이터를 활용해서 다른 로직
+    # 데이터 리턴
+"""
