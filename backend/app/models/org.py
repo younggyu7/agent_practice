@@ -5,19 +5,22 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base, TimestampMixin
 
+# 보안등급
 CLEARANCE: dict[str, int] = {"일반": 1, "3급": 2, "대외비": 3}
 
 
+# 부서 모델
 class Department(Base, TimestampMixin):
     __tablename__ = "departments"
 
     id: Mapped[str] = mapped_column(String(10), primary_key=True)
     name: Mapped[str] = mapped_column(String(50), unique=True)
-
+    # back_populates로 양쪽 이름을 맞춰두기
     users: Mapped[list["User"]] = relationship(back_populates="dept")
     documents: Mapped[list["Document"]] = relationship(back_populates="dept")
 
 
+# 사용자 모델
 class User(Base, TimestampMixin):
     __tablename__ = "users"
 
@@ -31,10 +34,12 @@ class User(Base, TimestampMixin):
     dept: Mapped["Department"] = relationship(back_populates="users")
     documents: Mapped[list["Document"]] = relationship(back_populates="owner")
 
+    # 보안 등급 숫자로 리턴, deflaut 1로 가장 낮은 보안 등급처리
     @property
     def clearance_level(self) -> int:
         return CLEARANCE.get(self.clearance, 1)
 
+    # 승인 권한 있는지 체크 : 팀장이나 관리자면 승인 권한 있다고 부여
     @property
     def can_approve(self) -> bool:
 
