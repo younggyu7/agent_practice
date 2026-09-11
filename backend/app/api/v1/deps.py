@@ -18,7 +18,7 @@ SettingsDep = Annotated[
 
 # 로그 편의 함수 : 요청 하나를 로그에 따라갈 수 있게 하는 식별자 생성
 def get_request_id(request: Request) -> str:
-    return request.headers.get("X-Request-ID") or uuid.uuid4.hex[:8]
+    return request.headers.get("X-Request-ID") or uuid.uuid4().hex[:8]
 
 
 RequestIdDep = Annotated[str, Depends(get_request_id)]

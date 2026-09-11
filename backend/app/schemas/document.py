@@ -19,7 +19,7 @@ class DocumentOut(BaseModel):
 
     effective_from: date
     expire_at: date | None = None
-    index_status: Literal["대기", "재임베팅", "완료", "보관"] = "대기"
+    index_status: Literal["대기", "재임베딩", "완료", "보관"] = "대기"
     index_progress: int = Field(default=0, ge=0, le=100)
 
 
@@ -29,7 +29,7 @@ class DocumentCreateOut(BaseModel):
     doc_id: str = Field(examples=["DOC-HR-014"])
     title: str
     version: str = Field(examples=["v2.0"])
-    file_format: Literal("docx", "pdf")
+    file_format: Literal["docx", "pdf", "txt"]
     file_path: str = Field(examples=["uploads/DOC-HR-014_v2.0.docx"])
     created: bool = Field(
         description="문서 자체가 이번에 새로 생겼으면 True, 버전만 더했으면 False"
