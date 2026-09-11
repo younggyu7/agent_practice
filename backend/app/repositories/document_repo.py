@@ -33,7 +33,9 @@ def list_documents(
         stmt = stmt.where(DocumentVersion.status == status)
     if q:
         stmt = stmt.where(
-            or_(Document.title.ilike(f"%{q}%"), Document.id.ilike(f"%{q}%"))
+            or_(
+                Document.title.ilike(f"%{q}%"), Document.id.ilike(f"%{q}%")
+            )  # ilike 대소문자 구분 X
         )
 
     # 로딩 전력 : 즉시 로딩 : 부서 테이블도 조인해서 함께 가져오기
