@@ -107,7 +107,8 @@ def list_documents(
 
 # 문서 등록
 @router.post("", response_model=DocumentCreateOut, status_code=201)
-async def upload_document(
+# async 파일 읽는부분이 시간이 많이 걸릴수 있기에 async를 사용하지 않는다.
+def upload_document(
     doc_id: Annotated[str, Form()],
     title: Annotated[str, Form()],
     dept_id: Annotated[str, Form()],
