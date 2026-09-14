@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 from app.core.logging import setup_logging
 
 
-# lifespan 함수 정의
+# lifespan 함수 정의 : FastApi에서 lifespan은 무조건 비동기로 하라고 정의되어있음
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     setup_logging()
@@ -33,6 +33,7 @@ app.include_router(
 )
 
 
+# 에외 처리 규약에서 함수 정의시 비동기로 하라고 정의되어있음(framework에서 정의됨)
 @app.exception_handler(AgentError)
 async def handle_agent_error(
     request: Request,
