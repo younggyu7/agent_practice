@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from views import documents as documents_view
 import html
 import pathlib
 import sys
@@ -70,7 +70,8 @@ def main() -> None:
     session.init_state()
 
     # 로그인 상태 확인
-    if not session.is_authenticated():
+
+    if not session.is_authenticated():  # 비 로그인이면,
         login_view.render()  # 로그인 화면 보여주기
         return
 
@@ -81,7 +82,7 @@ def main() -> None:
     page = router.current_page()
     # 현재 페이지 키값이 documents
     if page == "documents":
-        st.info("문서 목록 화면은 02번에서 만듭니다.")
+        documents_view.render()
     else:
         st.info("아직 만들지 않은 화면입니다.")
 

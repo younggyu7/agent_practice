@@ -18,7 +18,7 @@ class DocumentOut(BaseModel):
     # secret_note는 외부에 전달할 데이터가 아니라 제외시킴
 
     effective_from: date
-    expire_at: date | None = None
+    expires_at: date | None = None
     index_status: Literal["대기", "재임베딩", "완료", "보관"] = "대기"
     index_progress: int = Field(default=0, ge=0, le=100)
 
