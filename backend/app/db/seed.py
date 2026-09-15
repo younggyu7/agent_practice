@@ -44,7 +44,7 @@ def _seed(session: Session) -> dict[str, int]:
 
     session.add_all(Department(**row) for row in DEPARTMENTS)  # 부서
 
-    temp_hash = hash_password(TEMP_PASSWORD)
+    temp_hash = hash_password(TEMP_PASSWORD)  # 비밀번호 추가
     session.add_all(User(**row) for row in USERS)  # 사용자
     session.flush()
 
@@ -55,9 +55,7 @@ def _seed(session: Session) -> dict[str, int]:
         session.add(Document(**fields))
         session.flush()
         # 문서 버전들 저장
-        session.add_all(
-            DocumentVersion(doc_id=doc["id"], **ver) for ver in doc["versions"]
-        )
+        session.add_all(User(**row, password_hash=temp_hash) for row in USERS)
     session.flush()
 
     return count_rows(session)  # 적제된 카운트 리턴

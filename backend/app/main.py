@@ -1,6 +1,10 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from app.api.v1.documents import router as documents_router
+
+# from app.api.v1.documents import router as documents_router
+# from app.api.v1.auth import router as auth_router
+
+from app.api.v1 import auth, documents
 from app.core.exceptions import AgentError
 from contextlib import asynccontextmanager
 from app.core.logging import setup_logging
@@ -28,7 +32,11 @@ def health() -> dict:
 
 # 라우터 연결
 app.include_router(
-    documents_router,
+    documents.router,
+    prefix="/api/v1",
+)
+app.include_router(
+    auth.router,
     prefix="/api/v1",
 )
 
