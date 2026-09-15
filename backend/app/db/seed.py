@@ -36,26 +36,27 @@ def seed_all(session: Session | None = None) -> dict[str, int]:
 
 
 # 실제로 적제처하는 함수 (별로도 분리)
+
+
 def _seed(session: Session) -> dict[str, int]:
 
-    # 적제된게 있는지 체크 : 적재된게 있으면 개수만 새서 return
     if session.scalar(select(func.count()).select_from(Document)):
         return count_rows(session)
 
-    session.add_all(Department(**row) for row in DEPARTMENTS)  # 부서
+    session.add_all(Department(**row) for row in DEPARTMENTS)
 
-    temp_hash = hash_password(TEMP_PASSWORD)  # 비밀번호 추가
-    session.add_all(User(**row) for row in USERS)  # 사용자
+    temp_hash = hash_password(TEMP_PASSWORD)
+    session.add_all(User(**row, password_hash=temp_hash) for row in USERS)
     session.flush()
 
     for doc in DOCUMENTS:
-        # dict에서 versions만 빼낸다.
+
         fields = {k: v for k, v in doc.items() if k != "versions"}
-        # 문서 저장
         session.add(Document(**fields))
         session.flush()
-        # 문서 버전들 저장
-        session.add_all(User(**row, password_hash=temp_hash) for row in USERS)
+        session.add_all(
+            DocumentVersion(doc_id=doc["id"], **ver) for ver in doc["versions"]
+        )
     session.flush()
 
-    return count_rows(session)  # 적제된 카운트 리턴
+    return count_rows(session)
