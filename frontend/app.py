@@ -1,16 +1,21 @@
+from __future__ import annotations
+
+import html
 import pathlib
 import sys
+
+import streamlit as st
 
 # 프로젝트 실행을 root에서 하기 때문에 frontend 경로 등록해주기
 sys.path.insert(
     0, str(pathlib.Path(__file__).parent)
 )  # frontend/를 모듈 검색 경로에 넣는다
 
-import streamlit as st
-
+from core import router, session
 from ui.theme import inject_css
+from views import login as login_view
 
-# 가장 먼저 부르는 st 함수여야 한다. 최상위에 배치
+# 가장 먼저 부르는 st 함수여야 한다. 최상위에 배치, 페이지 추가
 st.set_page_config(
     page_title="사내 업무 에이전트",
     layout="wide",
@@ -33,32 +38,56 @@ def render_sidebar() -> None:
         '<div class="ag-brand"><div class="ag-brand-name">사내 업무 에이전트</div></div>',
         unsafe_allow_html=True,  # html 설정을 위해서
     )
+    # 추가
+    user = session.current_user()  # 회원정보 조회, 비로그인시 None
+    if user is not None:
+        # 사용자 이름과 부서명을 화면에 그리기
+        st.sidebar.markdown(
+            '<div class="ag-user"><div>'
+            f'<div class="ag-user-name">{html.escape(user["name"])}</div>'
+            f'<div class="ag-user-role">{html.escape(user["dept"])}</div>'
+            "</div></div>",
+            unsafe_allow_html=True,
+        )
+        # 로그아웃 버튼 부착 : 버튼 누르면 로그아웃 처리
+        if st.sidebar.button("로그아웃", key="nav_logout"):
+            session.logout()
+            st.rerun()
 
+    # 메뉴 버튼 그리기
     for label, page_key in NAV:
         if st.sidebar.button(label, key=f"nav_{label}"):
             if page_key is None:
                 st.sidebar.info("아직 만들지 않은 화면")
             else:
+                # 메뉴 누르면 화면 키값을 상테에 추가 -> 화면 이동 처리
                 st.session_state["page"] = page_key
 
 
 # 메인
 def main() -> None:
-    st.session_state.setdefault("page", "documents")
+    # 상태값 초기화
+    session.init_state()
 
+    # 로그인 상태 확인
+    if not session.is_authenticated():
+        login_view.render()  # 로그인 화면 보여주기
+        return
+
+    # 사이드바 그리기
     render_sidebar()
 
-    page = st.session_state["page"]
+    # 현재 페이지 키 가져오기
+    page = router.current_page()
+    # 현재 페이지 키값이 documents
     if page == "documents":
-        st.info("문서 목록 화면은 다음시간에 만들겠습니다.")
+        st.info("문서 목록 화면은 02번에서 만듭니다.")
     else:
-        st.info("아직 만들지 않은 페이지와 서버입니다.")
+        st.info("아직 만들지 않은 화면입니다.")
 
 
 # main호출
-if __name__ == "__main__":
-    main()
-
+main()
 
 # from ui import (
 #     badge,
