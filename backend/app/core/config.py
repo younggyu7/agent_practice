@@ -10,7 +10,7 @@ class Settings(BaseSettings):
         extra="ignore",
         case_sensitive=False,  # APP_MODE 든 app_mode든 같은것으로 보게 설정
     )
-
+    # 환경변수나 .env에 해당 설정값이 있으면 사용하고, 없으면 아래 기본값을 사용
     app_mode: str = Field(default="mock", pattern=r"^(mock|live)$")
     anthropic_api_key: SecretStr | None = None
     llm_model: str = "claude-haiku-4-5"
