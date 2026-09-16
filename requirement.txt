@@ -5,3 +5,9 @@ fastapi==0.141.1
 uvicorn[standard]==0.52.4
 sqlalchemy>=2.0
 python-multipart==0.0.32
+streamlit==1.63.0
+streamlit-shadcn-ui streamlit-aggrid streamlit-echarts
+bcrypt
+httpx2==2.12.0
+psycopg[binary]==3.3.4
+alembic==1.19.2
