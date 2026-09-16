@@ -107,7 +107,7 @@ def _table(documents: list[dict]) -> None:
                 badge_html(index_label),
             ]
         )
-    # 테이블에 제목줄과 데이텆줄들 추가 -> 그려짐
+    # 테이블에 제목줄과 데이터줄들 추가 -> 그려짐
     table(HEADERS, rows, align=ALIGNS)
 
 
