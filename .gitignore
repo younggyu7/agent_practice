@@ -18,6 +18,7 @@ Thumbs.db
 
 # Environment variables
 .env
+*.pem
 
 # Database
 *.db
