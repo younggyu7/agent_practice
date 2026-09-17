@@ -9,11 +9,7 @@ st.title("채팅과 파일 업로드")
 #     st.write(f"크기: {uploaded_file.size}바이트")
 
 # 대화 기록 초기화
-with st.chat_message("user"):
-    st.write("안녕하세요")
 
-with st.chat_message("assistant", avatar="🤖"):
-    st.write("무엇을 도와드릴까요?")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
