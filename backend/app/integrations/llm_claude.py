@@ -31,6 +31,24 @@ def estimate_cost_krw(input_tok: int, output_tok: int) -> float:
     return round(usd * USD_KRW, 1)
 
 
+# 프롬프트 파일을 하나 읽어서 문자열로 리턴해주는 함수
+def _load_prompt(name: str) -> str:
+    path = PROMPTS / name
+    return path.read_text(encoding="utf-8") if path.exists() else ""
+
+
+# 근거 문서 목록을 모델이 읽을 문자열 한 덩어리로 변환해서 리턴하는 함수
+def _context_block(contexts: list[dict]) -> str:
+    # contexts: 근거 항목 목록
+    lines = []
+    for i, c in enumerate(contexts, 1):
+        lines.append(
+            f"[근거 {i}] {c.get('title')} {c.get('version')} · {c.get('locator')} "
+            f"(유사도 {c.get('score', 0):.2f})\n{c.get('quote') or c.get('text') or ''}"
+        )
+    return "\n\n".join(lines) if lines else "(근거 문서 없음)"
+
+
 # Claude Messages API 어댑터
 class ClaudeLLM:
     name = "claude"
