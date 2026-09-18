@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 # from app.api.v1.documents import router as documents_router
 # from app.api.v1.auth import router as auth_router
 
-from app.api.v1 import auth, documents
+from app.api.v1 import auth, documents, chat
 from app.core.exceptions import AgentError
 from fastapi.exceptions import RequestValidationError
 
@@ -39,6 +39,10 @@ app.include_router(
 )
 app.include_router(
     auth.router,
+    prefix="/api/v1",
+)
+app.include_router(
+    chat.router,
     prefix="/api/v1",
 )
 
