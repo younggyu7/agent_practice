@@ -8,14 +8,33 @@ services:
       POSTGRES_DB: agent
       TZ: Asia/Seoul
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U agent -d agent"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
+      interval: 5s      
+      timeout: 3s       
+      retries: 20       
+
+  # ── 관측 블럭 추가 ──────────────────────────────────────────────
+  langfuse:
+    image: langfuse/langfuse:2
+    container_name: agent-langfuse
+    profiles: ["langfuse"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # langfuse 전용 db추가
+      DATABASE_URL: postgresql://agent:agent@postgres:5432/langfuse
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: hanhwa-lecture-local-only
+      SALT: hanhwa-lecture-local-only
+      ENCRYPTION_KEY: "0000000000000000000000000000000000000000000000000000000000000000"
+      TELEMETRY_ENABLED: "false"
+    ports:
+      - "3000:3000"
 
 volumes:
   pgdata:
