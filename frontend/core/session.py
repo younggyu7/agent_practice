@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-# 상태 초기값ㄴ
+# 상태 초기값
 DEFAULTS: dict = {
     "page": "login",
     "user": None,

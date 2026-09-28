@@ -5,6 +5,7 @@ from typing import Protocol, runtime_checkable
 
 
 # LLM 호출 한번의 결과 -> 모델을 변경해도 문제가 안생기게 규격화
+# dataclass : 데이터를 담는 클래스를 간편하게 만들도록 생성자등의 코드를 자동으로 만들어주는 데코레이터
 @dataclass
 class LLMResult:
     text: str

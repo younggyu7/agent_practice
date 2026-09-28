@@ -1,4 +1,4 @@
-# 채팅 요청과 응답 스키마
+# 채팅 요청과 응답 스키마 -> 사용자가 llm에 주는 채팅요청 메시지와 llm에서 오는 응답 메시지에 대한 정의
 from __future__ import annotations
 
 from typing import Literal
@@ -36,8 +36,10 @@ class AnswerOut(BaseModel):
 # 재시도/폴백 관련 정보 추가 : 라. 웉가 사용자에게 돌려주는 최종 응답 객체
 class AskOut(AnswerOut):
     run_id: str = Field(description="이 질문 한 건의 실행번호.예: RUN-1234")
-    attempts: int = Field(default=1, description="스키마 검증에 성공하기까지 부른 횟수")
+    attempts: int = Field(
+        default=1, description="스키마 검증에 성공하기까지 부른 횟수"
+    )  # 이 요청에서 수행한 모델 호출 시도 횟수, 최초 호출 포함
     fallback_used: bool = Field(
         default=False,
-        description="세 번 모두 실패해 풀백 답변으로 대처한 여부",
+        description="세 번 모두 실패해 풀백 답변으로 대처한 여부",  # 정상 처리 대신 폴백 처리를 사용했는지 여부
     )
