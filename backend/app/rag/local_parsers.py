@@ -40,7 +40,9 @@ def parse_docx(path: Path) -> ParsedDoc:
         if tag == "p":
             text = Paragraph(child, doc).text.strip()
             if text:
-                blocks.append(ParsedBlock("조항", f"{path.stem}", text))
+                blocks.append(
+                    ParsedBlock("조항", f"{path.stem}", text)
+                )  # ParsedBlock : 내용을 담는 블록
         elif tag == "tbl":
             table = Table(child, doc)
             rows = [[cell.text.strip() for cell in row.cells] for row in table.rows]
@@ -48,7 +50,9 @@ def parse_docx(path: Path) -> ParsedDoc:
                 continue
             tables += 1
             blocks.append(
-                ParsedBlock("표", f"표{tables}", _table_to_markdown(rows[0], rows[1:]))
+                ParsedBlock(
+                    "표", f"표{tables}", _table_to_markdown(rows[0], rows[1:])
+                )  # 표는 마크다운으로 변경해서 저장
             )
 
     return ParsedDoc(blocks=blocks, page_count=1, table_count=tables)
