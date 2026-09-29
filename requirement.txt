@@ -16,3 +16,4 @@ langfuse==2.60.10
 langchain-core==1.6.2
 langchain-anthropic==1.7.1
 tenacity==9.1.4
+huggingface-hub>=1.5,<2
