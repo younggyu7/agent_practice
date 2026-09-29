@@ -13,7 +13,8 @@
 - 기본값의 `Field(...)`/`mapped_column(...)`은 선언 규칙입니다. 데이터가 없다는 뜻의 None과 구분합니다. `.env` 실제 값과 시드 비밀번호 값은 복사하지 않습니다.
 - 실제 서버·테스트·DB를 실행한 결과가 아닌 소스 분석입니다. 문서 작성으로 앱 코드를 변경하지 않았습니다.
 
-## 전체 색인
+<details>
+<summary><h1>전체 파일 색인</h1></summary>
 
 | 파일 | 클래스 수 | 함수·메서드 수 | lambda 수 |
 | --- | ---: | ---: | ---: |
@@ -90,18 +91,324 @@
 | `FastApi/frontend/views/documents.py` | 0 | 4 | 0 |
 | `FastApi/frontend/views/login.py` | 0 | 1 | 0 |
 
-## FastApi/backend/app/__init__.py
+</details>
+
+## 토글 사용법
+
+- **폴더·파일:** 제목 1 수준의 토글입니다. 파일은 전체 경로로 표시합니다.
+- **클래스·함수·메서드:** 제목 2 수준의 토글입니다. 번호는 파일마다 1부터 시작합니다.
+- 예: `1. [클래스] ClaudeLLM` 안에 `1.1. [초기화 메서드] ClaudeLLM.__init__`, `1.2. [인스턴스 메서드] ClaudeLLM._call`이 들어갑니다.
+- 클래스에 속하지 않는 함수는 **독립 함수**, 함수 안에 정의된 함수는 **중첩 함수**로 구분합니다.
+- 각 토글은 기본적으로 접혀 있습니다. HTML details/summary와 제목을 지원하는 Markdown 뷰어에서 펼칠 수 있습니다.
+
+<details>
+<summary><h1>[폴더] FastApi</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/.env</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** FastApi/backend/app/core/config.py의 Settings가 읽는 환경설정입니다. 실제 값은 문서에 싣지 않습니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/FUNCTION_CLASS_REFERENCE.md</h1></summary>
+
+현재 문서입니다. 함수·클래스를 실행하지 않습니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/PROJECT_STRUCTURE.md</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** 사람이 읽는 폴더·기능 구조 안내입니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/app.db</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** SQLite 데이터 파일입니다. FastApi/backend/app/db/session.py의 get_engine에서 해당 URL을 선택한 경우 사용됩니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/docker-compose.yml</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** Docker Compose가 PostgreSQL·Langfuse 서비스를 구성할 때 읽습니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/netstat</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** 저장된 터미널 출력이며 애플리케이션 함수에서 사용하는 참조를 확인하지 못했습니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/pyproject.toml</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** pytest가 Python 검색 경로와 테스트 위치 설정을 읽습니다.
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/alembic.ini</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** Alembic CLI가 읽고 FastApi/backend/app/db/migrations/env.py의 실행 환경을 설정합니다.
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/backend/app/agent/chain.py
+<details>
+<summary><h1>[파일] FastApi/backend/app/main.py</h1></summary>
 
-**이 파일의 정의 목록:** `load_prompt`, `build_prompt`, `build_result_chain`, `build_result_chain.call_port`, `build_answer_chain`, `build_parsed_chain`
+**파일 구성**
 
-### 함수·메서드 load_prompt
+- 클래스: 없음
+- 파일 수준 함수: `lifespan`, `health`, `handle_agent_error`, `handle_validation_error`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] lifespan</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/main.py`
+
+- **정의 파일:** `FastApi/backend/app/main.py:17`
+- **역할·로직:** FastAPI 시작 시 로깅을 설정하고 yield로 서버 실행에 제어를 넘깁니다.
+- **데코레이터:** `asynccontextmanager`
+
+**매개변수**
+
+| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
+| --- | --- | --- | --- | --- |
+| `app` | `FastAPI` | `필수` | `위치/키워드` | FastAPI 애플리케이션 객체 |
+
+**반환값**
+
+- 선언: `타입 표기 없음`
+- 일반 return으로 결과를 주는 함수가 아니라 yield를 사용하는 함수입니다.
+- 호출하면 컨텍스트 매니저를 반환합니다. with/async with 진입 시 아래 값을 제공하고, 블록 종료 시 yield 뒤 정리 코드를 실행합니다.
+- 제공 값: `(yield)`
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+async def lifespan(app: FastAPI):
+    setup_logging()
+    yield
+```
+
+</details>
+
+**자동 호출·사용 방식**
+
+- FastApi/backend/app/main.py에서 FastAPI(lifespan=lifespan)에 등록합니다. 서버 수명주기에 따라 실행됩니다.
+
+**호출·사용 위치**
+
+- `FastApi/backend/app/main.py:25` — `모듈 실행부` / 참조·타입·콜백 등
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] health</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/main.py`
+
+- **정의 파일:** `FastApi/backend/app/main.py:31`
+- **역할·로직:** 서버 상태 확인용 status=ok 응답을 만듭니다.
+- **데코레이터:** `app.get('/health')`
+
+**매개변수**
+
+없음.
+
+**반환값**
+
+- 선언: `dict`
+- 실제 return 표현식(분기별):
+
+```python
+return {'status': 'ok'}
+```
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+def health() -> dict:
+    return {"status": "ok"}
+```
+
+</details>
+
+**자동 호출·사용 방식**
+
+- FastAPI가 해당 HTTP 요청을 받으면 등록된 핸들러를 호출합니다. 경로는 아래 데코레이터와 FastApi/backend/app/main.py의 /api/v1 라우터 등록을 함께 봅니다.
+
+**호출·사용 위치**
+
+- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] handle_agent_error</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/main.py`
+
+- **정의 파일:** `FastApi/backend/app/main.py:52`
+- **역할·로직:** 프로젝트 예외의 상태 코드와 메시지를 JSON HTTP 응답으로 바꿉니다.
+- **데코레이터:** `app.exception_handler(AgentError)`
+
+**매개변수**
+
+| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
+| --- | --- | --- | --- | --- |
+| `request` | `Request` | `필수` | `위치/키워드` | 현재 HTTP 요청 객체 |
+| `exc` | `AgentError` | `필수` | `위치/키워드` | 처리할 예외 객체 |
+
+**반환값**
+
+- 선언: `JSONResponse`
+- 실제 return 표현식(분기별):
+
+```python
+return JSONResponse(status_code=exc.status_code, content={'code': exc.code, 'message': str(exc), 'detail': None})
+```
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+async def handle_agent_error(
+    request: Request,
+    exc: AgentError,
+) -> JSONResponse:
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "code": exc.code,
+            "message": str(exc),
+            "detail": None,
+        },
+    )
+```
+
+</details>
+
+**자동 호출·사용 방식**
+
+- FastApi/backend/app/main.py에서 FastAPI 예외 핸들러로 등록되어 해당 예외 발생 시 프레임워크가 호출합니다.
+
+**호출·사용 위치**
+
+- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] handle_validation_error</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/main.py`
+
+- **정의 파일:** `FastApi/backend/app/main.py:68`
+- **역할·로직:** 요청 검증 오류에서 필드 이름을 추려 값 노출 없이 422 응답을 만듭니다.
+- **데코레이터:** `app.exception_handler(RequestValidationError)`
+
+**매개변수**
+
+| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
+| --- | --- | --- | --- | --- |
+| `request` | `Request` | `필수` | `위치/키워드` | 현재 HTTP 요청 객체 |
+| `exc` | `RequestValidationError` | `필수` | `위치/키워드` | 처리할 예외 객체 |
+
+**반환값**
+
+- 선언: `JSONResponse`
+- 실제 return 표현식(분기별):
+
+```python
+return JSONResponse(status_code=422, content={'code': 'validation_failed', 'message': f'입력값을 확인하세요 — {fields}', 'detail': None})
+```
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+async def handle_validation_error(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse:
+    # exc.errors() 에는 사용자가 보낸 값이 통째로 들어 있다. 필드 이름만 돌려주고 값은 감춘다.
+    fields = ", ".join(
+        ".".join(str(p) for p in e["loc"][1:]) or "요청 본문" for e in exc.errors()
+    )
+    return JSONResponse(
+        status_code=422,
+        content={
+            "code": "validation_failed",
+            "message": f"입력값을 확인하세요 — {fields}",
+            "detail": None,
+        },
+    )
+```
+
+</details>
+
+**자동 호출·사용 방식**
+
+- FastApi/backend/app/main.py에서 FastAPI 예외 핸들러로 등록되어 해당 예외 발생 시 프레임워크가 호출합니다.
+
+**호출·사용 위치**
+
+- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app/agent</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/agent/chain.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `load_prompt`, `build_prompt`, `build_result_chain`, `build_answer_chain`, `build_parsed_chain`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] load_prompt</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/agent/chain.py`
 
 - **정의 파일:** `FastApi/backend/app/agent/chain.py:22`
 - **역할·로직:** 이름에 해당하는 Markdown 프롬프트를 읽고 공백을 정리합니다. 파일이 없으면 FileNotFoundError를 발생시킵니다.
@@ -139,7 +446,13 @@ def load_prompt(name: str) -> str:
 
 - `FastApi/backend/app/agent/chain.py:32` — `build_prompt` / 직접 호출
 - `FastApi/backend/app/agent/chain.py:74` — `build_parsed_chain` / 직접 호출
-### 함수·메서드 build_prompt
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] build_prompt</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/agent/chain.py`
 
 - **정의 파일:** `FastApi/backend/app/agent/chain.py:30`
 - **역할·로직:** 시스템 메시지와 {question} 입력 칸으로 ChatPromptTemplate을 만듭니다.
@@ -179,7 +492,13 @@ def build_prompt(*, system_prompt: str | None = None) -> ChatPromptTemplate:
 **호출·사용 위치**
 
 - `FastApi/backend/app/agent/chain.py:51` — `build_result_chain` / 직접 호출
-### 함수·메서드 build_result_chain
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] build_result_chain</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/agent/chain.py`
 
 - **정의 파일:** `FastApi/backend/app/agent/chain.py:41`
 - **역할·로직:** 프롬프트와 포트 호출을 Runnable로 연결합니다. 체인을 만들며, 여기서 모델 호출을 실행하지는 않습니다.
@@ -236,7 +555,17 @@ def build_result_chain(
 **호출·사용 위치**
 
 - `FastApi/backend/app/agent/chain.py:68` — `build_answer_chain` / 직접 호출
-### 함수·메서드 build_result_chain.call_port
+
+**이 함수 안의 함수**
+
+- 3.1 `build_result_chain.call_port`
+
+<details>
+<summary><h2>3.1. [중첩 함수] build_result_chain.call_port</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/agent/chain.py`
+
+**소속 함수:** `build_result_chain`
 
 - **정의 파일:** `FastApi/backend/app/agent/chain.py:56`
 - **역할·로직:** 프롬프트 메시지들의 본문을 문자열로 합쳐 주입된 llm.answer()에 전달합니다.
@@ -275,7 +604,15 @@ def call_port(value) -> LLMResult:
 **호출·사용 위치**
 
 - `FastApi/backend/app/agent/chain.py:61` — `build_result_chain` / 참조·타입·콜백 등
-### 함수·메서드 build_answer_chain
+
+</details>
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] build_answer_chain</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/agent/chain.py`
 
 - **정의 파일:** `FastApi/backend/app/agent/chain.py:66`
 - **역할·로직:** LLMResult를 반환하는 체인 뒤에 text 추출 단계를 붙입니다.
@@ -310,7 +647,32 @@ def build_answer_chain(llm: LLMPort, **kwargs) -> Runnable:
 **호출·사용 위치**
 
 - `FastApi/backend/app/agent/chain.py:76` — `build_parsed_chain` / 직접 호출
-### 함수·메서드 build_parsed_chain
+
+**이 함수 안의 함수**
+
+- 4.1 `lambda 1`
+
+<details>
+<summary><h2>4.1. [익명 함수] lambda 1</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/agent/chain.py`
+
+**소속 함수:** `build_answer_chain`
+
+- **파일:** `FastApi/backend/app/agent/chain.py:68`
+  - 매개변수: `r`
+  - 반환: `r.text`
+  - 로직: 표현식을 계산해 그대로 반환합니다.
+  - 사용 위치: `FastApi/backend/app/agent/chain.py`의 `build_answer_chain`에서 `RunnableLambda(lambda r: r.text)`에 전달됩니다.
+
+</details>
+
+</details>
+
+<details>
+<summary><h2>5. [독립 함수] build_parsed_chain</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/agent/chain.py`
 
 - **정의 파일:** `FastApi/backend/app/agent/chain.py:71`
 - **역할·로직:** 출력 형식 지침을 프롬프트에 추가하고 지정한 Pydantic 모델로 파싱하는 체인을 만듭니다.
@@ -350,33 +712,63 @@ def build_parsed_chain(llm: LLMPort, *, schema: type, **kwargs) -> Runnable:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-### 익명 함수(lambda)
+</details>
 
-- **파일:** `FastApi/backend/app/agent/chain.py:68`
-  - 매개변수: `r`
-  - 반환: `r.text`
-  - 로직: 표현식을 계산해 그대로 반환합니다.
-  - 사용 위치: `FastApi/backend/app/agent/chain.py`의 `build_answer_chain`에서 `RunnableLambda(lambda r: r.text)`에 전달됩니다.
+</details>
 
-## FastApi/backend/app/api/__init__.py
+<details>
+<summary><h1>[폴더] FastApi/backend/app/agent/prompts</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/agent/prompts/answer_system.md</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** FastApi/backend/app/integrations/llm_claude.py의 _load_prompt와 FastApi/backend/app/agent/chain.py의 load_prompt가 읽습니다.
+
+</details>
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app/api</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/api/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/backend/app/api/v1/__init__.py
+<details>
+<summary><h1>[폴더] FastApi/backend/app/api/v1</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/api/v1/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/backend/app/api/v1/auth.py
+<details>
+<summary><h1>[파일] FastApi/backend/app/api/v1/auth.py</h1></summary>
 
-**이 파일의 정의 목록:** `login`, `me`
+**파일 구성**
 
-### 함수·메서드 login
+- 클래스: 없음
+- 파일 수준 함수: `login`, `me`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] login</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/auth.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/auth.py:17`
 - **역할·로직:** LoginIn의 사번과 비밀번호를 인증 서비스에 전달합니다.
@@ -415,7 +807,13 @@ def login(body: LoginIn) -> dict: # 사용자가 요청한 데이터는 LoginIn 
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 me
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] me</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/auth.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/auth.py:23`
 - **역할·로직:** 요청 헤더의 사번을 확인하고 사용자 조회 서비스를 호출합니다.
@@ -458,11 +856,24 @@ def me(x_emp_no: Annotated[str | None, Header()] = None) -> dict: # x_emp_no 인
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/api/v1/chat.py
+</details>
 
-**이 파일의 정의 목록:** `create_message`, `read_run`
+</details>
 
-### 함수·메서드 create_message
+<details>
+<summary><h1>[파일] FastApi/backend/app/api/v1/chat.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `create_message`, `read_run`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] create_message</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/chat.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/chat.py:14`
 - **역할·로직:** 요청의 question을 chat_service.ask()에 전달합니다.
@@ -501,7 +912,13 @@ def create_message(payload: ChatRequest) -> AskOut:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 read_run
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] read_run</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/chat.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/chat.py:20`
 - **역할·로직:** 경로의 run_id로 chat_service.get_run()을 호출합니다.
@@ -541,11 +958,24 @@ def read_run(run_id: str) -> dict:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/api/v1/deps.py
+</details>
 
-**이 파일의 정의 목록:** `get_request_id`, `get_request_logger`, `get_db`
+</details>
 
-### 함수·메서드 get_request_id
+<details>
+<summary><h1>[파일] FastApi/backend/app/api/v1/deps.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `get_request_id`, `get_request_logger`, `get_db`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] get_request_id</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/deps.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/deps.py:21`
 - **역할·로직:** 요청 헤더의 X-Request-ID를 사용하거나 짧은 UUID를 만듭니다.
@@ -578,7 +1008,13 @@ def get_request_id(request: Request) -> str:
 **호출·사용 위치**
 
 - `FastApi/backend/app/api/v1/deps.py:24` — `모듈 실행부` / 참조·타입·콜백 등
-### 함수·메서드 get_request_logger
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] get_request_logger</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/deps.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/deps.py:27`
 - **역할·로직:** 요청 ID를 이름에 포함한 로거를 가져옵니다.
@@ -611,7 +1047,13 @@ def get_request_logger(request_id: RequestIdDep) -> logging.Logger:
 **호출·사용 위치**
 
 - `FastApi/backend/app/api/v1/deps.py:30` — `모듈 실행부` / 참조·타입·콜백 등
-### 함수·메서드 get_db
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] get_db</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/deps.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/deps.py:33`
 - **역할·로직:** 요청에 사용할 DB 세션을 yield하고 사용 후 닫습니다.
@@ -645,11 +1087,24 @@ def get_db() -> Iterator[Session]:
 
 - `FastApi/backend/app/api/v1/deps.py:40` — `모듈 실행부` / 참조·타입·콜백 등
 
-## FastApi/backend/app/api/v1/documents.py
+</details>
 
-**이 파일의 정의 목록:** `list_documents`, `upload_document`, `get_document`
+</details>
 
-### 함수·메서드 list_documents
+<details>
+<summary><h1>[파일] FastApi/backend/app/api/v1/documents.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `list_documents`, `upload_document`, `get_document`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] list_documents</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/documents.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/documents.py:27`
 - **역할·로직:** HTTP 요청의 값을 서비스에 전달해 문서 목록을 필터 조건으로 조회합니다.
@@ -705,7 +1160,13 @@ def list_documents(
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 upload_document
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] upload_document</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/documents.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/documents.py:46`
 - **역할·로직:** 업로드 파일 확장자를 확인하고 파일을 저장한 뒤 문서 생성 서비스에 정보를 전달합니다.
@@ -786,7 +1247,13 @@ def upload_document(
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 get_document
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] get_document</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/api/v1/documents.py`
 
 - **정의 파일:** `FastApi/backend/app/api/v1/documents.py:87`
 - **역할·로직:** HTTP 요청의 값을 서비스에 전달해 문서 한 건을 조회합니다.
@@ -825,18 +1292,40 @@ def get_document(doc_id: str) -> dict:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/core/__init__.py
+</details>
+
+</details>
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app/core</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/core/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/backend/app/core/config.py
+<details>
+<summary><h1>[파일] FastApi/backend/app/core/config.py</h1></summary>
 
-**이 파일의 정의 목록:** `Settings`, `Settings.is_live`, `get_settings`, `mask`
+**파일 구성**
 
-### 클래스 Settings
+- 클래스: `Settings`
+- 파일 수준 함수: `get_settings`, `mask`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] Settings</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/config.py`
 
 - **정의 파일:** `FastApi/backend/app/core/config.py:5`
 - **역할·로직:** 환경변수와 .env 및 기본값을 합쳐 애플리케이션 설정을 제공합니다.
@@ -873,7 +1362,17 @@ langfuse_secret_key: SecretStr | None = None
 - `FastApi/backend/app/core/config.py:36` — `Settings.is_live` / 참조·타입·콜백 등
 - `FastApi/backend/app/core/config.py:40` — `get_settings` / 참조·타입·콜백 등
 - `FastApi/backend/app/core/config.py:41` — `get_settings` / 직접 호출
-### 함수·메서드 Settings.is_live
+
+**이 클래스의 메서드**
+
+- 1.1 `Settings.is_live`
+
+<details>
+<summary><h2>1.1. [속성 메서드] Settings.is_live</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/config.py`
+
+**소속 클래스:** `Settings`
 
 - **정의 파일:** `FastApi/backend/app/core/config.py:35`
 - **역할·로직:** 설정의 app_mode가 live인지 판단합니다.
@@ -917,7 +1416,15 @@ def is_live(self) -> bool:
 **동적 메서드·속성 참조 후보 — 실제 대상은 위 설명과 객체 생성 경로로 확인**
 
 - `FastApi/backend/app/integrations/factory.py:20` — `get_llm` / 대상 확인 필요: settings.is_live
-### 함수·메서드 get_settings
+
+</details>
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] get_settings</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/config.py`
 
 - **정의 파일:** `FastApi/backend/app/core/config.py:40`
 - **역할·로직:** 환경 설정 객체를 만들어 캐시하고 다음 호출에서 재사용합니다.
@@ -973,7 +1480,13 @@ def get_settings() -> Settings:
 - `FastApi/backend/tests/test_guards.py:16` — `test_check_question_rejects_too_long` / 직접 호출
 - `FastApi/backend/tests/test_guards.py:23` — `test_check_model_rejects_unknown_model` / 직접 호출
 - `FastApi/backend/tests/test_guards.py:26` — `test_check_daily_limit_raises_when_exhausted` / 직접 호출
-### 함수·메서드 mask
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] mask</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/config.py`
 
 - **정의 파일:** `FastApi/backend/app/core/config.py:44`
 - **역할·로직:** 비밀값의 앞부분과 전체 길이만 표시합니다. 값이 없으면 (없음)을 반환합니다.
@@ -1011,11 +1524,24 @@ def mask(secret: str | None, keep: int = 8) -> str:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/core/exceptions.py
+</details>
 
-**이 파일의 정의 목록:** `AgentError`, `AgentError.__init__`, `NotFound`, `PermissionDenied`, `ValidationFailed`, `GuardTripped`, `RateLimited`, `ApprovalRequired`, `ModeNotAvailable`, `ExternalServiceError`, `AuthFailed`, `AuthFailed.__int__`
+</details>
 
-### 클래스 AgentError
+<details>
+<summary><h1>[파일] FastApi/backend/app/core/exceptions.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `AgentError`, `NotFound`, `PermissionDenied`, `ValidationFailed`, `GuardTripped`, `RateLimited`, `ApprovalRequired`, `ModeNotAvailable`, `ExternalServiceError`, `AuthFailed`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] AgentError</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:2`
 - **역할·로직:** HTTP 상태 코드·오류 코드와 메시지·상세정보를 가지는 프로젝트 예외의 부모입니다.
@@ -1049,7 +1575,17 @@ code = 'agent_error'
 - `FastApi/backend/app/main.py:54` — `handle_agent_error` / 참조·타입·콜백 등
 - `FastApi/backend/tests/test_exceptions.py:4` — `모듈 import` / import/재공개
 - `FastApi/backend/tests/test_exceptions.py:30` — `test_every_domain_exception_is_agent_error` / 참조·타입·콜백 등
-### 함수·메서드 AgentError.__init__
+
+**이 클래스의 메서드**
+
+- 1.1 `AgentError.__init__`
+
+<details>
+<summary><h2>1.1. [초기화 메서드] AgentError.__init__</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
+
+**소속 클래스:** `AgentError`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:6`
 - **역할·로직:** 부모 예외를 초기화하고 message와 detail을 객체에 저장합니다.
@@ -1093,7 +1629,15 @@ def __init__(self, message: str, *, detail: str | None = None):
 
 - `FastApi/backend/app/core/exceptions.py:7` — `AgentError.__init__` / 대상 확인 필요: super().__init__
 - `FastApi/backend/app/core/exceptions.py:59` — `AuthFailed.__int__` / 대상 확인 필요: super().__init__
-### 클래스 NotFound
+
+</details>
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] NotFound</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:12`
 - **역할·로직:** 대상을 찾지 못한 오류(404)입니다.
@@ -1121,7 +1665,15 @@ code = 'not_found'
 - `FastApi/backend/tests/test_exceptions.py:10` — `모듈 실행부` / 참조·타입·콜백 등
 - `FastApi/backend/tests/test_exceptions.py:34` — `test_detail_is_optional_and_kept` / 직접 호출
 - `FastApi/backend/tests/test_exceptions.py:38` — `test_detail_is_optional_and_kept` / 직접 호출
-### 클래스 PermissionDenied
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>3. [클래스] PermissionDenied</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:17`
 - **역할·로직:** 권한 부족 오류(403)입니다.
@@ -1141,7 +1693,15 @@ code = 'permission_denied'
 
 - `FastApi/backend/tests/test_exceptions.py:4` — `모듈 import` / import/재공개
 - `FastApi/backend/tests/test_exceptions.py:11` — `모듈 실행부` / 참조·타입·콜백 등
-### 클래스 ValidationFailed
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>4. [클래스] ValidationFailed</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:22`
 - **역할·로직:** 업무 입력 검증 오류(422)입니다.
@@ -1165,7 +1725,15 @@ code = 'validation_failed'
 - `FastApi/backend/app/services/document_service.py:92` — `create_document` / 직접 호출
 - `FastApi/backend/tests/test_exceptions.py:4` — `모듈 import` / import/재공개
 - `FastApi/backend/tests/test_exceptions.py:12` — `모듈 실행부` / 참조·타입·콜백 등
-### 클래스 GuardTripped
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>5. [클래스] GuardTripped</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:27`
 - **역할·로직:** 입력 가드 차단 오류(400)입니다.
@@ -1195,7 +1763,15 @@ code = 'guard_tripped'
 - `FastApi/backend/tests/test_guards.py:12` — `test_check_question_rejects_blank` / 참조·타입·콜백 등
 - `FastApi/backend/tests/test_guards.py:17` — `test_check_question_rejects_too_long` / 참조·타입·콜백 등
 - `FastApi/backend/tests/test_guards.py:21` — `test_check_model_rejects_unknown_model` / 참조·타입·콜백 등
-### 클래스 RateLimited
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>6. [클래스] RateLimited</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:32`
 - **역할·로직:** 호출 한도 초과 오류(429)입니다.
@@ -1219,7 +1795,15 @@ code = 'rate_limited'
 - `FastApi/backend/tests/test_exceptions.py:14` — `모듈 실행부` / 참조·타입·콜백 등
 - `FastApi/backend/tests/test_guards.py:5` — `모듈 import` / import/재공개
 - `FastApi/backend/tests/test_guards.py:28` — `test_check_daily_limit_raises_when_exhausted` / 참조·타입·콜백 등
-### 클래스 ApprovalRequired
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>7. [클래스] ApprovalRequired</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:37`
 - **역할·로직:** 승인이 필요한 오류(409)입니다.
@@ -1239,7 +1823,15 @@ code = 'approval_required'
 
 - `FastApi/backend/tests/test_exceptions.py:4` — `모듈 import` / import/재공개
 - `FastApi/backend/tests/test_exceptions.py:17` — `모듈 실행부` / 참조·타입·콜백 등
-### 클래스 ModeNotAvailable
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>8. [클래스] ModeNotAvailable</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:42`
 - **역할·로직:** 지원하지 않는 모드 오류(409)입니다.
@@ -1261,7 +1853,15 @@ code = 'mode_not_available'
 - `FastApi/backend/app/integrations/factory.py:21` — `get_llm` / 직접 호출
 - `FastApi/backend/tests/test_exceptions.py:4` — `모듈 import` / import/재공개
 - `FastApi/backend/tests/test_exceptions.py:16` — `모듈 실행부` / 참조·타입·콜백 등
-### 클래스 ExternalServiceError
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>9. [클래스] ExternalServiceError</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:48`
 - **역할·로직:** 외부 서비스 오류(502)입니다.
@@ -1285,7 +1885,15 @@ code = 'external_service_error'
 - `FastApi/backend/app/integrations/llm_claude.py:72` — `ClaudeLLM._call` / 직접 호출
 - `FastApi/backend/tests/test_exceptions.py:4` — `모듈 import` / import/재공개
 - `FastApi/backend/tests/test_exceptions.py:15` — `모듈 실행부` / 참조·타입·콜백 등
-### 클래스 AuthFailed
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>10. [클래스] AuthFailed</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:54`
 - **역할·로직:** 인증 실패 오류(401)입니다. 현재 초기화 의도로 보이는 메서드 이름이 __int__입니다.
@@ -1308,7 +1916,17 @@ code = 'auth_failed'
 - `FastApi/backend/app/services/auth_service.py:3` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/auth_service.py:27` — `authenticate` / 직접 호출
 - `FastApi/backend/app/services/auth_service.py:36` — `get_me` / 직접 호출
-### 함수·메서드 AuthFailed.__int__
+
+**이 클래스의 메서드**
+
+- 10.1 `AuthFailed.__int__`
+
+<details>
+<summary><h2>10.1. [인스턴스 메서드] AuthFailed.__int__</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/exceptions.py`
+
+**소속 클래스:** `AuthFailed`
 
 - **정의 파일:** `FastApi/backend/app/core/exceptions.py:58`
 - **역할·로직:** 부모 예외 초기화를 호출합니다. 이름이 __init__이 아니므로 AuthFailed() 생성 시 자동 실행되지 않습니다. int 변환용 이름인데 정수를 반환하지도 않습니다.
@@ -1342,11 +1960,26 @@ def __int__(self, message:str = "사번 또는 비밀번호가 올바르지 않�
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/core/guards.py
+</details>
 
-**이 파일의 정의 목록:** `check_question`, `check_model`, `check_daily_limit`
+</details>
 
-### 함수·메서드 check_question
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/core/guards.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `check_question`, `check_model`, `check_daily_limit`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] check_question</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/guards.py`
 
 - **정의 파일:** `FastApi/backend/app/core/guards.py:14`
 - **역할·로직:** 질문 앞뒤 공백을 지우고 최소·최대 길이를 검사합니다. 실패하면 GuardTripped입니다.
@@ -1394,7 +2027,13 @@ def check_question(text: str) -> str:
 - `FastApi/backend/tests/test_guards.py:9` — `test_check_question_passed_and_strips` / 직접 호출
 - `FastApi/backend/tests/test_guards.py:13` — `test_check_question_rejects_blank` / 직접 호출
 - `FastApi/backend/tests/test_guards.py:18` — `test_check_question_rejects_too_long` / 직접 호출
-### 함수·메서드 check_model
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] check_model</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/guards.py`
 
 - **정의 파일:** `FastApi/backend/app/core/guards.py:28`
 - **역할·로직:** 모델 이름이 허용 목록에 있는지 검사합니다. 실패하면 GuardTripped입니다.
@@ -1434,7 +2073,13 @@ def check_model(model: str) -> str:
 - `FastApi/backend/tests/test_guards.py:6` — `모듈 import` / import/재공개
 - `FastApi/backend/tests/test_guards.py:22` — `test_check_model_rejects_unknown_model` / 직접 호출
 - `FastApi/backend/tests/test_guards.py:23` — `test_check_model_rejects_unknown_model` / 직접 호출
-### 함수·메서드 check_daily_limit
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] check_daily_limit</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/guards.py`
 
 - **정의 파일:** `FastApi/backend/app/core/guards.py:35`
 - **역할·로직:** 이미 사용한 호출 수가 일일 한도 이상인지 검사합니다. 이상이면 RateLimited입니다.
@@ -1471,11 +2116,24 @@ def check_daily_limit(used_today: int) -> None:
 - `FastApi/backend/tests/test_guards.py:27` — `test_check_daily_limit_raises_when_exhausted` / 직접 호출
 - `FastApi/backend/tests/test_guards.py:29` — `test_check_daily_limit_raises_when_exhausted` / 직접 호출
 
-## FastApi/backend/app/core/logging.py
+</details>
 
-**이 파일의 정의 목록:** `setup_logging`, `get_logger`
+</details>
 
-### 함수·메서드 setup_logging
+<details>
+<summary><h1>[파일] FastApi/backend/app/core/logging.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `setup_logging`, `get_logger`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] setup_logging</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/logging.py`
 
 - **정의 파일:** `FastApi/backend/app/core/logging.py:14`
 - **역할·로직:** 로그 핸들러와 출력 형식·수준을 설정합니다.
@@ -1526,7 +2184,13 @@ def setup_logging(level: int = logging.INFO, stream=None) -> None:
 - `FastApi/backend/app/core/logging.py:40` — `get_logger` / 직접 호출
 - `FastApi/backend/app/main.py:12` — `모듈 import` / import/재공개
 - `FastApi/backend/app/main.py:18` — `lifespan` / 직접 호출
-### 함수·메서드 get_logger
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] get_logger</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/logging.py`
 
 - **정의 파일:** `FastApi/backend/app/core/logging.py:39`
 - **역할·로직:** 주어진 이름의 로거를 가져옵니다.
@@ -1568,11 +2232,24 @@ def get_logger(name: str) -> logging.Logger:
 - `FastApi/backend/app/services/chat_service.py:10` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/chat_service.py:19` — `모듈 실행부` / 직접 호출
 
-## FastApi/backend/app/core/security.py
+</details>
 
-**이 파일의 정의 목록:** `hash_password`, `verify_password`
+</details>
 
-### 함수·메서드 hash_password
+<details>
+<summary><h1>[파일] FastApi/backend/app/core/security.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `hash_password`, `verify_password`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] hash_password</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/security.py`
 
 - **정의 파일:** `FastApi/backend/app/core/security.py:6`
 - **역할·로직:** 평문 비밀번호를 저장용 해시로 변환합니다.
@@ -1606,7 +2283,13 @@ def hash_password(raw: str) -> str:
 
 - `FastApi/backend/app/db/seed.py:6` — `모듈 import` / import/재공개
 - `FastApi/backend/app/db/seed.py:37` — `_seed` / 직접 호출
-### 함수·메서드 verify_password
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] verify_password</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/core/security.py`
 
 - **정의 파일:** `FastApi/backend/app/core/security.py:10`
 - **역할·로직:** 평문 비밀번호와 저장된 해시가 일치하는지 검사합니다.
@@ -1646,18 +2329,38 @@ def verify_password(raw: str, hashed: str) -> bool:
 - `FastApi/backend/app/services/auth_service.py:4` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/auth_service.py:26` — `authenticate` / 직접 호출
 
-## FastApi/backend/app/db/__init__.py
+</details>
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app/db</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/backend/app/db/init_db.py
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/init_db.py</h1></summary>
 
-**이 파일의 정의 목록:** `init_db`, `main`
+**파일 구성**
 
-### 함수·메서드 init_db
+- 클래스: 없음
+- 파일 수준 함수: `init_db`, `main`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] init_db</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/init_db.py`
 
 - **정의 파일:** `FastApi/backend/app/db/init_db.py:5`
 - **역할·로직:** 모델 메타데이터의 create_all로 없는 테이블을 생성합니다.
@@ -1688,7 +2391,13 @@ def init_db(engine: Engine | None = None) -> None:
 **호출·사용 위치**
 
 - `FastApi/backend/app/db/init_db.py:12` — `main` / 직접 호출
-### 함수·메서드 main
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] main</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/init_db.py`
 
 - **정의 파일:** `FastApi/backend/app/db/init_db.py:11`
 - **역할·로직:** DB 테이블 생성과 초기 데이터 준비를 실행하는 진입 함수입니다.
@@ -1717,11 +2426,433 @@ def main() -> None:
 
 - `FastApi/backend/app/db/init_db.py:16` — `모듈 실행부` / 직접 호출
 
-## FastApi/backend/app/db/migrations/env.py
+</details>
 
-**이 파일의 정의 목록:** `run_migrations_offline`, `run_migrations_online`
+</details>
 
-### 함수·메서드 run_migrations_offline
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/seed.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `count_rows`, `seed_all`, `_seed`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] count_rows</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/seed.py`
+
+- **정의 파일:** `FastApi/backend/app/db/seed.py:12`
+- **역할·로직:** 부서·사용자·문서·버전 테이블의 행 수를 조회합니다.
+
+**매개변수**
+
+| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
+| --- | --- | --- | --- | --- |
+| `session` | `Session` | `필수` | `위치/키워드` | DB 작업용 SQLAlchemy 세션 |
+
+**반환값**
+
+- 선언: `dict[str, int]`
+- 실제 return 표현식(분기별):
+
+```python
+return {'departments': session.scalar(select(func.count()).select_from(Department)) or 0, 'users': session.scalar(select(func.count()).select_from(User)) or 0, 'documents': session.scalar(select(func.count()).select_from(Document)) or 0, 'versions': session.scalar(select(func.count()).select_from(DocumentVersion)) or 0}
+```
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+def count_rows(session: Session) -> dict[str, int]:
+
+    return {
+        "departments": session.scalar(select(func.count()).select_from(Department)) or 0,
+        "users": session.scalar(select(func.count()).select_from(User)) or 0,
+        "documents": session.scalar(select(func.count()).select_from(Document)) or 0,
+        "versions": session.scalar(select(func.count()).select_from(DocumentVersion)) or 0,
+    }
+```
+
+</details>
+
+**호출·사용 위치**
+
+- `FastApi/backend/app/db/seed.py:32` — `_seed` / 직접 호출
+- `FastApi/backend/app/db/seed.py:51` — `_seed` / 직접 호출
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] seed_all</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/seed.py`
+
+- **정의 파일:** `FastApi/backend/app/db/seed.py:22`
+- **역할·로직:** 전달된 세션을 사용하거나 자체 세션을 열어 초기 데이터를 넣습니다.
+
+**매개변수**
+
+| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
+| --- | --- | --- | --- | --- |
+| `session` | `Session \| None` | `None` | `위치/키워드` | DB 작업용 SQLAlchemy 세션 |
+
+**반환값**
+
+- 선언: `dict[str, int]`
+- 실제 return 표현식(분기별):
+
+```python
+return _seed(session)
+return _seed(s)
+```
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+def seed_all(session: Session | None = None) -> dict[str, int]:
+    if session is not None:
+        return _seed(session)
+    with session_scope() as s:
+        return _seed(s)
+```
+
+</details>
+
+**호출·사용 위치**
+
+- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] _seed</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/seed.py`
+
+- **정의 파일:** `FastApi/backend/app/db/seed.py:29`
+- **역할·로직:** 이미 문서가 있으면 건수만 반환합니다. 없으면 부서·사용자·문서·버전 데이터를 추가하고 건수를 반환합니다.
+
+**매개변수**
+
+| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
+| --- | --- | --- | --- | --- |
+| `session` | `Session` | `필수` | `위치/키워드` | DB 작업용 SQLAlchemy 세션 |
+
+**반환값**
+
+- 선언: `dict[str, int]`
+- 실제 return 표현식(분기별):
+
+```python
+return count_rows(session)
+return count_rows(session)
+```
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+def _seed(session: Session) -> dict[str, int]:
+
+    if session.scalar(select(func.count()).select_from(Document)):
+        return count_rows(session)
+
+    session.add_all(Department(**row) for row in DEPARTMENTS)
+
+
+    temp_hash = hash_password(TEMP_PASSWORD)
+    session.add_all(User(**row, password_hash=temp_hash) for row in USERS)
+    session.flush()   
+
+    for doc in DOCUMENTS:
+        
+        fields = {k: v for k, v in doc.items() if k != "versions"}
+        session.add(Document(**fields))
+        session.flush()
+        session.add_all(
+            DocumentVersion(doc_id=doc["id"], **ver) for ver in doc["versions"]
+        )
+    session.flush()
+
+    return count_rows(session)
+```
+
+</details>
+
+**호출·사용 위치**
+
+- `FastApi/backend/app/db/seed.py:24` — `seed_all` / 직접 호출
+- `FastApi/backend/app/db/seed.py:26` — `seed_all` / 직접 호출
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/seed_data.py</h1></summary>
+
+직접 정의한 함수·클래스: **없음**.
+
+부서·사용자·문서 시드 상수입니다. FastApi/backend/app/db/seed.py의 _seed에서 읽습니다. 비밀번호 등 상수의 실제 값은 싣지 않습니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/session.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `get_engine`, `get_sessionmaker`, `session_scope`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] get_engine</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/session.py`
+
+- **정의 파일:** `FastApi/backend/app/db/session.py:16`
+- **역할·로직:** URL에 대응하는 SQLAlchemy 엔진을 캐시에서 가져오거나 새로 만듭니다. SQLite이면 전용 연결 설정을 추가합니다.
+
+**매개변수**
+
+| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
+| --- | --- | --- | --- | --- |
+| `url` | `str \| None` | `None` | `위치/키워드` | DB 연결 URL; 생략 시 설정 사용 |
+
+**반환값**
+
+- 선언: `Engine`
+- 실제 return 표현식(분기별):
+
+```python
+return _ENGINES[resolved]
+return engine
+```
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+def get_engine(url: str | None = None) -> Engine:
+
+    # 이미 만들어진 엔진이라면 만들어진 것 리턴하며 종료 처리 
+    resolved = url or get_settings().database_url # 환경변수에서 DB URL 가져와 적용 
+    if resolved in _ENGINES:       
+        return _ENGINES[resolved]  
+
+    # SQLite 설정 추가 
+    connect_args: dict[str, object] = {}
+    is_sqlite = resolved.startswith("sqlite")
+    if is_sqlite:
+        connect_args["check_same_thread"] = False
+
+    # 엔진 생성 
+    engine = create_engine(resolved, connect_args=connect_args)
+
+    # SQLite 설정 추가 
+    if is_sqlite:        
+        @event.listens_for(engine, "connect")
+        def _enable_sqlite_foreign_keys(dbapi_connection, connection_record) -> None: 
+            cursor = dbapi_connection.cursor()
+            cursor.execute("PRAGMA foreign_keys=ON")
+            cursor.close()
+
+    # 새로 만들어진 엔진 저장하며 리턴 
+    _ENGINES[resolved] = engine
+    return engine
+```
+
+</details>
+
+**호출·사용 위치**
+
+- `FastApi/backend/app/db/init_db.py:3` — `모듈 import` / import/재공개
+- `FastApi/backend/app/db/init_db.py:8` — `init_db` / 직접 호출
+- `FastApi/backend/app/db/session.py:46` — `get_sessionmaker` / 직접 호출
+
+**이 함수 안의 함수**
+
+- 1.1 `get_engine._enable_sqlite_foreign_keys`
+
+<details>
+<summary><h2>1.1. [중첩 함수] get_engine._enable_sqlite_foreign_keys</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/session.py`
+
+**소속 함수:** `get_engine`
+
+- **정의 파일:** `FastApi/backend/app/db/session.py:35`
+- **역할·로직:** SQLite 연결에서 PRAGMA foreign_keys=ON을 실행합니다.
+- **데코레이터:** `event.listens_for(engine, 'connect')`
+
+**매개변수**
+
+| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
+| --- | --- | --- | --- | --- |
+| `dbapi_connection` | `타입 표기 없음` | `필수` | `위치/키워드` | 이벤트에서 받은 실제 DBAPI 연결 |
+| `connection_record` | `타입 표기 없음` | `필수` | `위치/키워드` | SQLAlchemy 연결 풀의 연결 기록 |
+
+**반환값**
+
+- 선언: `None`
+- **반환값 없음(None)**. 화면 표시·저장·검사 등의 동작만 수행합니다. 예외가 발생하면 정상 반환하지 않습니다.
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+def _enable_sqlite_foreign_keys(dbapi_connection, connection_record) -> None: 
+            cursor = dbapi_connection.cursor()
+            cursor.execute("PRAGMA foreign_keys=ON")
+            cursor.close()
+```
+
+</details>
+
+**자동 호출·사용 방식**
+
+- FastApi/backend/app/db/session.py의 get_engine 안에서 SQLAlchemy connect 이벤트에 등록됩니다. SQLite DB 연결 시 호출됩니다.
+
+**호출·사용 위치**
+
+- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
+
+</details>
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] get_sessionmaker</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/session.py`
+
+- **정의 파일:** `FastApi/backend/app/db/session.py:45`
+- **역할·로직:** 지정 엔진 또는 기본 엔진에 연결된 세션 생성기를 만듭니다.
+
+**매개변수**
+
+| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
+| --- | --- | --- | --- | --- |
+| `engine` | `Engine \| None` | `None` | `위치/키워드` | DB 엔진; 생략 시 기본 연결 사용 |
+
+**반환값**
+
+- 선언: `sessionmaker[Session]`
+- 실제 return 표현식(분기별):
+
+```python
+return sessionmaker(bind=engine or get_engine(), expire_on_commit=False)
+```
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+def get_sessionmaker(engine: Engine | None = None) -> sessionmaker[Session]:
+    return sessionmaker(bind=engine or get_engine(), expire_on_commit=False)
+```
+
+</details>
+
+**호출·사용 위치**
+
+- `FastApi/backend/app/api/v1/deps.py:11` — `모듈 import` / import/재공개
+- `FastApi/backend/app/api/v1/deps.py:34` — `get_db` / 직접 호출
+- `FastApi/backend/app/db/session.py:52` — `session_scope` / 직접 호출
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] session_scope</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/session.py`
+
+- **정의 파일:** `FastApi/backend/app/db/session.py:51`
+- **역할·로직:** 세션을 제공하고 정상 종료 시 commit, 오류 시 rollback, 마지막에 close를 수행합니다.
+- **데코레이터:** `contextmanager`
+
+**매개변수**
+
+없음.
+
+**반환값**
+
+- 선언: `Iterator[Session]`
+- 일반 return으로 결과를 주는 함수가 아니라 yield를 사용하는 함수입니다.
+- 호출하면 컨텍스트 매니저를 반환합니다. with/async with 진입 시 아래 값을 제공하고, 블록 종료 시 yield 뒤 정리 코드를 실행합니다.
+- 제공 값: `(yield session)`
+
+<details>
+<summary>해당 함수의 실제 로직 코드 보기</summary>
+
+```python
+def session_scope() -> Iterator[Session]:
+    session = get_sessionmaker()()
+    try:
+        yield session
+        session.commit()
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+```
+
+</details>
+
+**호출·사용 위치**
+
+- `FastApi/backend/app/db/seed.py:8` — `모듈 import` / import/재공개
+- `FastApi/backend/app/db/seed.py:25` — `seed_all` / 직접 호출
+- `FastApi/backend/app/services/auth_service.py:5` — `모듈 import` / import/재공개
+- `FastApi/backend/app/services/auth_service.py:22` — `authenticate` / 직접 호출
+- `FastApi/backend/app/services/auth_service.py:32` — `get_me` / 직접 호출
+- `FastApi/backend/app/services/chat_service.py:13` — `모듈 import` / import/재공개
+- `FastApi/backend/app/services/chat_service.py:59` — `_record_usage` / 직접 호출
+- `FastApi/backend/app/services/chat_service.py:86` — `ask` / 직접 호출
+- `FastApi/backend/app/services/chat_service.py:137` — `ask` / 직접 호출
+- `FastApi/backend/app/services/chat_service.py:148` — `get_run` / 직접 호출
+- `FastApi/backend/app/services/document_service.py:9` — `모듈 import` / import/재공개
+- `FastApi/backend/app/services/document_service.py:40` — `list_documents` / 직접 호출
+- `FastApi/backend/app/services/document_service.py:55` — `get_document` / 직접 호출
+- `FastApi/backend/app/services/document_service.py:78` — `create_document` / 직접 호출
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app/db/migrations</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/migrations/README</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** 마이그레이션 안내 문서입니다. 실행 함수가 아닙니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/migrations/env.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `run_migrations_offline`, `run_migrations_online`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] run_migrations_offline</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/migrations/env.py`
 
 - **정의 파일:** `FastApi/backend/app/db/migrations/env.py:36`
 - **역할·로직:** DB 연결 없이 SQL을 생성하는 방식으로 Alembic 마이그레이션을 구성합니다.
@@ -1768,7 +2899,13 @@ def run_migrations_offline() -> None:
 **호출·사용 위치**
 
 - `FastApi/backend/app/db/migrations/env.py:83` — `모듈 실행부` / 직접 호출
-### 함수·메서드 run_migrations_online
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] run_migrations_online</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/migrations/env.py`
 
 - **정의 파일:** `FastApi/backend/app/db/migrations/env.py:60`
 - **역할·로직:** DB 연결을 열고 트랜잭션 안에서 Alembic 마이그레이션을 실행합니다.
@@ -1814,11 +2951,35 @@ def run_migrations_online() -> None:
 
 - `FastApi/backend/app/db/migrations/env.py:85` — `모듈 실행부` / 직접 호출
 
-## FastApi/backend/app/db/migrations/versions/0f82d3f2c172_add_usage_logs.py
+</details>
 
-**이 파일의 정의 목록:** `upgrade`, `downgrade`
+</details>
 
-### 함수·메서드 upgrade
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/migrations/script.py.mako</h1></summary>
+
+- **함수·클래스:** Alembic 파일 생성 템플릿입니다. upgrade() -> None, downgrade() -> None 형태를 생성하며 매개변수는 없습니다. 동작은 생성 시 삽입되는 스키마 변경 내용입니다.
+- **사용 위치:** FastApi/backend/alembic.ini가 지정한 마이그레이션 디렉터리에서 Alembic이 새 revision 생성 시 사용합니다. 생성된 함수는 versions의 각 파일에 별도 나열했습니다.
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app/db/migrations/versions</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/migrations/versions/0f82d3f2c172_add_usage_logs.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `upgrade`, `downgrade`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] upgrade</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/migrations/versions/0f82d3f2c172_add_usage_logs.py`
 
 - **정의 파일:** `FastApi/backend/app/db/migrations/versions/0f82d3f2c172_add_usage_logs.py:21`
 - **역할·로직:** 해당 리비전의 테이블·인덱스 등 스키마 변경을 DB에 적용합니다.
@@ -1864,7 +3025,13 @@ def upgrade() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 downgrade
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] downgrade</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/migrations/versions/0f82d3f2c172_add_usage_logs.py`
 
 - **정의 파일:** `FastApi/backend/app/db/migrations/versions/0f82d3f2c172_add_usage_logs.py:41`
 - **역할·로직:** 해당 리비전의 스키마 변경을 되돌립니다.
@@ -1898,11 +3065,24 @@ def downgrade() -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/db/migrations/versions/5b1740bb3da0_add_runs_and_run_steps.py
+</details>
 
-**이 파일의 정의 목록:** `upgrade`, `downgrade`
+</details>
 
-### 함수·메서드 upgrade
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/migrations/versions/5b1740bb3da0_add_runs_and_run_steps.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `upgrade`, `downgrade`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] upgrade</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/migrations/versions/5b1740bb3da0_add_runs_and_run_steps.py`
 
 - **정의 파일:** `FastApi/backend/app/db/migrations/versions/5b1740bb3da0_add_runs_and_run_steps.py:21`
 - **역할·로직:** 해당 리비전의 테이블·인덱스 등 스키마 변경을 DB에 적용합니다.
@@ -1959,7 +3139,13 @@ def upgrade() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 downgrade
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] downgrade</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/migrations/versions/5b1740bb3da0_add_runs_and_run_steps.py`
 
 - **정의 파일:** `FastApi/backend/app/db/migrations/versions/5b1740bb3da0_add_runs_and_run_steps.py:52`
 - **역할·로직:** 해당 리비전의 스키마 변경을 되돌립니다.
@@ -1994,11 +3180,24 @@ def downgrade() -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/db/migrations/versions/df6947bee893_initial_schema.py
+</details>
 
-**이 파일의 정의 목록:** `upgrade`, `downgrade`
+</details>
 
-### 함수·메서드 upgrade
+<details>
+<summary><h1>[파일] FastApi/backend/app/db/migrations/versions/df6947bee893_initial_schema.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `upgrade`, `downgrade`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] upgrade</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/migrations/versions/df6947bee893_initial_schema.py`
 
 - **정의 파일:** `FastApi/backend/app/db/migrations/versions/df6947bee893_initial_schema.py:21`
 - **역할·로직:** 해당 리비전의 테이블·인덱스 등 스키마 변경을 DB에 적용합니다.
@@ -2087,7 +3286,13 @@ def upgrade() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 downgrade
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] downgrade</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/db/migrations/versions/df6947bee893_initial_schema.py`
 
 - **정의 파일:** `FastApi/backend/app/db/migrations/versions/df6947bee893_initial_schema.py:84`
 - **역할·로직:** 해당 리비전의 스키마 변경을 되돌립니다.
@@ -2128,352 +3333,42 @@ def downgrade() -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/db/seed.py
-
-**이 파일의 정의 목록:** `count_rows`, `seed_all`, `_seed`
-
-### 함수·메서드 count_rows
-
-- **정의 파일:** `FastApi/backend/app/db/seed.py:12`
-- **역할·로직:** 부서·사용자·문서·버전 테이블의 행 수를 조회합니다.
-
-**매개변수**
-
-| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
-| --- | --- | --- | --- | --- |
-| `session` | `Session` | `필수` | `위치/키워드` | DB 작업용 SQLAlchemy 세션 |
-
-**반환값**
-
-- 선언: `dict[str, int]`
-- 실제 return 표현식(분기별):
-
-```python
-return {'departments': session.scalar(select(func.count()).select_from(Department)) or 0, 'users': session.scalar(select(func.count()).select_from(User)) or 0, 'documents': session.scalar(select(func.count()).select_from(Document)) or 0, 'versions': session.scalar(select(func.count()).select_from(DocumentVersion)) or 0}
-```
-
-<details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-def count_rows(session: Session) -> dict[str, int]:
-
-    return {
-        "departments": session.scalar(select(func.count()).select_from(Department)) or 0,
-        "users": session.scalar(select(func.count()).select_from(User)) or 0,
-        "documents": session.scalar(select(func.count()).select_from(Document)) or 0,
-        "versions": session.scalar(select(func.count()).select_from(DocumentVersion)) or 0,
-    }
-```
+</details>
 
 </details>
 
-**호출·사용 위치**
-
-- `FastApi/backend/app/db/seed.py:32` — `_seed` / 직접 호출
-- `FastApi/backend/app/db/seed.py:51` — `_seed` / 직접 호출
-### 함수·메서드 seed_all
-
-- **정의 파일:** `FastApi/backend/app/db/seed.py:22`
-- **역할·로직:** 전달된 세션을 사용하거나 자체 세션을 열어 초기 데이터를 넣습니다.
-
-**매개변수**
-
-| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
-| --- | --- | --- | --- | --- |
-| `session` | `Session \| None` | `None` | `위치/키워드` | DB 작업용 SQLAlchemy 세션 |
-
-**반환값**
-
-- 선언: `dict[str, int]`
-- 실제 return 표현식(분기별):
-
-```python
-return _seed(session)
-return _seed(s)
-```
-
-<details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-def seed_all(session: Session | None = None) -> dict[str, int]:
-    if session is not None:
-        return _seed(session)
-    with session_scope() as s:
-        return _seed(s)
-```
+</details>
 
 </details>
 
-**호출·사용 위치**
-
-- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 _seed
-
-- **정의 파일:** `FastApi/backend/app/db/seed.py:29`
-- **역할·로직:** 이미 문서가 있으면 건수만 반환합니다. 없으면 부서·사용자·문서·버전 데이터를 추가하고 건수를 반환합니다.
-
-**매개변수**
-
-| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
-| --- | --- | --- | --- | --- |
-| `session` | `Session` | `필수` | `위치/키워드` | DB 작업용 SQLAlchemy 세션 |
-
-**반환값**
-
-- 선언: `dict[str, int]`
-- 실제 return 표현식(분기별):
-
-```python
-return count_rows(session)
-return count_rows(session)
-```
-
-<details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-def _seed(session: Session) -> dict[str, int]:
-
-    if session.scalar(select(func.count()).select_from(Document)):
-        return count_rows(session)
-
-    session.add_all(Department(**row) for row in DEPARTMENTS)
-
-
-    temp_hash = hash_password(TEMP_PASSWORD)
-    session.add_all(User(**row, password_hash=temp_hash) for row in USERS)
-    session.flush()   
-
-    for doc in DOCUMENTS:
-        
-        fields = {k: v for k, v in doc.items() if k != "versions"}
-        session.add(Document(**fields))
-        session.flush()
-        session.add_all(
-            DocumentVersion(doc_id=doc["id"], **ver) for ver in doc["versions"]
-        )
-    session.flush()
-
-    return count_rows(session)
-```
-
 </details>
 
-**호출·사용 위치**
-
-- `FastApi/backend/app/db/seed.py:24` — `seed_all` / 직접 호출
-- `FastApi/backend/app/db/seed.py:26` — `seed_all` / 직접 호출
-
-## FastApi/backend/app/db/seed_data.py
-
-직접 정의한 함수·클래스: **없음**.
-
-부서·사용자·문서 시드 상수입니다. FastApi/backend/app/db/seed.py의 _seed에서 읽습니다. 비밀번호 등 상수의 실제 값은 싣지 않습니다.
-
-
-## FastApi/backend/app/db/session.py
-
-**이 파일의 정의 목록:** `get_engine`, `get_engine._enable_sqlite_foreign_keys`, `get_sessionmaker`, `session_scope`
-
-### 함수·메서드 get_engine
-
-- **정의 파일:** `FastApi/backend/app/db/session.py:16`
-- **역할·로직:** URL에 대응하는 SQLAlchemy 엔진을 캐시에서 가져오거나 새로 만듭니다. SQLite이면 전용 연결 설정을 추가합니다.
-
-**매개변수**
-
-| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
-| --- | --- | --- | --- | --- |
-| `url` | `str \| None` | `None` | `위치/키워드` | DB 연결 URL; 생략 시 설정 사용 |
-
-**반환값**
-
-- 선언: `Engine`
-- 실제 return 표현식(분기별):
-
-```python
-return _ENGINES[resolved]
-return engine
-```
+<details>
+<summary><h1>[폴더] FastApi/backend/app/integrations</h1></summary>
 
 <details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-def get_engine(url: str | None = None) -> Engine:
-
-    # 이미 만들어진 엔진이라면 만들어진 것 리턴하며 종료 처리 
-    resolved = url or get_settings().database_url # 환경변수에서 DB URL 가져와 적용 
-    if resolved in _ENGINES:       
-        return _ENGINES[resolved]  
-
-    # SQLite 설정 추가 
-    connect_args: dict[str, object] = {}
-    is_sqlite = resolved.startswith("sqlite")
-    if is_sqlite:
-        connect_args["check_same_thread"] = False
-
-    # 엔진 생성 
-    engine = create_engine(resolved, connect_args=connect_args)
-
-    # SQLite 설정 추가 
-    if is_sqlite:        
-        @event.listens_for(engine, "connect")
-        def _enable_sqlite_foreign_keys(dbapi_connection, connection_record) -> None: 
-            cursor = dbapi_connection.cursor()
-            cursor.execute("PRAGMA foreign_keys=ON")
-            cursor.close()
-
-    # 새로 만들어진 엔진 저장하며 리턴 
-    _ENGINES[resolved] = engine
-    return engine
-```
-
-</details>
-
-**호출·사용 위치**
-
-- `FastApi/backend/app/db/init_db.py:3` — `모듈 import` / import/재공개
-- `FastApi/backend/app/db/init_db.py:8` — `init_db` / 직접 호출
-- `FastApi/backend/app/db/session.py:46` — `get_sessionmaker` / 직접 호출
-### 함수·메서드 get_engine._enable_sqlite_foreign_keys
-
-- **정의 파일:** `FastApi/backend/app/db/session.py:35`
-- **역할·로직:** SQLite 연결에서 PRAGMA foreign_keys=ON을 실행합니다.
-- **데코레이터:** `event.listens_for(engine, 'connect')`
-
-**매개변수**
-
-| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
-| --- | --- | --- | --- | --- |
-| `dbapi_connection` | `타입 표기 없음` | `필수` | `위치/키워드` | 이벤트에서 받은 실제 DBAPI 연결 |
-| `connection_record` | `타입 표기 없음` | `필수` | `위치/키워드` | SQLAlchemy 연결 풀의 연결 기록 |
-
-**반환값**
-
-- 선언: `None`
-- **반환값 없음(None)**. 화면 표시·저장·검사 등의 동작만 수행합니다. 예외가 발생하면 정상 반환하지 않습니다.
-
-<details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-def _enable_sqlite_foreign_keys(dbapi_connection, connection_record) -> None: 
-            cursor = dbapi_connection.cursor()
-            cursor.execute("PRAGMA foreign_keys=ON")
-            cursor.close()
-```
-
-</details>
-
-**자동 호출·사용 방식**
-
-- FastApi/backend/app/db/session.py의 get_engine 안에서 SQLAlchemy connect 이벤트에 등록됩니다. SQLite DB 연결 시 호출됩니다.
-
-**호출·사용 위치**
-
-- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 get_sessionmaker
-
-- **정의 파일:** `FastApi/backend/app/db/session.py:45`
-- **역할·로직:** 지정 엔진 또는 기본 엔진에 연결된 세션 생성기를 만듭니다.
-
-**매개변수**
-
-| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
-| --- | --- | --- | --- | --- |
-| `engine` | `Engine \| None` | `None` | `위치/키워드` | DB 엔진; 생략 시 기본 연결 사용 |
-
-**반환값**
-
-- 선언: `sessionmaker[Session]`
-- 실제 return 표현식(분기별):
-
-```python
-return sessionmaker(bind=engine or get_engine(), expire_on_commit=False)
-```
-
-<details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-def get_sessionmaker(engine: Engine | None = None) -> sessionmaker[Session]:
-    return sessionmaker(bind=engine or get_engine(), expire_on_commit=False)
-```
-
-</details>
-
-**호출·사용 위치**
-
-- `FastApi/backend/app/api/v1/deps.py:11` — `모듈 import` / import/재공개
-- `FastApi/backend/app/api/v1/deps.py:34` — `get_db` / 직접 호출
-- `FastApi/backend/app/db/session.py:52` — `session_scope` / 직접 호출
-### 함수·메서드 session_scope
-
-- **정의 파일:** `FastApi/backend/app/db/session.py:51`
-- **역할·로직:** 세션을 제공하고 정상 종료 시 commit, 오류 시 rollback, 마지막에 close를 수행합니다.
-- **데코레이터:** `contextmanager`
-
-**매개변수**
-
-없음.
-
-**반환값**
-
-- 선언: `Iterator[Session]`
-- 일반 return으로 결과를 주는 함수가 아니라 yield를 사용하는 함수입니다.
-- 호출하면 컨텍스트 매니저를 반환합니다. with/async with 진입 시 아래 값을 제공하고, 블록 종료 시 yield 뒤 정리 코드를 실행합니다.
-- 제공 값: `(yield session)`
-
-<details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-def session_scope() -> Iterator[Session]:
-    session = get_sessionmaker()()
-    try:
-        yield session
-        session.commit()
-    except Exception:
-        session.rollback()
-        raise
-    finally:
-        session.close()
-```
-
-</details>
-
-**호출·사용 위치**
-
-- `FastApi/backend/app/db/seed.py:8` — `모듈 import` / import/재공개
-- `FastApi/backend/app/db/seed.py:25` — `seed_all` / 직접 호출
-- `FastApi/backend/app/services/auth_service.py:5` — `모듈 import` / import/재공개
-- `FastApi/backend/app/services/auth_service.py:22` — `authenticate` / 직접 호출
-- `FastApi/backend/app/services/auth_service.py:32` — `get_me` / 직접 호출
-- `FastApi/backend/app/services/chat_service.py:13` — `모듈 import` / import/재공개
-- `FastApi/backend/app/services/chat_service.py:59` — `_record_usage` / 직접 호출
-- `FastApi/backend/app/services/chat_service.py:86` — `ask` / 직접 호출
-- `FastApi/backend/app/services/chat_service.py:137` — `ask` / 직접 호출
-- `FastApi/backend/app/services/chat_service.py:148` — `get_run` / 직접 호출
-- `FastApi/backend/app/services/document_service.py:9` — `모듈 import` / import/재공개
-- `FastApi/backend/app/services/document_service.py:40` — `list_documents` / 직접 호출
-- `FastApi/backend/app/services/document_service.py:55` — `get_document` / 직접 호출
-- `FastApi/backend/app/services/document_service.py:78` — `create_document` / 직접 호출
-
-## FastApi/backend/app/integrations/__init__.py
+<summary><h1>[파일] FastApi/backend/app/integrations/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/backend/app/integrations/factory.py
+<details>
+<summary><h1>[파일] FastApi/backend/app/integrations/factory.py</h1></summary>
 
-**이 파일의 정의 목록:** `_live_llm`, `get_llm`
+**파일 구성**
 
-### 함수·메서드 _live_llm
+- 클래스: 없음
+- 파일 수준 함수: `_live_llm`, `get_llm`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] _live_llm</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/factory.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/factory.py:12`
 - **역할·로직:** ClaudeLLM 객체를 생성하고 캐시해 재사용합니다.
@@ -2507,7 +3402,13 @@ def _live_llm() -> LLMPort:
 **호출·사용 위치**
 
 - `FastApi/backend/app/integrations/factory.py:25` — `get_llm` / 직접 호출
-### 함수·메서드 get_llm
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] get_llm</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/factory.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/factory.py:18`
 - **역할·로직:** live 설정에서는 캐시된 Claude 어댑터를 반환합니다. 다른 모드는 ModeNotAvailable로 거절합니다.
@@ -2549,11 +3450,24 @@ def get_llm() -> LLMPort:
 
 - `FastApi/backend/app/services/chat_service.py:78` — `ask` / 직접 호출
 
-## FastApi/backend/app/integrations/langfuse_client.py
+</details>
 
-**이 파일의 정의 목록:** `get_client`, `_quiet`, `trace`, `score`
+</details>
 
-### 함수·메서드 get_client
+<details>
+<summary><h1>[파일] FastApi/backend/app/integrations/langfuse_client.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `get_client`, `_quiet`, `trace`, `score`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] get_client</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/langfuse_client.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/langfuse_client.py:14`
 - **역할·로직:** Langfuse 활성화와 키 설정을 확인하고 클라이언트 생성을 한 번 시도합니다. 비활성화·실패 시 None입니다.
@@ -2612,7 +3526,13 @@ def get_client():
 
 - `FastApi/backend/app/integrations/langfuse_client.py:55` — `trace` / 직접 호출
 - `FastApi/backend/app/integrations/langfuse_client.py:75` — `score` / 직접 호출
-### 함수·메서드 _quiet
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] _quiet</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/langfuse_client.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/langfuse_client.py:44`
 - **역할·로직:** 첫 관측 오류는 warning, 이후 오류는 debug로 기록합니다.
@@ -2648,7 +3568,13 @@ def _quiet(message: str, exc: Exception) -> None:
 
 - `FastApi/backend/app/integrations/langfuse_client.py:66` — `trace` / 직접 호출
 - `FastApi/backend/app/integrations/langfuse_client.py:81` — `score` / 직접 호출
-### 함수·메서드 trace
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] trace</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/langfuse_client.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/langfuse_client.py:54`
 - **역할·로직:** Langfuse trace 생성을 시도하고 핸들을 with 블록에 제공합니다. 생성 실패 시에도 블록을 실행합니다.
@@ -2700,7 +3626,13 @@ def trace(name: str, *, run_id: str, user_id: str = "", metadata: dict | None = 
 
 - `FastApi/backend/app/services/chat_service.py:81` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/chat_service.py:99` — `ask` / 직접 호출
-### 함수·메서드 score
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] score</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/langfuse_client.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/langfuse_client.py:74`
 - **역할·로직:** 실행 번호에 연결된 점수를 Langfuse에 기록합니다. 기록 실패는 로그를 남기고 넘깁니다.
@@ -2739,11 +3671,24 @@ def score(run_id: str, name: str, value: float) -> None:
 - `FastApi/backend/app/services/chat_service.py:81` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/chat_service.py:135` — `ask` / 직접 호출
 
-## FastApi/backend/app/integrations/llm_claude.py
+</details>
 
-**이 파일의 정의 목록:** `estimate_cost_krw`, `_load_prompt`, `_cotext_block`, `ClaudeLLM`, `ClaudeLLM.__init__`, `ClaudeLLM._call`, `ClaudeLLM.answer`, `_extract_json`
+</details>
 
-### 함수·메서드 estimate_cost_krw
+<details>
+<summary><h1>[파일] FastApi/backend/app/integrations/llm_claude.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `ClaudeLLM`
+- 파일 수준 함수: `estimate_cost_krw`, `_load_prompt`, `_cotext_block`, `_extract_json`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] estimate_cost_krw</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/llm_claude.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/llm_claude.py:16`
 - **역할·로직:** 입력·출력 토큰 수에 코드의 단가와 환율을 곱해 추정 원화 비용을 계산합니다.
@@ -2779,7 +3724,13 @@ def estimate_cost_krw(input_tok: int, output_tok: int) -> float:
 **호출·사용 위치**
 
 - `FastApi/backend/app/integrations/llm_claude.py:118` — `ClaudeLLM.answer` / 직접 호출
-### 함수·메서드 _load_prompt
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] _load_prompt</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/llm_claude.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/llm_claude.py:22`
 - **역할·로직:** 프롬프트 파일이 있으면 읽고 없으면 빈 문자열을 반환합니다.
@@ -2813,7 +3764,13 @@ def _load_prompt(name: str) -> str:
 **호출·사용 위치**
 
 - `FastApi/backend/app/integrations/llm_claude.py:104` — `ClaudeLLM.answer` / 직접 호출
-### 함수·메서드 _cotext_block
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] _cotext_block</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/llm_claude.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/llm_claude.py:27`
 - **역할·로직:** 근거 목록의 제목·버전·위치·유사도·인용문을 모델에게 보낼 한 문자열로 만듭니다.
@@ -2853,7 +3810,13 @@ def _cotext_block(contexts: list[dict]) -> str:
 **호출·사용 위치**
 
 - `FastApi/backend/app/integrations/llm_claude.py:107` — `ClaudeLLM.answer` / 직접 호출
-### 클래스 ClaudeLLM
+
+</details>
+
+<details>
+<summary><h2>4. [클래스] ClaudeLLM</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/llm_claude.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/llm_claude.py:38`
 - **역할·로직:** LLMPort 규약에 맞춰 Claude SDK를 호출하는 실제 어댑터입니다.
@@ -2878,7 +3841,19 @@ name = 'claude'
 - `FastApi/backend/app/integrations/llm_claude.py:64` — `ClaudeLLM._call` / 참조·타입·콜백 등
 - `FastApi/backend/app/integrations/llm_claude.py:110` — `ClaudeLLM.answer` / 참조·타입·콜백 등
 - `FastApi/backend/app/integrations/llm_claude.py:114` — `ClaudeLLM.answer` / 참조·타입·콜백 등
-### 함수·메서드 ClaudeLLM.__init__
+
+**이 클래스의 메서드**
+
+- 4.1 `ClaudeLLM.__init__`
+- 4.2 `ClaudeLLM._call`
+- 4.3 `ClaudeLLM.answer`
+
+<details>
+<summary><h2>4.1. [초기화 메서드] ClaudeLLM.__init__</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/llm_claude.py`
+
+**소속 클래스:** `ClaudeLLM`
 
 - **정의 파일:** `FastApi/backend/app/integrations/llm_claude.py:42`
 - **역할·로직:** SDK 설치와 API 키를 확인한 뒤 Anthropic 클라이언트와 사용할 모델 이름을 저장합니다.
@@ -2928,7 +3903,15 @@ def __init__(self) -> None:
 
 - `FastApi/backend/app/core/exceptions.py:7` — `AgentError.__init__` / 대상 확인 필요: super().__init__
 - `FastApi/backend/app/core/exceptions.py:59` — `AuthFailed.__int__` / 대상 확인 필요: super().__init__
-### 함수·메서드 ClaudeLLM._call
+
+</details>
+
+<details>
+<summary><h2>4.2. [인스턴스 메서드] ClaudeLLM._call</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/llm_claude.py`
+
+**소속 클래스:** `ClaudeLLM`
 
 - **정의 파일:** `FastApi/backend/app/integrations/llm_claude.py:56`
 - **역할·로직:** Claude Messages API를 호출하고 텍스트·사용량·경과 시간을 추출합니다. 호출 오류를 ExternalServiceError로 바꿉니다.
@@ -3005,7 +3988,15 @@ def _call(self, system: str, user_text: str) -> tuple[str, dict, int]:
 **호출·사용 위치**
 
 - `FastApi/backend/app/integrations/llm_claude.py:110` — `ClaudeLLM.answer` / 직접 호출
-### 함수·메서드 ClaudeLLM.answer
+
+</details>
+
+<details>
+<summary><h2>4.3. [인스턴스 메서드] ClaudeLLM.answer</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/llm_claude.py`
+
+**소속 클래스:** `ClaudeLLM`
 
 - **정의 파일:** `FastApi/backend/app/integrations/llm_claude.py:100`
 - **역할·로직:** 시스템 프롬프트·사용자·근거·질문을 구성하고 _call을 실행한 뒤 토큰·비용을 LLMResult에 담습니다.
@@ -3071,7 +4062,15 @@ def answer(self, *, question: str, contexts: list[dict], user: dict) -> LLMResul
 
 - `FastApi/backend/app/agent/chain.py:59` — `build_result_chain.call_port` / 대상 확인 필요: llm.answer
 - `FastApi/backend/app/services/chat_service.py:112` — `ask` / 대상 확인 필요: llm.answer
-### 함수·메서드 _extract_json
+
+</details>
+
+</details>
+
+<details>
+<summary><h2>5. [독립 함수] _extract_json</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/llm_claude.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/llm_claude.py:123`
 - **역할·로직:** 코드 펜스와 앞뒤 설명을 걷어내 JSON 객체를 해석합니다. 중괄호가 없거나 JSON 해석 실패 시 빈 dict입니다.
@@ -3120,11 +4119,24 @@ def _extract_json(text: str) -> dict:
 - `FastApi/backend/app/services/chat_service.py:82` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/chat_service.py:118` — `ask` / 직접 호출
 
-## FastApi/backend/app/integrations/ports.py
+</details>
 
-**이 파일의 정의 목록:** `LLMResult`, `LLMPort`, `LLMPort.answer`
+</details>
 
-### 클래스 LLMResult
+<details>
+<summary><h1>[파일] FastApi/backend/app/integrations/ports.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `LLMResult`, `LLMPort`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] LLMResult</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/ports.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/ports.py:8`
 - **역할·로직:** 답변 문자열과 모델명·사용량·비용·시간을 담는 dataclass입니다.
@@ -3158,7 +4170,15 @@ extras: dict = field(default_factory=dict)
 - `FastApi/backend/tests/test_chat_golden.py:11` — `모듈 import` / import/재공개
 - `FastApi/backend/tests/test_chat_golden.py:26` — `StubLLM.answer` / 참조·타입·콜백 등
 - `FastApi/backend/tests/test_chat_golden.py:30` — `StubLLM.answer` / 직접 호출
-### 클래스 LLMPort
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] LLMPort</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/ports.py`
 
 - **정의 파일:** `FastApi/backend/app/integrations/ports.py:20`
 - **역할·로직:** answer의 입력과 반환 타입을 정의하는 Protocol입니다. 실제 모델 호출을 구현하지 않습니다.
@@ -3177,7 +4197,17 @@ extras: dict = field(default_factory=dict)
 - `FastApi/backend/app/integrations/factory.py:8` — `모듈 import` / import/재공개
 - `FastApi/backend/app/integrations/factory.py:12` — `_live_llm` / 참조·타입·콜백 등
 - `FastApi/backend/app/integrations/factory.py:18` — `get_llm` / 참조·타입·콜백 등
-### 함수·메서드 LLMPort.answer
+
+**이 클래스의 메서드**
+
+- 2.1 `LLMPort.answer`
+
+<details>
+<summary><h2>2.1. [인스턴스 메서드] LLMPort.answer</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/integrations/ports.py`
+
+**소속 클래스:** `LLMPort`
 
 - **정의 파일:** `FastApi/backend/app/integrations/ports.py:21`
 - **역할·로직:** 어댑터가 제공할 answer 메서드의 규격만 선언합니다. 본문은 ...입니다.
@@ -3220,197 +4250,40 @@ def answer(self, *, question: str, contexts: list[dict], user: dict) -> LLMResul
 - `FastApi/backend/app/agent/chain.py:59` — `build_result_chain.call_port` / 대상 확인 필요: llm.answer
 - `FastApi/backend/app/services/chat_service.py:112` — `ask` / 대상 확인 필요: llm.answer
 
-## FastApi/backend/app/main.py
-
-**이 파일의 정의 목록:** `lifespan`, `health`, `handle_agent_error`, `handle_validation_error`
-
-### 함수·메서드 lifespan
-
-- **정의 파일:** `FastApi/backend/app/main.py:17`
-- **역할·로직:** FastAPI 시작 시 로깅을 설정하고 yield로 서버 실행에 제어를 넘깁니다.
-- **데코레이터:** `asynccontextmanager`
-
-**매개변수**
-
-| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
-| --- | --- | --- | --- | --- |
-| `app` | `FastAPI` | `필수` | `위치/키워드` | FastAPI 애플리케이션 객체 |
-
-**반환값**
-
-- 선언: `타입 표기 없음`
-- 일반 return으로 결과를 주는 함수가 아니라 yield를 사용하는 함수입니다.
-- 호출하면 컨텍스트 매니저를 반환합니다. with/async with 진입 시 아래 값을 제공하고, 블록 종료 시 yield 뒤 정리 코드를 실행합니다.
-- 제공 값: `(yield)`
-
-<details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-async def lifespan(app: FastAPI):
-    setup_logging()
-    yield
-```
+</details>
 
 </details>
 
-**자동 호출·사용 방식**
-
-- FastApi/backend/app/main.py에서 FastAPI(lifespan=lifespan)에 등록합니다. 서버 수명주기에 따라 실행됩니다.
-
-**호출·사용 위치**
-
-- `FastApi/backend/app/main.py:25` — `모듈 실행부` / 참조·타입·콜백 등
-### 함수·메서드 health
-
-- **정의 파일:** `FastApi/backend/app/main.py:31`
-- **역할·로직:** 서버 상태 확인용 status=ok 응답을 만듭니다.
-- **데코레이터:** `app.get('/health')`
-
-**매개변수**
-
-없음.
-
-**반환값**
-
-- 선언: `dict`
-- 실제 return 표현식(분기별):
-
-```python
-return {'status': 'ok'}
-```
-
-<details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-def health() -> dict:
-    return {"status": "ok"}
-```
+</details>
 
 </details>
 
-**자동 호출·사용 방식**
-
-- FastAPI가 해당 HTTP 요청을 받으면 등록된 핸들러를 호출합니다. 경로는 아래 데코레이터와 FastApi/backend/app/main.py의 /api/v1 라우터 등록을 함께 봅니다.
-
-**호출·사용 위치**
-
-- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 handle_agent_error
-
-- **정의 파일:** `FastApi/backend/app/main.py:52`
-- **역할·로직:** 프로젝트 예외의 상태 코드와 메시지를 JSON HTTP 응답으로 바꿉니다.
-- **데코레이터:** `app.exception_handler(AgentError)`
-
-**매개변수**
-
-| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
-| --- | --- | --- | --- | --- |
-| `request` | `Request` | `필수` | `위치/키워드` | 현재 HTTP 요청 객체 |
-| `exc` | `AgentError` | `필수` | `위치/키워드` | 처리할 예외 객체 |
-
-**반환값**
-
-- 선언: `JSONResponse`
-- 실제 return 표현식(분기별):
-
-```python
-return JSONResponse(status_code=exc.status_code, content={'code': exc.code, 'message': str(exc), 'detail': None})
-```
+<details>
+<summary><h1>[폴더] FastApi/backend/app/models</h1></summary>
 
 <details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-async def handle_agent_error(
-    request: Request,
-    exc: AgentError,
-) -> JSONResponse:
-    return JSONResponse(
-        status_code=exc.status_code,
-        content={
-            "code": exc.code,
-            "message": str(exc),
-            "detail": None,
-        },
-    )
-```
-
-</details>
-
-**자동 호출·사용 방식**
-
-- FastApi/backend/app/main.py에서 FastAPI 예외 핸들러로 등록되어 해당 예외 발생 시 프레임워크가 호출합니다.
-
-**호출·사용 위치**
-
-- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 handle_validation_error
-
-- **정의 파일:** `FastApi/backend/app/main.py:68`
-- **역할·로직:** 요청 검증 오류에서 필드 이름을 추려 값 노출 없이 422 응답을 만듭니다.
-- **데코레이터:** `app.exception_handler(RequestValidationError)`
-
-**매개변수**
-
-| 이름 | 타입 | 기본값/필수 | 전달 방식 | 의미 |
-| --- | --- | --- | --- | --- |
-| `request` | `Request` | `필수` | `위치/키워드` | 현재 HTTP 요청 객체 |
-| `exc` | `RequestValidationError` | `필수` | `위치/키워드` | 처리할 예외 객체 |
-
-**반환값**
-
-- 선언: `JSONResponse`
-- 실제 return 표현식(분기별):
-
-```python
-return JSONResponse(status_code=422, content={'code': 'validation_failed', 'message': f'입력값을 확인하세요 — {fields}', 'detail': None})
-```
-
-<details>
-<summary>해당 함수의 실제 로직 코드 보기</summary>
-
-```python
-async def handle_validation_error(
-    request: Request, exc: RequestValidationError
-) -> JSONResponse:
-    # exc.errors() 에는 사용자가 보낸 값이 통째로 들어 있다. 필드 이름만 돌려주고 값은 감춘다.
-    fields = ", ".join(
-        ".".join(str(p) for p in e["loc"][1:]) or "요청 본문" for e in exc.errors()
-    )
-    return JSONResponse(
-        status_code=422,
-        content={
-            "code": "validation_failed",
-            "message": f"입력값을 확인하세요 — {fields}",
-            "detail": None,
-        },
-    )
-```
-
-</details>
-
-**자동 호출·사용 방식**
-
-- FastApi/backend/app/main.py에서 FastAPI 예외 핸들러로 등록되어 해당 예외 발생 시 프레임워크가 호출합니다.
-
-**호출·사용 위치**
-
-- 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-
-## FastApi/backend/app/models/__init__.py
+<summary><h1>[파일] FastApi/backend/app/models/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/backend/app/models/base.py
+<details>
+<summary><h1>[파일] FastApi/backend/app/models/base.py</h1></summary>
 
-**이 파일의 정의 목록:** `Base`, `TimestampMixin`
+**파일 구성**
 
-### 클래스 Base
+- 클래스: `Base`, `TimestampMixin`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] Base</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/base.py`
 
 - **정의 파일:** `FastApi/backend/app/models/base.py:6`
 - **역할·로직:** SQLAlchemy 선언형 모델의 공통 부모입니다.
@@ -3437,7 +4310,15 @@ async def handle_validation_error(
 - `FastApi/backend/app/models/run.py:25` — `RunStep` / 참조·타입·콜백 등
 - `FastApi/backend/app/models/usage.py:8` — `모듈 import` / import/재공개
 - `FastApi/backend/app/models/usage.py:11` — `UsageLog` / 참조·타입·콜백 등
-### 클래스 TimestampMixin
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] TimestampMixin</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/base.py`
 
 - **정의 파일:** `FastApi/backend/app/models/base.py:9`
 - **역할·로직:** 생성·수정 시각 컬럼을 모델에 더하는 믹스인입니다.
@@ -3467,11 +4348,26 @@ updated_at: Mapped[datetime] = mapped_column(default=datetime.now, onupdate=date
 - `FastApi/backend/app/models/usage.py:8` — `모듈 import` / import/재공개
 - `FastApi/backend/app/models/usage.py:11` — `UsageLog` / 참조·타입·콜백 등
 
-## FastApi/backend/app/models/document.py
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
 
-**이 파일의 정의 목록:** `Document`, `Document.current`, `DocumentVersion`, `DocumentVersion.period`, `DocumentVersion.is_searchable`
+</details>
 
-### 클래스 Document
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/models/document.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `Document`, `DocumentVersion`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] Document</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/document.py`
 
 - **정의 파일:** `FastApi/backend/app/models/document.py:8`
 - **역할·로직:** documents 테이블의 문서 기본정보와 버전 관계를 나타냅니다.
@@ -3517,7 +4413,17 @@ versions: Mapped[list['DocumentVersion']] = relationship(back_populates='documen
 - `FastApi/backend/app/services/document_service.py:10` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/document_service.py:14` — `_to_out` / 참조·타입·콜백 등
 - `FastApi/backend/app/services/document_service.py:82` — `create_document` / 직접 호출
-### 함수·메서드 Document.current
+
+**이 클래스의 메서드**
+
+- 1.1 `Document.current`
+
+<details>
+<summary><h2>1.1. [속성 메서드] Document.current</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/document.py`
+
+**소속 클래스:** `Document`
 
 - **정의 파일:** `FastApi/backend/app/models/document.py:27`
 - **역할·로직:** 문서 버전 목록에서 상태가 현행인 첫 버전을 찾습니다. 없으면 None입니다.
@@ -3565,7 +4471,15 @@ def current(self) -> "DocumentVersion | None":
 **동적 메서드·속성 참조 후보 — 실제 대상은 위 설명과 객체 생성 경로로 확인**
 
 - `FastApi/backend/app/services/document_service.py:59` — `get_document` / 대상 확인 필요: document.current
-### 클래스 DocumentVersion
+
+</details>
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] DocumentVersion</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/document.py`
 
 - **정의 파일:** `FastApi/backend/app/models/document.py:34`
 - **역할·로직:** document_versions 테이블의 개별 문서 버전·유효기간·색인 상태를 나타냅니다.
@@ -3615,7 +4529,18 @@ __table_args__ = (UniqueConstraint('doc_id', 'version', name='uq_doc_version'),)
 - `FastApi/backend/app/repositories/document_repo.py:50` — `add_version` / 직접 호출
 - `FastApi/backend/app/services/document_service.py:10` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/document_service.py:14` — `_to_out` / 참조·타입·콜백 등
-### 함수·메서드 DocumentVersion.period
+
+**이 클래스의 메서드**
+
+- 2.1 `DocumentVersion.period`
+- 2.2 `DocumentVersion.is_searchable`
+
+<details>
+<summary><h2>2.1. [속성 메서드] DocumentVersion.period</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/document.py`
+
+**소속 클래스:** `DocumentVersion`
 
 - **정의 파일:** `FastApi/backend/app/models/document.py:60`
 - **역할·로직:** 문서 버전의 시행일과 만료일을 표시할 문자열로 만듭니다.
@@ -3658,7 +4583,15 @@ def period(self) -> str:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 DocumentVersion.is_searchable
+
+</details>
+
+<details>
+<summary><h2>2.2. [속성 메서드] DocumentVersion.is_searchable</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/document.py`
+
+**소속 클래스:** `DocumentVersion`
 
 - **정의 파일:** `FastApi/backend/app/models/document.py:66`
 - **역할·로직:** 버전 상태가 현행이고 색인 상태가 완료인지 판단합니다.
@@ -3699,11 +4632,26 @@ def is_searchable(self) -> bool:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/models/org.py
+</details>
 
-**이 파일의 정의 목록:** `Department`, `User`, `User.clearance_level`, `User.can_approve`
+</details>
 
-### 클래스 Department
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/models/org.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `Department`, `User`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] Department</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/org.py`
 
 - **정의 파일:** `FastApi/backend/app/models/org.py:12`
 - **역할·로직:** departments 테이블의 부서 모델입니다.
@@ -3729,7 +4677,15 @@ documents: Mapped[list['Document']] = relationship(back_populates='dept')
 - `FastApi/backend/app/db/seed.py:15` — `count_rows` / 참조·타입·콜백 등
 - `FastApi/backend/app/db/seed.py:34` — `_seed` / 직접 호출
 - `FastApi/backend/app/models/__init__.py:4` — `모듈 import` / import/재공개
-### 클래스 User
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] User</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/org.py`
 
 - **정의 파일:** `FastApi/backend/app/models/org.py:23`
 - **역할·로직:** users 테이블의 사용자 모델입니다.
@@ -3767,7 +4723,18 @@ documents: Mapped[list['Document']] = relationship(back_populates='owner')
 - `FastApi/backend/app/repositories/user_repo.py:9` — `get_by_emp_no` / 참조·타입·콜백 등
 - `FastApi/backend/app/services/auth_service.py:6` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/auth_service.py:10` — `_to_out` / 참조·타입·콜백 등
-### 함수·메서드 User.clearance_level
+
+**이 클래스의 메서드**
+
+- 2.1 `User.clearance_level`
+- 2.2 `User.can_approve`
+
+<details>
+<summary><h2>2.1. [속성 메서드] User.clearance_level</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/org.py`
+
+**소속 클래스:** `User`
 
 - **정의 파일:** `FastApi/backend/app/models/org.py:37`
 - **역할·로직:** 사용자 보안 등급을 숫자로 바꾸고 알 수 없는 값이면 1을 사용합니다.
@@ -3807,7 +4774,15 @@ def clearance_level(self) -> int:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 User.can_approve
+
+</details>
+
+<details>
+<summary><h2>2.2. [속성 메서드] User.can_approve</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/org.py`
+
+**소속 클래스:** `User`
 
 - **정의 파일:** `FastApi/backend/app/models/org.py:41`
 - **역할·로직:** 사용자 역할이 팀장 또는 관리자인지 확인합니다.
@@ -3849,11 +4824,26 @@ def can_approve(self) -> bool:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/models/run.py
+</details>
 
-**이 파일의 정의 목록:** `Run`, `RunStep`
+</details>
 
-### 클래스 Run
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/models/run.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `Run`, `RunStep`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] Run</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/run.py`
 
 - **정의 파일:** `FastApi/backend/app/models/run.py:10`
 - **역할·로직:** runs 테이블의 질문 한 건 실행 기록입니다.
@@ -3886,7 +4876,15 @@ sources: Mapped[list | None] = mapped_column(JSON, nullable=True)
 - `FastApi/backend/app/services/chat_service.py:149` — `get_run` / 참조·타입·콜백 등
 - `FastApi/backend/app/services/ids.py:5` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/ids.py:12` — `next_run_id` / 참조·타입·콜백 등
-### 클래스 RunStep
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] RunStep</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/run.py`
 
 - **정의 파일:** `FastApi/backend/app/models/run.py:25`
 - **역할·로직:** run_steps 테이블의 실행 안 단계 한 건입니다.
@@ -3917,11 +4915,26 @@ detail: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 - `FastApi/backend/app/models/__init__.py:5` — `모듈 import` / import/재공개
 
-## FastApi/backend/app/models/usage.py
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
 
-**이 파일의 정의 목록:** `UsageLog`
+</details>
 
-### 클래스 UsageLog
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/models/usage.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `UsageLog`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] UsageLog</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/models/usage.py`
 
 - **정의 파일:** `FastApi/backend/app/models/usage.py:11`
 - **역할·로직:** usage_logs 테이블의 모델 호출 한 번의 토큰·비용 기록입니다.
@@ -3951,11 +4964,31 @@ occurred_at: Mapped[datetime] = mapped_column(default=datetime.now)
 - `FastApi/backend/app/services/chat_service.py:14` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/chat_service.py:61` — `_record_usage` / 직접 호출
 
-## FastApi/backend/app/repositories/document_repo.py
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
 
-**이 파일의 정의 목록:** `list_documents`, `get_document`, `add_version`
+</details>
 
-### 함수·메서드 list_documents
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app/repositories</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/repositories/document_repo.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `list_documents`, `get_document`, `add_version`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] list_documents</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/repositories/document_repo.py`
 
 - **정의 파일:** `FastApi/backend/app/repositories/document_repo.py:9`
 - **역할·로직:** 문서 목록을 필터 조건으로 조회하는 SQLAlchemy DB 작업입니다. 목록은 버전과 문서의 행 조합, 단건은 Document 또는 None입니다.
@@ -4026,7 +5059,13 @@ def list_documents(
 **호출·사용 위치**
 
 - `FastApi/backend/app/services/document_service.py:41` — `list_documents` / 직접 호출
-### 함수·메서드 get_document
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] get_document</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/repositories/document_repo.py`
 
 - **정의 파일:** `FastApi/backend/app/repositories/document_repo.py:46`
 - **역할·로직:** 문서 한 건을 조회하는 SQLAlchemy DB 작업입니다. 목록은 버전과 문서의 행 조합, 단건은 Document 또는 None입니다.
@@ -4061,7 +5100,13 @@ def get_document(session: Session, doc_id: str) -> Document | None:
 
 - `FastApi/backend/app/services/document_service.py:56` — `get_document` / 직접 호출
 - `FastApi/backend/app/services/document_service.py:79` — `create_document` / 직접 호출
-### 함수·메서드 add_version
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] add_version</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/repositories/document_repo.py`
 
 - **정의 파일:** `FastApi/backend/app/repositories/document_repo.py:49`
 - **역할·로직:** 문서에 연결할 DocumentVersion을 추가하고 flush한 뒤 객체를 반환합니다.
@@ -4100,11 +5145,24 @@ def add_version(session: Session, doc: Document, **fields) -> DocumentVersion:
 
 - `FastApi/backend/app/services/document_service.py:97` — `create_document` / 직접 호출
 
-## FastApi/backend/app/repositories/user_repo.py
+</details>
 
-**이 파일의 정의 목록:** `get_by_emp_no`
+</details>
 
-### 함수·메서드 get_by_emp_no
+<details>
+<summary><h1>[파일] FastApi/backend/app/repositories/user_repo.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `get_by_emp_no`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] get_by_emp_no</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/repositories/user_repo.py`
 
 - **정의 파일:** `FastApi/backend/app/repositories/user_repo.py:8`
 - **역할·로직:** 사번이 일치하는 사용자를 부서와 함께 조회합니다. 없으면 None입니다.
@@ -4141,18 +5199,38 @@ def get_by_emp_no(session: Session, emp_no: str) -> User | None:
 - `FastApi/backend/app/services/auth_service.py:24` — `authenticate` / 직접 호출
 - `FastApi/backend/app/services/auth_service.py:34` — `get_me` / 직접 호출
 
-## FastApi/backend/app/schemas/__init__.py
+</details>
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app/schemas</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/schemas/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/backend/app/schemas/auth.py
+<details>
+<summary><h1>[파일] FastApi/backend/app/schemas/auth.py</h1></summary>
 
-**이 파일의 정의 목록:** `LoginIn`, `UserOut`
+**파일 구성**
 
-### 클래스 LoginIn
+- 클래스: `LoginIn`, `UserOut`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] LoginIn</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/auth.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/auth.py:6`
 - **역할·로직:** 로그인 요청 본문의 사번과 비밀번호 규격입니다.
@@ -4173,7 +5251,15 @@ password: str = Field(min_length=1)
 
 - `FastApi/backend/app/api/v1/auth.py:9` — `모듈 import` / import/재공개
 - `FastApi/backend/app/api/v1/auth.py:17` — `login` / 참조·타입·콜백 등
-### 클래스 UserOut
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] UserOut</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/auth.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/auth.py:11`
 - **역할·로직:** 사용자 정보 응답 규격입니다.
@@ -4200,11 +5286,26 @@ clearance: Literal['일반', '3급', '대외비']
 - `FastApi/backend/app/api/v1/auth.py:16` — `login` / 참조·타입·콜백 등
 - `FastApi/backend/app/api/v1/auth.py:22` — `me` / 참조·타입·콜백 등
 
-## FastApi/backend/app/schemas/chat.py
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
 
-**이 파일의 정의 목록:** `ChatRequest`, `AnswerSource`, `AnswerOut`, `AskOut`
+</details>
 
-### 클래스 ChatRequest
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/schemas/chat.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `ChatRequest`, `AnswerSource`, `AnswerOut`, `AskOut`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] ChatRequest</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/chat.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/chat.py:10`
 - **역할·로직:** 사용자의 질문 입력 규격입니다.
@@ -4224,7 +5325,15 @@ question: str = Field(min_length=2, max_length=2000, description='사용자 질�
 
 - `FastApi/backend/app/api/v1/chat.py:7` — `모듈 import` / import/재공개
 - `FastApi/backend/app/api/v1/chat.py:14` — `create_message` / 참조·타입·콜백 등
-### 클래스 AnswerSource
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] AnswerSource</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/chat.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/chat.py:18`
 - **역할·로직:** 인용 출처 한 건의 규격입니다.
@@ -4246,7 +5355,15 @@ locator: str = Field(description='문서 안 위치. 예: 제12조 - p.6')
 **호출·사용 위치**
 
 - `FastApi/backend/app/schemas/chat.py:27` — `AnswerOut` / 참조·타입·콜백 등
-### 클래스 AnswerOut
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>3. [클래스] AnswerOut</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/chat.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/chat.py:25`
 - **역할·로직:** 답변·출처 목록·근거 충분 여부의 검증 규격입니다.
@@ -4269,7 +5386,15 @@ enough_evidence: bool = Field(description='근거가 충분했는가. 부족하�
 - `FastApi/backend/app/schemas/chat.py:32` — `AskOut` / 참조·타입·콜백 등
 - `FastApi/backend/app/services/chat_service.py:16` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/chat_service.py:119` — `ask` / 참조·타입·콜백 등
-### 클래스 AskOut
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>4. [클래스] AskOut</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/chat.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/chat.py:32`
 - **역할·로직:** AnswerOut에 실행 번호·시도 횟수·폴백 여부를 추가한 최종 응답 규격입니다.
@@ -4299,11 +5424,26 @@ fallback_used: bool = Field(default=False, description='세 번 모두 실패해
 - `FastApi/backend/app/services/chat_service.py:73` — `ask` / 참조·타입·콜백 등
 - `FastApi/backend/app/services/chat_service.py:127` — `ask` / 직접 호출
 
-## FastApi/backend/app/schemas/common.py
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
 
-**이 파일의 정의 목록:** `HealthOut`, `ErrorOut`
+</details>
 
-### 클래스 HealthOut
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/schemas/common.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `HealthOut`, `ErrorOut`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] HealthOut</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/common.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/common.py:4`
 - **역할·로직:** 상태 확인 응답 규격입니다.
@@ -4322,7 +5462,15 @@ status: str
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 클래스 ErrorOut
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] ErrorOut</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/common.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/common.py:7`
 - **역할·로직:** 오류 응답 규격입니다.
@@ -4344,11 +5492,26 @@ detail: str | None = None
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/app/schemas/document.py
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
 
-**이 파일의 정의 목록:** `DocumentOut`, `DocumentCreateOut`
+</details>
 
-### 클래스 DocumentOut
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/schemas/document.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `DocumentOut`, `DocumentCreateOut`
+- 파일 수준 함수: 없음
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] DocumentOut</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/document.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/document.py:7`
 - **역할·로직:** 문서 조회 응답 규격입니다.
@@ -4379,7 +5542,15 @@ index_progress: int = Field(default=0, ge=0, le=100)
 - `FastApi/backend/app/api/v1/documents.py:8` — `모듈 import` / import/재공개
 - `FastApi/backend/app/api/v1/documents.py:26` — `list_documents` / 참조·타입·콜백 등
 - `FastApi/backend/app/api/v1/documents.py:86` — `get_document` / 참조·타입·콜백 등
-### 클래스 DocumentCreateOut
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>2. [클래스] DocumentCreateOut</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/schemas/document.py`
 
 - **정의 파일:** `FastApi/backend/app/schemas/document.py:23`
 - **역할·로직:** 문서 생성 응답 규격입니다.
@@ -4405,18 +5576,40 @@ created: bool = Field(description='문서 자체가 이번에 새로 생겼으�
 - `FastApi/backend/app/api/v1/documents.py:8` — `모듈 import` / import/재공개
 - `FastApi/backend/app/api/v1/documents.py:45` — `upload_document` / 참조·타입·콜백 등
 
-## FastApi/backend/app/services/__init__.py
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/app/services</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/app/services/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/backend/app/services/auth_service.py
+<details>
+<summary><h1>[파일] FastApi/backend/app/services/auth_service.py</h1></summary>
 
-**이 파일의 정의 목록:** `_to_out`, `authenticate`, `get_me`
+**파일 구성**
 
-### 함수·메서드 _to_out
+- 클래스: 없음
+- 파일 수준 함수: `_to_out`, `authenticate`, `get_me`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] _to_out</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/auth_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/auth_service.py:10`
 - **역할·로직:** ORM 사용자 객체를 응답용 dict로 변환합니다.
@@ -4457,7 +5650,13 @@ def _to_out(user: User) -> dict:
 
 - `FastApi/backend/app/services/auth_service.py:28` — `authenticate` / 직접 호출
 - `FastApi/backend/app/services/auth_service.py:37` — `get_me` / 직접 호출
-### 함수·메서드 authenticate
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] authenticate</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/auth_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/auth_service.py:21`
 - **역할·로직:** 사번으로 사용자를 찾고 비밀번호를 검증합니다. 실패하면 AuthFailed, 성공하면 사용자 정보를 반환합니다.
@@ -4497,7 +5696,13 @@ def authenticate(emp_no: str, password: str) -> dict:
 **호출·사용 위치**
 
 - `FastApi/backend/app/api/v1/auth.py:19` — `login` / 직접 호출
-### 함수·메서드 get_me
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] get_me</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/auth_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/auth_service.py:31`
 - **역할·로직:** 사번으로 사용자 정보를 조회합니다. 사용자가 없으면 AuthFailed입니다.
@@ -4536,11 +5741,24 @@ def get_me(emp_no: str) -> dict:
 
 - `FastApi/backend/app/api/v1/auth.py:28` — `me` / 직접 호출
 
-## FastApi/backend/app/services/chat_service.py
+</details>
 
-**이 파일의 정의 목록:** `_hint_from`, `_fallback`, `_record_usage`, `ask`, `get_run`
+</details>
 
-### 함수·메서드 _hint_from
+<details>
+<summary><h1>[파일] FastApi/backend/app/services/chat_service.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `_hint_from`, `_fallback`, `_record_usage`, `ask`, `get_run`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] _hint_from</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/chat_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/chat_service.py:34`
 - **역할·로직:** 검증 오류의 필드 경로와 메시지를 합쳐 다음 호출에 전달할 힌트를 만듭니다.
@@ -4578,7 +5796,13 @@ def _hint_from(errors: list[dict]) -> str:
 **호출·사용 위치**
 
 - `FastApi/backend/app/services/chat_service.py:121` — `ask` / 직접 호출
-### 함수·메서드 _fallback
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] _fallback</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/chat_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/chat_service.py:43`
 - **역할·로직:** 답변 불가 안내, 빈 출처, fallback_used=True를 가진 AskOut을 만듭니다.
@@ -4620,7 +5844,13 @@ def _fallback(run_id: str, attemps: int) -> AskOut:
 **호출·사용 위치**
 
 - `FastApi/backend/app/services/chat_service.py:134` — `ask` / 직접 호출
-### 함수·메서드 _record_usage
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] _record_usage</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/chat_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/chat_service.py:55`
 - **역할·로직:** LLMResult의 토큰과 비용을 UsageLog로 저장합니다. 저장 오류는 로그를 남기고 넘깁니다.
@@ -4665,7 +5895,13 @@ def _record_usage(run_id: str, result) -> None:
 **호출·사용 위치**
 
 - `FastApi/backend/app/services/chat_service.py:115` — `ask` / 직접 호출
-### 함수·메서드 ask
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] ask</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/chat_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/chat_service.py:73`
 - **역할·로직:** 질문 검사 → 어댑터 준비 → Run 저장 → trace → 호출·사용량 저장·검증을 최대 3회 → 성공 또는 폴백 → 최종 Run 저장 순서로 처리합니다.
@@ -4772,7 +6008,13 @@ def ask(*, question: str, run_id: str | None = None, user_id: int = 1) -> AskOut
 - `FastApi/backend/app/api/v1/chat.py:16` — `create_message` / 직접 호출
 - `FastApi/backend/tests/test_chat_golden.py:89` — `test_golden` / 직접 호출
 - `FastApi/backend/tests/test_chat_golden.py:97` — `test_golden` / 직접 호출
-### 함수·메서드 get_run
+
+</details>
+
+<details>
+<summary><h2>5. [독립 함수] get_run</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/chat_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/chat_service.py:147`
 - **역할·로직:** PK로 실행 기록을 조회해 응답 dict로 변환합니다. 없으면 NotFound입니다.
@@ -4820,11 +6062,24 @@ def get_run(*, run_id: str) -> dict:
 
 - `FastApi/backend/app/api/v1/chat.py:22` — `read_run` / 직접 호출
 
-## FastApi/backend/app/services/document_service.py
+</details>
 
-**이 파일의 정의 목록:** `_to_out`, `list_documents`, `get_document`, `create_document`
+</details>
 
-### 함수·메서드 _to_out
+<details>
+<summary><h1>[파일] FastApi/backend/app/services/document_service.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `_to_out`, `list_documents`, `get_document`, `create_document`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] _to_out</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/document_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/document_service.py:14`
 - **역할·로직:** 문서·문서 버전 ORM 객체를 응답용 dict로 변환합니다.
@@ -4872,7 +6127,13 @@ def _to_out(version: DocumentVersion, document: Document) -> dict:
 
 - `FastApi/backend/app/services/document_service.py:50` — `list_documents` / 직접 호출
 - `FastApi/backend/app/services/document_service.py:62` — `get_document` / 직접 호출
-### 함수·메서드 list_documents
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] list_documents</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/document_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/document_service.py:31`
 - **역할·로직:** DB 세션을 열어 문서 목록을 필터 조건으로 조회하고 응답 dict로 변환합니다. 단건 조회는 현행 버전도 확인합니다.
@@ -4927,7 +6188,13 @@ def list_documents(
 **호출·사용 위치**
 
 - `FastApi/backend/app/api/v1/documents.py:36` — `list_documents` / 직접 호출
-### 함수·메서드 get_document
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] get_document</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/document_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/document_service.py:53`
 - **역할·로직:** DB 세션을 열어 문서 한 건을 조회하고 응답 dict로 변환합니다. 단건 조회는 현행 버전도 확인합니다.
@@ -4968,7 +6235,13 @@ def get_document(*, doc_id: str) -> dict:
 **호출·사용 위치**
 
 - `FastApi/backend/app/api/v1/documents.py:88` — `get_document` / 직접 호출
-### 함수·메서드 create_document
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] create_document</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/document_service.py`
 
 - **정의 파일:** `FastApi/backend/app/services/document_service.py:65`
 - **역할·로직:** 문서가 없으면 생성하고, 같은 버전 중복을 거절한 뒤 새 버전을 추가합니다.
@@ -5059,11 +6332,24 @@ def create_document(
 
 - `FastApi/backend/app/api/v1/documents.py:74` — `upload_document` / 직접 호출
 
-## FastApi/backend/app/services/ids.py
+</details>
 
-**이 파일의 정의 목록:** `next_run_id`
+</details>
 
-### 함수·메서드 next_run_id
+<details>
+<summary><h1>[파일] FastApi/backend/app/services/ids.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `next_run_id`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] next_run_id</h2></summary>
+
+**소속 파일:** `FastApi/backend/app/services/ids.py`
 
 - **정의 파일:** `FastApi/backend/app/services/ids.py:10`
 - **역할·로직:** 기존 RUN-숫자 중 최댓값에 1을 더해 다음 실행 번호를 만듭니다.
@@ -5107,11 +6393,31 @@ def next_run_id(session: Session) -> str:
 - `FastApi/backend/app/services/chat_service.py:15` — `모듈 import` / import/재공개
 - `FastApi/backend/app/services/chat_service.py:88` — `ask` / 직접 호출
 
-## FastApi/backend/tests/conftest.py
+</details>
 
-**이 파일의 정의 목록:** `travel_doc`, `client`
+</details>
 
-### 함수·메서드 travel_doc
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/backend/tests</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/tests/conftest.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `travel_doc`, `client`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] travel_doc</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/conftest.py`
 
 - **정의 파일:** `FastApi/backend/tests/conftest.py:8`
 - **역할·로직:** 예외 테스트에서 사용하는 문서 샘플 dict를 제공합니다.
@@ -5155,7 +6461,13 @@ def travel_doc() -> dict:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 client
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] client</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/conftest.py`
 
 - **정의 파일:** `FastApi/backend/tests/conftest.py:21`
 - **역할·로직:** FastAPI TestClient를 with로 열어 테스트에 제공하고 정리합니다.
@@ -5191,11 +6503,24 @@ def client():
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/tests/test_chat_golden.py
+</details>
 
-**이 파일의 정의 목록:** `StubLLM`, `StubLLM.__init__`, `StubLLM.answer`, `check`, `_question_of`, `test_golden`
+</details>
 
-### 클래스 StubLLM
+<details>
+<summary><h1>[파일] FastApi/backend/tests/test_chat_golden.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: `StubLLM`
+- 파일 수준 함수: `check`, `_question_of`, `test_golden`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] StubLLM</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_chat_golden.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_chat_golden.py:18`
 - **역할·로직:** 미리 넣은 응답을 호출 순서대로 반환하는 테스트용 어댑터입니다.
@@ -5217,7 +6542,18 @@ name = 'stub'
 - `FastApi/backend/tests/test_chat_golden.py:27` — `StubLLM.answer` / 참조·타입·콜백 등
 - `FastApi/backend/tests/test_chat_golden.py:28` — `StubLLM.answer` / 참조·타입·콜백 등
 - `FastApi/backend/tests/test_chat_golden.py:94` — `test_golden` / 직접 호출
-### 함수·메서드 StubLLM.__init__
+
+**이 클래스의 메서드**
+
+- 1.1 `StubLLM.__init__`
+- 1.2 `StubLLM.answer`
+
+<details>
+<summary><h2>1.1. [초기화 메서드] StubLLM.__init__</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_chat_golden.py`
+
+**소속 클래스:** `StubLLM`
 
 - **정의 파일:** `FastApi/backend/tests/test_chat_golden.py:22`
 - **역할·로직:** 응답 목록을 복사하고 호출 횟수를 0으로 초기화합니다.
@@ -5259,7 +6595,15 @@ def __init__(self, replies: list[str]) -> None:
 
 - `FastApi/backend/app/core/exceptions.py:7` — `AgentError.__init__` / 대상 확인 필요: super().__init__
 - `FastApi/backend/app/core/exceptions.py:59` — `AuthFailed.__int__` / 대상 확인 필요: super().__init__
-### 함수·메서드 StubLLM.answer
+
+</details>
+
+<details>
+<summary><h2>1.2. [인스턴스 메서드] StubLLM.answer</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_chat_golden.py`
+
+**소속 클래스:** `StubLLM`
 
 - **정의 파일:** `FastApi/backend/tests/test_chat_golden.py:26`
 - **역할·로직:** 현재 호출 순서의 응답을 선택하고 횟수를 증가시켜 LLMResult로 반환합니다. 목록을 소진하면 마지막 응답을 재사용합니다.
@@ -5316,7 +6660,15 @@ def answer(self, *, question: str, contexts: list[dict], user: dict) -> LLMResul
 
 - `FastApi/backend/app/agent/chain.py:59` — `build_result_chain.call_port` / 대상 확인 필요: llm.answer
 - `FastApi/backend/app/services/chat_service.py:112` — `ask` / 대상 확인 필요: llm.answer
-### 함수·메서드 check
+
+</details>
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] check</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_chat_golden.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_chat_golden.py:40`
 - **역할·로직:** 최종 응답의 포함·제외 문구, 출처 수·문서 ID, 시도 횟수와 플래그를 기대 조건과 비교해 문제 목록을 만듭니다.
@@ -5380,7 +6732,13 @@ def check(case: dict, out) -> list[str]:
 **호출·사용 위치**
 
 - `FastApi/backend/tests/test_chat_golden.py:100` — `test_golden` / 직접 호출
-### 함수·메서드 _question_of
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] _question_of</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_chat_golden.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_chat_golden.py:74`
 - **역할·로직:** 사례의 question을 repeat 횟수만큼 반복해 실제 테스트 질문을 만듭니다.
@@ -5414,7 +6772,13 @@ def _question_of(case: dict) -> str:
 
 - `FastApi/backend/tests/test_chat_golden.py:89` — `test_golden` / 직접 호출
 - `FastApi/backend/tests/test_chat_golden.py:97` — `test_golden` / 직접 호출
-### 함수·메서드 test_golden
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] test_golden</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_chat_golden.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_chat_golden.py:79`
 - **역할·로직:** 사례별로 가드 예외를 검사하거나 StubLLM을 주입해 서비스 결과가 기대 규칙을 만족하는지 검사합니다.
@@ -5470,7 +6834,16 @@ def test_golden(case: dict, monkeypatch) -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-### 익명 함수(lambda)
+**이 함수 안의 함수**
+
+- 4.1 `lambda 1`
+
+<details>
+<summary><h2>4.1. [익명 함수] lambda 1</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_chat_golden.py`
+
+**소속 함수:** `test_golden`
 
 - **파일:** `FastApi/backend/tests/test_chat_golden.py:95`
   - 매개변수: ``
@@ -5478,11 +6851,26 @@ def test_golden(case: dict, monkeypatch) -> None:
   - 로직: 표현식을 계산해 그대로 반환합니다.
   - 사용 위치: `FastApi/backend/tests/test_chat_golden.py`의 `test_golden`에서 `monkeypatch.setattr(factory, 'get_llm', lambda: stub)`에 전달됩니다.
 
-## FastApi/backend/tests/test_core_config.py
+</details>
 
-**이 파일의 정의 목록:** `test_get_settings_returns_same_instance`, `test_settings_has_defaults`
+</details>
 
-### 함수·메서드 test_get_settings_returns_same_instance
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/backend/tests/test_core_config.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `test_get_settings_returns_same_instance`, `test_settings_has_defaults`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] test_get_settings_returns_same_instance</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_core_config.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_core_config.py:3`
 - **역할·로직:** 설정 객체 캐시 재사용를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5513,7 +6901,13 @@ def test_get_settings_returns_same_instance() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_settings_has_defaults
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] test_settings_has_defaults</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_core_config.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_core_config.py:6`
 - **역할·로직:** 설정 기본값를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5547,11 +6941,24 @@ def test_settings_has_defaults() -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/tests/test_exceptions.py
+</details>
 
-**이 파일의 정의 목록:** `test_domain_exception_maps_to_status_and_code`, `test_every_domain_exception_is_agent_error`, `test_detail_is_optional_and_kept`
+</details>
 
-### 함수·메서드 test_domain_exception_maps_to_status_and_code
+<details>
+<summary><h1>[파일] FastApi/backend/tests/test_exceptions.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `test_domain_exception_maps_to_status_and_code`, `test_every_domain_exception_is_agent_error`, `test_detail_is_optional_and_kept`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] test_domain_exception_maps_to_status_and_code</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_exceptions.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_exceptions.py:22`
 - **역할·로직:** 예외별 상태 코드와 오류 코드를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5589,7 +6996,13 @@ def test_domain_exception_maps_to_status_and_code(exc_cls, status, code) -> None
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_every_domain_exception_is_agent_error
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] test_every_domain_exception_is_agent_error</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_exceptions.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_exceptions.py:28`
 - **역할·로직:** 프로젝트 예외들의 AgentError 상속를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5621,7 +7034,13 @@ def test_every_domain_exception_is_agent_error() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_detail_is_optional_and_kept
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] test_detail_is_optional_and_kept</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_exceptions.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_exceptions.py:33`
 - **역할·로직:** 예외의 선택적 detail과 message 저장를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5660,11 +7079,24 @@ def test_detail_is_optional_and_kept(travel_doc) -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/tests/test_guards.py
+</details>
 
-**이 파일의 정의 목록:** `test_check_question_passed_and_strips`, `test_check_question_rejects_blank`, `test_check_question_rejects_too_long`, `test_check_model_rejects_unknown_model`, `test_check_daily_limit_raises_when_exhausted`
+</details>
 
-### 함수·메서드 test_check_question_passed_and_strips
+<details>
+<summary><h1>[파일] FastApi/backend/tests/test_guards.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `test_check_question_passed_and_strips`, `test_check_question_rejects_blank`, `test_check_question_rejects_too_long`, `test_check_model_rejects_unknown_model`, `test_check_daily_limit_raises_when_exhausted`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] test_check_question_passed_and_strips</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_guards.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_guards.py:8`
 - **역할·로직:** 정상 질문 통과와 앞뒤 공백 제거를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5695,7 +7127,13 @@ def test_check_question_passed_and_strips() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_check_question_rejects_blank
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] test_check_question_rejects_blank</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_guards.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_guards.py:11`
 - **역할·로직:** 빈 질문 거절를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5727,7 +7165,13 @@ def test_check_question_rejects_blank() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_check_question_rejects_too_long
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] test_check_question_rejects_too_long</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_guards.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_guards.py:15`
 - **역할·로직:** 최대 길이 초과 거절를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5760,7 +7204,13 @@ def test_check_question_rejects_too_long() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_check_model_rejects_unknown_model
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] test_check_model_rejects_unknown_model</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_guards.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_guards.py:20`
 - **역할·로직:** 미허용 모델 거절과 설정 모델 통과를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5793,7 +7243,13 @@ def test_check_model_rejects_unknown_model() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_check_daily_limit_raises_when_exhausted
+
+</details>
+
+<details>
+<summary><h2>5. [독립 함수] test_check_daily_limit_raises_when_exhausted</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_guards.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_guards.py:25`
 - **역할·로직:** 한도 직전 통과와 한도 도달 거절를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5828,11 +7284,24 @@ def test_check_daily_limit_raises_when_exhausted() -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/tests/test_health.py
+</details>
 
-**이 파일의 정의 목록:** `test_health_returns_ok`, `test_documents_list_returns_rows`, `test_unknown_document_returns_404_with_code`
+</details>
 
-### 함수·메서드 test_health_returns_ok
+<details>
+<summary><h1>[파일] FastApi/backend/tests/test_health.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `test_health_returns_ok`, `test_documents_list_returns_rows`, `test_unknown_document_returns_404_with_code`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] test_health_returns_ok</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_health.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_health.py:2`
 - **역할·로직:** health API의 200과 status=ok를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5868,7 +7337,13 @@ def test_health_returns_ok(client) -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_documents_list_returns_rows
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] test_documents_list_returns_rows</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_health.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_health.py:9`
 - **역할·로직:** 문서 목록 응답과 secret_note 제외를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5907,7 +7382,13 @@ def test_documents_list_returns_rows(client) -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_unknown_document_returns_404_with_code
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] test_unknown_document_returns_404_with_code</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_health.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_health.py:19`
 - **역할·로직:** 없는 문서의 404와 오류 코드를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -5945,11 +7426,24 @@ def test_unknown_document_returns_404_with_code(client) -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/backend/tests/test_layers.py
+</details>
 
-**이 파일의 정의 목록:** `_top_level_imports`, `_py_files`, `_is`, `_violations`, `test_models_import_nothing_but_models`, `test_api_does_not_import_repositories_or_models`, `test_services_do_not_import_api`, `test_repositories_do_not_import_services_or_api`, `test_services_reach_integrations_only_through_factory`
+</details>
 
-### 함수·메서드 _top_level_imports
+<details>
+<summary><h1>[파일] FastApi/backend/tests/test_layers.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `_top_level_imports`, `_py_files`, `_is`, `_violations`, `test_models_import_nothing_but_models`, `test_api_does_not_import_repositories_or_models`, `test_services_do_not_import_api`, `test_repositories_do_not_import_services_or_api`, `test_services_reach_integrations_only_through_factory`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] _top_level_imports</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_layers.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_layers.py:16`
 - **역할·로직:** 파이썬 파일을 AST로 읽어 모듈 최상단의 import 이름만 모읍니다.
@@ -5991,7 +7485,13 @@ def _top_level_imports(path: Path) -> list[str]:
 **호출·사용 위치**
 
 - `FastApi/backend/tests/test_layers.py:51` — `_violations` / 직접 호출
-### 함수·메서드 _py_files
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] _py_files</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_layers.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_layers.py:30`
 - **역할·로직:** 지정 계층 폴더 아래의 파이썬 파일 경로를 정렬해 반환합니다.
@@ -6029,7 +7529,13 @@ def _py_files(layer: str) -> list[Path]:
 **호출·사용 위치**
 
 - `FastApi/backend/tests/test_layers.py:50` — `_violations` / 직접 호출
-### 함수·메서드 _is
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] _is</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_layers.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_layers.py:39`
 - **역할·로직:** 모듈 이름이 지정 패키지 또는 그 하위 모듈인지 판단합니다.
@@ -6065,7 +7571,13 @@ def _is(name: str, prefix: str) -> bool:
 - `FastApi/backend/tests/test_layers.py:52` — `_violations` / 직접 호출
 - `FastApi/backend/tests/test_layers.py:54` — `_violations` / 직접 호출
 - `FastApi/backend/tests/test_layers.py:56` — `_violations` / 직접 호출
-### 함수·메서드 _violations
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] _violations</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_layers.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_layers.py:44`
 - **역할·로직:** 계층 파일의 import 중 허용 예외를 제외하고 금지된 참조 목록을 수집합니다.
@@ -6117,7 +7629,13 @@ def _violations(
 - `FastApi/backend/tests/test_layers.py:82` — `test_services_do_not_import_api` / 직접 호출
 - `FastApi/backend/tests/test_layers.py:91` — `test_repositories_do_not_import_services_or_api` / 직접 호출
 - `FastApi/backend/tests/test_layers.py:100` — `test_services_reach_integrations_only_through_factory` / 직접 호출
-### 함수·메서드 test_models_import_nothing_but_models
+
+</details>
+
+<details>
+<summary><h2>5. [독립 함수] test_models_import_nothing_but_models</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_layers.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_layers.py:62`
 - **역할·로직:** 모델 계층의 역방향 import 금지를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -6153,7 +7671,13 @@ def test_models_import_nothing_but_models() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_api_does_not_import_repositories_or_models
+
+</details>
+
+<details>
+<summary><h2>6. [독립 함수] test_api_does_not_import_repositories_or_models</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_layers.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_layers.py:72`
 - **역할·로직:** API의 repository/model 직접 import 금지를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -6188,7 +7712,13 @@ def test_api_does_not_import_repositories_or_models() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_services_do_not_import_api
+
+</details>
+
+<details>
+<summary><h2>7. [독립 함수] test_services_do_not_import_api</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_layers.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_layers.py:81`
 - **역할·로직:** 서비스의 API import 금지를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -6223,7 +7753,13 @@ def test_services_do_not_import_api() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_repositories_do_not_import_services_or_api
+
+</details>
+
+<details>
+<summary><h2>8. [독립 함수] test_repositories_do_not_import_services_or_api</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_layers.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_layers.py:90`
 - **역할·로직:** 리포지토리의 서비스/API import 금지를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -6258,7 +7794,13 @@ def test_repositories_do_not_import_services_or_api() -> None:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 test_services_reach_integrations_only_through_factory
+
+</details>
+
+<details>
+<summary><h2>9. [독립 함수] test_services_reach_integrations_only_through_factory</h2></summary>
+
+**소속 파일:** `FastApi/backend/tests/test_layers.py`
 
 - **정의 파일:** `FastApi/backend/tests/test_layers.py:99`
 - **역할·로직:** 서비스 최상단 import가 integrations의 factory만 참조하는지를 assert 또는 pytest.raises로 검사합니다. 실패하면 테스트 오류입니다.
@@ -6298,11 +7840,44 @@ def test_services_reach_integrations_only_through_factory() -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/frontend/app.py
+</details>
 
-**이 파일의 정의 목록:** `render_sidebar`, `main`
+</details>
 
-### 함수·메서드 render_sidebar
+<details>
+<summary><h1>[폴더] FastApi/backend/tests/golden</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/backend/tests/golden/chat_golden.json</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** FastApi/backend/tests/test_chat_golden.py의 모듈 실행부가 읽고 test_golden의 매개변수 사례로 사용합니다.
+
+</details>
+
+</details>
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/frontend</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/frontend/app.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `render_sidebar`, `main`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] render_sidebar</h2></summary>
+
+**소속 파일:** `FastApi/frontend/app.py`
 
 - **정의 파일:** `FastApi/frontend/app.py:33`
 - **역할·로직:** 로그인 사용자 정보, 로그아웃 버튼, 메뉴를 사이드바에 그립니다.
@@ -6358,7 +7933,13 @@ def render_sidebar() -> None:
 **호출·사용 위치**
 
 - `FastApi/frontend/app.py:76` — `main` / 직접 호출
-### 함수·메서드 main
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] main</h2></summary>
+
+**소속 파일:** `FastApi/frontend/app.py`
 
 - **정의 파일:** `FastApi/frontend/app.py:66`
 - **역할·로직:** 세션을 초기화하고 로그인 여부에 따라 로그인 화면 또는 사이드바·문서 화면을 그립니다.
@@ -6403,18 +7984,87 @@ def main() -> None:
 
 - `FastApi/frontend/app.py:87` — `모듈 실행부` / 직접 호출
 
-## FastApi/frontend/core/__init__.py
+</details>
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/frontend/ui_kit_demo.py</h1></summary>
+
+직접 정의한 함수·클래스: **없음**.
+
+Streamlit 실행 시 모듈 실행부에서 공통 UI 함수를 호출해 예시 화면을 그립니다. 각 UI 함수의 사용 위치에 이 파일이 표시됩니다.
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/frontend/.streamlit</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/frontend/.streamlit/config.toml</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** Streamlit이 프런트엔드 실행 시 읽는 설정입니다.
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/frontend/assets</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/frontend/assets/base.css</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** FastApi/frontend/ui/theme.py의 load_css가 읽고 inject_css가 화면에 적용합니다. CSS 선택자·스타일 선언이며 Python 클래스는 아닙니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/frontend/assets/components.css</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** FastApi/frontend/ui/theme.py의 load_css가 읽고 inject_css가 화면에 적용합니다. CSS 선택자·스타일 선언이며 Python 클래스는 아닙니다.
+
+</details>
+
+<details>
+<summary><h1>[파일] FastApi/frontend/assets/tokens.css</h1></summary>
+
+- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
+- **사용 위치:** FastApi/frontend/ui/theme.py의 load_css가 읽고 inject_css가 화면에 적용합니다. CSS 선택자·스타일 선언이며 Python 클래스는 아닙니다.
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/frontend/core</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/frontend/core/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/frontend/core/api_client.py
+<details>
+<summary><h1>[파일] FastApi/frontend/core/api_client.py</h1></summary>
 
-**이 파일의 정의 목록:** `ApiError`, `_request`, `login`, `me`, `list_documents`, `get_document`, `stats`
+**파일 구성**
 
-### 클래스 ApiError
+- 클래스: `ApiError`
+- 파일 수준 함수: `_request`, `login`, `me`, `list_documents`, `get_document`, `stats`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [클래스] ApiError</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/api_client.py`
 
 - **정의 파일:** `FastApi/frontend/core/api_client.py:12`
 - **역할·로직:** 프런트엔드에서 백엔드 통신 오류를 표현하는 예외입니다.
@@ -6431,7 +8081,15 @@ def main() -> None:
 - `FastApi/frontend/views/documents.py:33` — `_metrics_row` / 참조·타입·콜백 등
 - `FastApi/frontend/views/documents.py:103` — `render` / 참조·타입·콜백 등
 - `FastApi/frontend/views/login.py:28` — `render` / 참조·타입·콜백 등
-### 함수·메서드 _request
+
+**직접 정의한 메서드:** 없음. 생성·상속 규칙은 위 설명을 참고하세요.
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] _request</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/api_client.py`
 
 - **정의 파일:** `FastApi/frontend/core/api_client.py:16`
 - **역할·로직:** HTTP URL·헤더·파라미터를 구성해 요청하고, 연결·시간초과·HTTP 오류를 ApiError로 바꾸며 JSON 응답을 반환합니다.
@@ -6510,7 +8168,13 @@ def _request(
 - `FastApi/frontend/core/api_client.py:64` — `me` / 직접 호출
 - `FastApi/frontend/core/api_client.py:83` — `list_documents` / 직접 호출
 - `FastApi/frontend/core/api_client.py:87` — `get_document` / 직접 호출
-### 함수·메서드 login
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] login</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/api_client.py`
 
 - **정의 파일:** `FastApi/frontend/core/api_client.py:59`
 - **역할·로직:** 로그인 API에 사번과 비밀번호를 POST로 전송합니다.
@@ -6544,7 +8208,13 @@ def login(emp_no: str, password: str) -> dict:
 **호출·사용 위치**
 
 - `FastApi/frontend/views/login.py:24` — `render` / 직접 호출
-### 함수·메서드 me
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] me</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/api_client.py`
 
 - **정의 파일:** `FastApi/frontend/core/api_client.py:63`
 - **역할·로직:** 사번을 헤더에 넣어 현재 사용자 조회 API를 호출합니다.
@@ -6577,7 +8247,13 @@ def me(emp_no: str) -> dict:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 list_documents
+
+</details>
+
+<details>
+<summary><h2>5. [독립 함수] list_documents</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/api_client.py`
 
 - **정의 파일:** `FastApi/frontend/core/api_client.py:67`
 - **역할·로직:** HTTP API를 호출해 문서 목록을 필터 조건으로 조회합니다.
@@ -6631,7 +8307,13 @@ def list_documents(
 
 - `FastApi/frontend/core/api_client.py:91` — `stats` / 직접 호출
 - `FastApi/frontend/views/documents.py:101` — `render` / 직접 호출
-### 함수·메서드 get_document
+
+</details>
+
+<details>
+<summary><h2>6. [독립 함수] get_document</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/api_client.py`
 
 - **정의 파일:** `FastApi/frontend/core/api_client.py:86`
 - **역할·로직:** HTTP API를 호출해 문서 한 건을 조회합니다.
@@ -6665,7 +8347,13 @@ def get_document(doc_id: str, *, emp_no: str | None = None) -> dict:
 **호출·사용 위치**
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
-### 함수·메서드 stats
+
+</details>
+
+<details>
+<summary><h2>7. [독립 함수] stats</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/api_client.py`
 
 - **정의 파일:** `FastApi/frontend/core/api_client.py:90`
 - **역할·로직:** 문서 목록을 가져와 전체·현행·만료·재임베딩 개수를 집계합니다.
@@ -6705,11 +8393,24 @@ def stats(*, emp_no: str | None = None) -> dict:
 
 - `FastApi/frontend/views/documents.py:32` — `_metrics_row` / 직접 호출
 
-## FastApi/frontend/core/router.py
+</details>
 
-**이 파일의 정의 목록:** `current_page`, `go`
+</details>
 
-### 함수·메서드 current_page
+<details>
+<summary><h1>[파일] FastApi/frontend/core/router.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `current_page`, `go`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] current_page</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/router.py`
 
 - **정의 파일:** `FastApi/frontend/core/router.py:7`
 - **역할·로직:** 세션에 저장된 현재 화면 이름을 읽습니다.
@@ -6740,7 +8441,13 @@ def current_page() -> str:
 **호출·사용 위치**
 
 - `FastApi/frontend/app.py:79` — `main` / 직접 호출
-### 함수·메서드 go
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] go</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/router.py`
 
 - **정의 파일:** `FastApi/frontend/core/router.py:11`
 - **역할·로직:** 세션의 화면 이름을 바꾸고 화면을 다시 실행하도록 요청합니다.
@@ -6770,11 +8477,24 @@ def go(page: str) -> None:
 
 - 범위 안에서 이름이 해석되는 직접 호출·참조를 찾지 못했습니다. 위 자동 호출 설명과 아래 후보를 함께 확인하세요.
 
-## FastApi/frontend/core/session.py
+</details>
 
-**이 파일의 정의 목록:** `init_state`, `current_user`, `is_authenticated`, `login`, `logout`, `emp_no`
+</details>
 
-### 함수·메서드 init_state
+<details>
+<summary><h1>[파일] FastApi/frontend/core/session.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `init_state`, `current_user`, `is_authenticated`, `login`, `logout`, `emp_no`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] init_state</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/session.py`
 
 - **정의 파일:** `FastApi/frontend/core/session.py:16`
 - **역할·로직:** 세션에 없는 상태 키에 초기값을 채웁니다.
@@ -6803,7 +8523,13 @@ def init_state() -> None:
 **호출·사용 위치**
 
 - `FastApi/frontend/app.py:68` — `main` / 직접 호출
-### 함수·메서드 current_user
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] current_user</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/session.py`
 
 - **정의 파일:** `FastApi/frontend/core/session.py:22`
 - **역할·로직:** 세션의 사용자 dict 또는 None을 가져옵니다.
@@ -6836,7 +8562,13 @@ def current_user() -> dict | None:
 - `FastApi/frontend/app.py:40` — `render_sidebar` / 직접 호출
 - `FastApi/frontend/core/session.py:27` — `is_authenticated` / 직접 호출
 - `FastApi/frontend/core/session.py:43` — `emp_no` / 직접 호출
-### 함수·메서드 is_authenticated
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] is_authenticated</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/session.py`
 
 - **정의 파일:** `FastApi/frontend/core/session.py:26`
 - **역할·로직:** 현재 사용자 정보가 있는지 확인합니다.
@@ -6867,7 +8599,13 @@ def is_authenticated() -> bool:
 **호출·사용 위치**
 
 - `FastApi/frontend/app.py:71` — `main` / 직접 호출
-### 함수·메서드 login
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] login</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/session.py`
 
 - **정의 파일:** `FastApi/frontend/core/session.py:30`
 - **역할·로직:** 사용자 dict를 세션에 저장하고 문서 화면으로 전환할 상태를 지정합니다.
@@ -6897,7 +8635,13 @@ def login(user: dict) -> None:
 **호출·사용 위치**
 
 - `FastApi/frontend/views/login.py:32` — `render` / 직접 호출
-### 함수·메서드 logout
+
+</details>
+
+<details>
+<summary><h2>5. [독립 함수] logout</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/session.py`
 
 - **정의 파일:** `FastApi/frontend/core/session.py:35`
 - **역할·로직:** 로그인 사용자와 문서 필터를 초기화하고 로그인 화면 상태로 바꿉니다.
@@ -6927,7 +8671,13 @@ def logout() -> None:
 **호출·사용 위치**
 
 - `FastApi/frontend/app.py:53` — `render_sidebar` / 직접 호출
-### 함수·메서드 emp_no
+
+</details>
+
+<details>
+<summary><h2>6. [독립 함수] emp_no</h2></summary>
+
+**소속 파일:** `FastApi/frontend/core/session.py`
 
 - **정의 파일:** `FastApi/frontend/core/session.py:42`
 - **역할·로직:** 현재 사용자의 사번을 반환합니다. 비로그인이면 None입니다.
@@ -6961,18 +8711,38 @@ def emp_no() -> str | None:
 - `FastApi/frontend/views/documents.py:32` — `_metrics_row` / 직접 호출
 - `FastApi/frontend/views/documents.py:102` — `render` / 직접 호출
 
-## FastApi/frontend/ui/__init__.py
+</details>
+
+</details>
+
+</details>
+
+<details>
+<summary><h1>[폴더] FastApi/frontend/ui</h1></summary>
+
+<details>
+<summary><h1>[파일] FastApi/frontend/ui/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/frontend/ui/badge.py
+<details>
+<summary><h1>[파일] FastApi/frontend/ui/badge.py</h1></summary>
 
-**이 파일의 정의 목록:** `tone_for`, `badge_html`, `badge`, `badges`
+**파일 구성**
 
-### 함수·메서드 tone_for
+- 클래스: 없음
+- 파일 수준 함수: `tone_for`, `badge_html`, `badge`, `badges`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] tone_for</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/badge.py`
 
 - **정의 파일:** `FastApi/frontend/ui/badge.py:18`
 - **역할·로직:** 상태 문구의 접두어에 맞는 배지 색상 이름을 찾습니다. 없으면 neutral입니다.
@@ -7010,7 +8780,13 @@ def tone_for(text: str) -> str:
 
 - `FastApi/frontend/ui/__init__.py:9` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui/badge.py:27` — `badge_html` / 직접 호출
-### 함수·메서드 badge_html
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] badge_html</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/badge.py`
 
 - **정의 파일:** `FastApi/frontend/ui/badge.py:25`
 - **역할·로직:** 문구를 HTML 이스케이프하고 배지 HTML 문자열을 만듭니다.
@@ -7065,7 +8841,13 @@ def badge_html(text: str, tone: str | None = None) -> str:
 - `FastApi/frontend/views/documents.py:8` — `모듈 import` / import/재공개
 - `FastApi/frontend/views/documents.py:78` — `_table` / 직접 호출
 - `FastApi/frontend/views/documents.py:81` — `_table` / 직접 호출
-### 함수·메서드 badge
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] badge</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/badge.py`
 
 - **정의 파일:** `FastApi/frontend/ui/badge.py:33`
 - **역할·로직:** 배지 하나를 Streamlit 화면에 출력합니다.
@@ -7095,7 +8877,13 @@ def badge(text: str, tone: str | None = None) -> None:
 **호출·사용 위치**
 
 - `FastApi/frontend/ui/__init__.py:9` — `모듈 import` / import/재공개
-### 함수·메서드 badges
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] badges</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/badge.py`
 
 - **정의 파일:** `FastApi/frontend/ui/badge.py:37`
 - **역할·로직:** 여러 배지를 HTML로 이어 붙여 화면에 출력합니다.
@@ -7125,11 +8913,24 @@ def badges(items: list[tuple[str, str | None]]) -> None:
 
 - `FastApi/frontend/ui/__init__.py:9` — `모듈 import` / import/재공개
 
-## FastApi/frontend/ui/card.py
+</details>
 
-**이 파일의 정의 목록:** `inline_md`, `card_html`, `card`, `bordered`, `note`, `message_block`, `log_block`, `meta_footer`, `page_header`
+</details>
 
-### 함수·메서드 inline_md
+<details>
+<summary><h1>[파일] FastApi/frontend/ui/card.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `inline_md`, `card_html`, `card`, `bordered`, `note`, `message_block`, `log_block`, `meta_footer`, `page_header`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] inline_md</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/card.py`
 
 - **정의 파일:** `FastApi/frontend/ui/card.py:12`
 - **역할·로직:** 텍스트를 이스케이프한 뒤 굵게 표시와 줄바꿈만 HTML로 변환합니다.
@@ -7171,7 +8972,13 @@ def inline_md(text: str) -> str:
 
 - `FastApi/frontend/ui/__init__.py:10` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui/card.py:56` — `note` / 직접 호출
-### 함수·메서드 card_html
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] card_html</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/card.py`
 
 - **정의 파일:** `FastApi/frontend/ui/card.py:24`
 - **역할·로직:** 라벨·제목·본문을 합쳐 카드 HTML 문자열을 만듭니다.
@@ -7214,7 +9021,13 @@ def card_html(body: str, *, label: str | None = None, title: str | None = None) 
 
 - `FastApi/frontend/ui/__init__.py:10` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui/card.py:36` — `card` / 직접 호출
-### 함수·메서드 card
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] card</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/card.py`
 
 - **정의 파일:** `FastApi/frontend/ui/card.py:35`
 - **역할·로직:** 카드 HTML을 Streamlit 화면에 표시합니다.
@@ -7247,7 +9060,13 @@ def card(body: str, *, label: str | None = None, title: str | None = None) -> No
 - `FastApi/frontend/ui/__init__.py:10` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:125` — `모듈 실행부` / 직접 호출
-### 함수·메서드 bordered
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] bordered</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/card.py`
 
 - **정의 파일:** `FastApi/frontend/ui/card.py:40`
 - **역할·로직:** 테두리 있는 Streamlit 컨테이너를 만들고 with 블록에 제공합니다.
@@ -7285,7 +9104,13 @@ def bordered(label: str | None = None):
 **호출·사용 위치**
 
 - `FastApi/frontend/ui/__init__.py:10` — `모듈 import` / import/재공개
-### 함수·메서드 note
+
+</details>
+
+<details>
+<summary><h2>5. [독립 함수] note</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/card.py`
 
 - **정의 파일:** `FastApi/frontend/ui/card.py:50`
 - **역할·로직:** 지정한 색상과 선택적 간단한 마크다운 처리를 적용한 안내 블록을 표시합니다.
@@ -7324,7 +9149,13 @@ def note(text: str, tone: str = "", *, markdown: bool = False) -> None:
 - `FastApi/frontend/ui/__init__.py:10` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:113` — `모듈 실행부` / 직접 호출
-### 함수·메서드 message_block
+
+</details>
+
+<details>
+<summary><h2>6. [독립 함수] message_block</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/card.py`
 
 - **정의 파일:** `FastApi/frontend/ui/card.py:60`
 - **역할·로직:** 문구를 이스케이프해 메시지 영역에 표시합니다.
@@ -7356,7 +9187,13 @@ def message_block(text: str) -> None:
 - `FastApi/frontend/ui/__init__.py:10` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:134` — `모듈 실행부` / 직접 호출
-### 함수·메서드 log_block
+
+</details>
+
+<details>
+<summary><h2>7. [독립 함수] log_block</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/card.py`
 
 - **정의 파일:** `FastApi/frontend/ui/card.py:65`
 - **역할·로직:** 로그 문자열들을 줄바꿈으로 합쳐 고정폭 표시 영역에 출력합니다.
@@ -7389,7 +9226,13 @@ def log_block(lines: list[str]) -> None:
 - `FastApi/frontend/ui/__init__.py:10` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:165` — `모듈 실행부` / 직접 호출
-### 함수·메서드 meta_footer
+
+</details>
+
+<details>
+<summary><h2>8. [독립 함수] meta_footer</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/card.py`
 
 - **정의 파일:** `FastApi/frontend/ui/card.py:71`
 - **역할·로직:** 응답 하단에 시간·토큰·비용 등의 메타정보 문자열을 표시합니다.
@@ -7421,7 +9264,13 @@ def meta_footer(text: str) -> None:
 - `FastApi/frontend/ui/__init__.py:10` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:171` — `모듈 실행부` / 직접 호출
-### 함수·메서드 page_header
+
+</details>
+
+<details>
+<summary><h2>9. [독립 함수] page_header</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/card.py`
 
 - **정의 파일:** `FastApi/frontend/ui/card.py:76`
 - **역할·로직:** 경로 표시·제목·배지·부제목을 페이지 상단에 표시합니다.
@@ -7471,11 +9320,24 @@ def page_header(
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:47` — `모듈 실행부` / 직접 호출
 
-## FastApi/frontend/ui/chart.py
+</details>
 
-**이 파일의 정의 목록:** `bars`, `line`, `line.x_at`, `line.y_at`, `timeline`
+</details>
 
-### 함수·메서드 bars
+<details>
+<summary><h1>[파일] FastApi/frontend/ui/chart.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `bars`, `line`, `timeline`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] bars</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/chart.py`
 
 - **정의 파일:** `FastApi/frontend/ui/chart.py:13`
 - **역할·로직:** 값과 축의 비율에 맞춰 가로 막대그래프 HTML을 만들어 표시합니다.
@@ -7558,7 +9420,13 @@ def bars(
 - `FastApi/frontend/ui/__init__.py:21` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:150` — `모듈 실행부` / 직접 호출
-### 함수·메서드 line
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] line</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/chart.py`
 
 - **정의 파일:** `FastApi/frontend/ui/chart.py:65`
 - **역할·로직:** 값을 SVG 좌표로 바꿔 선·면·축·마지막 점을 표시합니다. 값 목록이 비어 있으면 바로 종료합니다.
@@ -7658,7 +9526,18 @@ def line(
 - `FastApi/frontend/ui/__init__.py:21` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:156` — `모듈 실행부` / 직접 호출
-### 함수·메서드 line.x_at
+
+**이 함수 안의 함수**
+
+- 2.1 `line.x_at`
+- 2.2 `line.y_at`
+
+<details>
+<summary><h2>2.1. [중첩 함수] line.x_at</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/chart.py`
+
+**소속 함수:** `line`
 
 - **정의 파일:** `FastApi/frontend/ui/chart.py:82`
 - **역할·로직:** 선 그래프에서 데이터 인덱스를 가로 좌표로 변환합니다.
@@ -7692,7 +9571,15 @@ def x_at(i: int) -> float:
 
 - `FastApi/frontend/ui/chart.py:88` — `line` / 직접 호출
 - `FastApi/frontend/ui/chart.py:109` — `line` / 직접 호출
-### 함수·메서드 line.y_at
+
+</details>
+
+<details>
+<summary><h2>2.2. [중첩 함수] line.y_at</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/chart.py`
+
+**소속 함수:** `line`
 
 - **정의 파일:** `FastApi/frontend/ui/chart.py:85`
 - **역할·로직:** 선 그래프에서 값을 세로 좌표로 변환합니다.
@@ -7726,7 +9613,15 @@ def y_at(v: float) -> float:
 
 - `FastApi/frontend/ui/chart.py:88` — `line` / 직접 호출
 - `FastApi/frontend/ui/chart.py:94` — `line` / 직접 호출
-### 함수·메서드 timeline
+
+</details>
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] timeline</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/chart.py`
 
 - **정의 파일:** `FastApi/frontend/ui/chart.py:134`
 - **역할·로직:** HTML 항목 목록을 버전 타임라인으로 표시하며 첫 항목을 강조합니다.
@@ -7762,11 +9657,24 @@ def timeline(items: list[str]) -> None:
 
 - `FastApi/frontend/ui/__init__.py:21` — `모듈 import` / import/재공개
 
-## FastApi/frontend/ui/metric.py
+</details>
 
-**이 파일의 정의 목록:** `metrics`
+</details>
 
-### 함수·메서드 metrics
+<details>
+<summary><h1>[파일] FastApi/frontend/ui/metric.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `metrics`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] metrics</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/metric.py`
 
 - **정의 파일:** `FastApi/frontend/ui/metric.py:9`
 - **역할·로직:** 라벨·값·변화량·색상이 담긴 dict 목록을 지표 타일로 표시합니다.
@@ -7822,11 +9730,24 @@ def metrics(items: list[dict]) -> None:
 - `FastApi/frontend/views/documents.py:9` — `모듈 import` / import/재공개
 - `FastApi/frontend/views/documents.py:37` — `_metrics_row` / 직접 호출
 
-## FastApi/frontend/ui/source.py
+</details>
 
-**이 파일의 정의 목록:** `source_html`, `sources`
+</details>
 
-### 함수·메서드 source_html
+<details>
+<summary><h1>[파일] FastApi/frontend/ui/source.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `source_html`, `sources`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] source_html</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/source.py`
 
 - **정의 파일:** `FastApi/frontend/ui/source.py:11`
 - **역할·로직:** 문서 제목·버전·위치·유사도·인용문을 출처 표시용 HTML로 만듭니다.
@@ -7891,7 +9812,13 @@ def source_html(
 
 - `FastApi/frontend/ui/__init__.py:23` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui/source.py:43` — `sources` / 직접 호출
-### 함수·메서드 sources
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] sources</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/source.py`
 
 - **정의 파일:** `FastApi/frontend/ui/source.py:40`
 - **역할·로직:** 출처 목록을 source_html로 변환해 화면에 표시합니다.
@@ -7929,11 +9856,24 @@ def sources(items: list[dict], *, weak: bool = False) -> None:
 - `FastApi/frontend/ui_kit_demo.py:100` — `모듈 실행부` / 직접 호출
 - `FastApi/frontend/ui_kit_demo.py:116` — `모듈 실행부` / 직접 호출
 
-## FastApi/frontend/ui/status.py
+</details>
 
-**이 파일의 정의 목록:** `steps_html`, `steps`, `progress`
+</details>
 
-### 함수·메서드 steps_html
+<details>
+<summary><h1>[파일] FastApi/frontend/ui/status.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `steps_html`, `steps`, `progress`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] steps_html</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/status.py`
 
 - **정의 파일:** `FastApi/frontend/ui/status.py:11`
 - **역할·로직:** 처리 단계의 이름·상태·시간을 표시하는 HTML을 만듭니다.
@@ -7980,7 +9920,13 @@ def steps_html(items: list[dict]) -> str:
 
 - `FastApi/frontend/ui/__init__.py:24` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui/status.py:29` — `steps` / 직접 호출
-### 함수·메서드 steps
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] steps</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/status.py`
 
 - **정의 파일:** `FastApi/frontend/ui/status.py:28`
 - **역할·로직:** 단계 목록을 화면에 표시합니다.
@@ -8011,7 +9957,13 @@ def steps(items: list[dict]) -> None:
 - `FastApi/frontend/ui/__init__.py:24` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:140` — `모듈 실행부` / 직접 호출
-### 함수·메서드 progress
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] progress</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/status.py`
 
 - **정의 파일:** `FastApi/frontend/ui/status.py:32`
 - **역할·로직:** 진행률을 0~100으로 제한하고 진행 막대와 숫자를 표시합니다.
@@ -8048,11 +10000,24 @@ def progress(pct: int) -> None:
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:147` — `모듈 실행부` / 직접 호출
 
-## FastApi/frontend/ui/table.py
+</details>
 
-**이 파일의 정의 목록:** `_cell`, `table_html`, `table`, `kv_html`, `kv`
+</details>
 
-### 함수·메서드 _cell
+<details>
+<summary><h1>[파일] FastApi/frontend/ui/table.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `_cell`, `table_html`, `table`, `kv_html`, `kv`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] _cell</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/table.py`
 
 - **정의 파일:** `FastApi/frontend/ui/table.py:12`
 - **역할·로직:** 표의 셀 값을 문자열로 바꾸며 옵션에 따라 HTML을 이스케이프합니다. None이면 빈 문자열입니다.
@@ -8089,7 +10054,13 @@ def _cell(value: Cell, *, raw: bool) -> str:
 **호출·사용 위치**
 
 - `FastApi/frontend/ui/table.py:47` — `table_html` / 직접 호출
-### 함수·메서드 table_html
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] table_html</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/table.py`
 
 - **정의 파일:** `FastApi/frontend/ui/table.py:18`
 - **역할·로직:** 헤더·행·정렬·행 스타일을 조합해 표 HTML을 만듭니다.
@@ -8158,7 +10129,13 @@ def table_html(
 
 - `FastApi/frontend/ui/__init__.py:25` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui/table.py:54` — `table` / 직접 호출
-### 함수·메서드 table
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] table</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/table.py`
 
 - **정의 파일:** `FastApi/frontend/ui/table.py:53`
 - **역할·로직:** 표 HTML을 화면에 출력합니다.
@@ -8194,7 +10171,13 @@ def table(headers, rows, **kwargs) -> None:
 - `FastApi/frontend/ui_kit_demo.py:86` — `모듈 실행부` / 직접 호출
 - `FastApi/frontend/views/documents.py:10` — `모듈 import` / import/재공개
 - `FastApi/frontend/views/documents.py:84` — `_table` / 직접 호출
-### 함수·메서드 kv_html
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] kv_html</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/table.py`
 
 - **정의 파일:** `FastApi/frontend/ui/table.py:57`
 - **역할·로직:** 키·값 쌍을 2열 표 HTML로 만듭니다.
@@ -8240,7 +10223,13 @@ def kv_html(pairs: Iterable[tuple[str, Cell]], *, raw_html: bool = True) -> str:
 - `FastApi/frontend/ui/table.py:71` — `kv` / 직접 호출
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:126` — `모듈 실행부` / 직접 호출
-### 함수·메서드 kv
+
+</details>
+
+<details>
+<summary><h2>5. [독립 함수] kv</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/table.py`
 
 - **정의 파일:** `FastApi/frontend/ui/table.py:70`
 - **역할·로직:** 키·값 표를 화면에 출력합니다.
@@ -8272,11 +10261,24 @@ def kv(pairs, **kwargs) -> None:
 - `FastApi/frontend/ui/__init__.py:25` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:7` — `모듈 import` / import/재공개
 
-## FastApi/frontend/ui/theme.py
+</details>
 
-**이 파일의 정의 목록:** `load_css`, `inject_css`
+</details>
 
-### 함수·메서드 load_css
+<details>
+<summary><h1>[파일] FastApi/frontend/ui/theme.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `load_css`, `inject_css`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] load_css</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/theme.py`
 
 - **정의 파일:** `FastApi/frontend/ui/theme.py:21`
 - **역할·로직:** 세 CSS 파일을 순서대로 읽어 합칩니다. 결과를 캐시하며 없는 파일은 안내 주석으로 처리합니다.
@@ -8315,7 +10317,13 @@ def load_css() -> str:
 **호출·사용 위치**
 
 - `FastApi/frontend/ui/theme.py:34` — `inject_css` / 직접 호출
-### 함수·메서드 inject_css
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] inject_css</h2></summary>
+
+**소속 파일:** `FastApi/frontend/ui/theme.py`
 
 - **정의 파일:** `FastApi/frontend/ui/theme.py:32`
 - **역할·로직:** CSS를 style 태그로 감싸 Streamlit에 적용합니다.
@@ -8348,25 +10356,38 @@ def inject_css() -> None:
 - `FastApi/frontend/ui_kit_demo.py:25` — `모듈 import` / import/재공개
 - `FastApi/frontend/ui_kit_demo.py:28` — `모듈 실행부` / 직접 호출
 
-## FastApi/frontend/ui_kit_demo.py
+</details>
 
-직접 정의한 함수·클래스: **없음**.
+</details>
 
-Streamlit 실행 시 모듈 실행부에서 공통 UI 함수를 호출해 예시 화면을 그립니다. 각 UI 함수의 사용 위치에 이 파일이 표시됩니다.
+</details>
 
+<details>
+<summary><h1>[폴더] FastApi/frontend/views</h1></summary>
 
-## FastApi/frontend/views/__init__.py
+<details>
+<summary><h1>[파일] FastApi/frontend/views/__init__.py</h1></summary>
 
 직접 정의한 함수·클래스: **없음**.
 
 패키지 입구 또는 다른 모듈의 이름을 재공개하는 파일입니다.
 
+</details>
 
-## FastApi/frontend/views/documents.py
+<details>
+<summary><h1>[파일] FastApi/frontend/views/documents.py</h1></summary>
 
-**이 파일의 정의 목록:** `_metrics_row`, `_filter_row`, `_table`, `render`
+**파일 구성**
 
-### 함수·메서드 _metrics_row
+- 클래스: 없음
+- 파일 수준 함수: `_metrics_row`, `_filter_row`, `_table`, `render`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] _metrics_row</h2></summary>
+
+**소속 파일:** `FastApi/frontend/views/documents.py`
 
 - **정의 파일:** `FastApi/frontend/views/documents.py:30`
 - **역할·로직:** 문서 집계를 요청해 지표를 그립니다. 실패하면 안내 문구를 표시합니다.
@@ -8407,7 +10428,13 @@ def _metrics_row() -> None:
 **호출·사용 위치**
 
 - `FastApi/frontend/views/documents.py:92` — `render` / 직접 호출
-### 함수·메서드 _filter_row
+
+</details>
+
+<details>
+<summary><h2>2. [독립 함수] _filter_row</h2></summary>
+
+**소속 파일:** `FastApi/frontend/views/documents.py`
 
 - **정의 파일:** `FastApi/frontend/views/documents.py:48`
 - **역할·로직:** 부서·보안등급·상태·검색어 입력을 그리고 API 전달용 필터 dict를 반환합니다.
@@ -8454,7 +10481,13 @@ def _filter_row() -> dict:
 **호출·사용 위치**
 
 - `FastApi/frontend/views/documents.py:94` — `render` / 직접 호출
-### 함수·메서드 _table
+
+</details>
+
+<details>
+<summary><h2>3. [독립 함수] _table</h2></summary>
+
+**소속 파일:** `FastApi/frontend/views/documents.py`
 
 - **정의 파일:** `FastApi/frontend/views/documents.py:68`
 - **역할·로직:** 문서 dict 목록을 표 행과 배지로 변환해 화면에 표시합니다.
@@ -8498,7 +10531,13 @@ def _table(documents: list[dict]) -> None:
 **호출·사용 위치**
 
 - `FastApi/frontend/views/documents.py:112` — `render` / 직접 호출
-### 함수·메서드 render
+
+</details>
+
+<details>
+<summary><h2>4. [독립 함수] render</h2></summary>
+
+**소속 파일:** `FastApi/frontend/views/documents.py`
 
 - **정의 파일:** `FastApi/frontend/views/documents.py:87`
 - **역할·로직:** 문서 지표·필터·목록을 표시하고 API 오류와 빈 목록을 안내합니다.
@@ -8550,11 +10589,24 @@ def render() -> None:
 
 - `FastApi/frontend/app.py:82` — `main` / 직접 호출
 
-## FastApi/frontend/views/login.py
+</details>
 
-**이 파일의 정의 목록:** `render`
+</details>
 
-### 함수·메서드 render
+<details>
+<summary><h1>[파일] FastApi/frontend/views/login.py</h1></summary>
+
+**파일 구성**
+
+- 클래스: 없음
+- 파일 수준 함수: `render`
+- 클래스 메서드는 해당 클래스 토글 안에, 중첩 함수는 바깥 함수 토글 안에 있습니다.
+
+
+<details>
+<summary><h2>1. [독립 함수] render</h2></summary>
+
+**소속 파일:** `FastApi/frontend/views/login.py`
 
 - **정의 파일:** `FastApi/frontend/views/login.py:7`
 - **역할·로직:** 로그인 입력 폼을 그리고 API 인증 성공 시 세션에 사용자를 저장하고 화면을 다시 실행합니다.
@@ -8608,88 +10660,18 @@ def render() -> None:
 
 - `FastApi/frontend/app.py:72` — `main` / 직접 호출
 
-## Python 외 파일: 함수·클래스 유무와 사용 위치
+</details>
 
-### FastApi/.env
+</details>
 
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** FastApi/backend/app/core/config.py의 Settings가 읽는 환경설정입니다. 실제 값은 문서에 싣지 않습니다.
+</details>
 
-### FastApi/app.db
+</details>
 
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** SQLite 데이터 파일입니다. FastApi/backend/app/db/session.py의 get_engine에서 해당 URL을 선택한 경우 사용됩니다.
+</details>
 
-### FastApi/backend/alembic.ini
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** Alembic CLI가 읽고 FastApi/backend/app/db/migrations/env.py의 실행 환경을 설정합니다.
-
-### FastApi/backend/app/agent/prompts/answer_system.md
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** FastApi/backend/app/integrations/llm_claude.py의 _load_prompt와 FastApi/backend/app/agent/chain.py의 load_prompt가 읽습니다.
-
-### FastApi/backend/app/db/migrations/README
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** 마이그레이션 안내 문서입니다. 실행 함수가 아닙니다.
-
-### FastApi/backend/app/db/migrations/script.py.mako
-
-- **함수·클래스:** Alembic 파일 생성 템플릿입니다. upgrade() -> None, downgrade() -> None 형태를 생성하며 매개변수는 없습니다. 동작은 생성 시 삽입되는 스키마 변경 내용입니다.
-- **사용 위치:** FastApi/backend/alembic.ini가 지정한 마이그레이션 디렉터리에서 Alembic이 새 revision 생성 시 사용합니다. 생성된 함수는 versions의 각 파일에 별도 나열했습니다.
-
-### FastApi/backend/tests/golden/chat_golden.json
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** FastApi/backend/tests/test_chat_golden.py의 모듈 실행부가 읽고 test_golden의 매개변수 사례로 사용합니다.
-
-### FastApi/docker-compose.yml
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** Docker Compose가 PostgreSQL·Langfuse 서비스를 구성할 때 읽습니다.
-
-### FastApi/frontend/.streamlit/config.toml
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** Streamlit이 프런트엔드 실행 시 읽는 설정입니다.
-
-### FastApi/frontend/assets/base.css
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** FastApi/frontend/ui/theme.py의 load_css가 읽고 inject_css가 화면에 적용합니다. CSS 선택자·스타일 선언이며 Python 클래스는 아닙니다.
-
-### FastApi/frontend/assets/components.css
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** FastApi/frontend/ui/theme.py의 load_css가 읽고 inject_css가 화면에 적용합니다. CSS 선택자·스타일 선언이며 Python 클래스는 아닙니다.
-
-### FastApi/frontend/assets/tokens.css
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** FastApi/frontend/ui/theme.py의 load_css가 읽고 inject_css가 화면에 적용합니다. CSS 선택자·스타일 선언이며 Python 클래스는 아닙니다.
-
-### FastApi/netstat
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** 저장된 터미널 출력이며 애플리케이션 함수에서 사용하는 참조를 확인하지 못했습니다.
-
-### FastApi/PROJECT_STRUCTURE.md
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** 사람이 읽는 폴더·기능 구조 안내입니다.
-
-### FastApi/pyproject.toml
-
-- **함수·클래스:** 설정 또는 데이터 파일이며 Python 함수·클래스 정의는 없습니다.
-- **사용 위치:** pytest가 Python 검색 경로와 테스트 위치 설정을 읽습니다.
-
-### FastApi/FUNCTION_CLASS_REFERENCE.md
-
-현재 문서입니다. 함수·클래스를 실행하지 않습니다.
-
-## 읽으면서 확인한 구현상 주의점
+<details>
+<summary><h1>구현상 주의점</h1></summary>
 
 - FastApi/backend/app/core/config.py는 max_tokens를 정의하지만 FastApi/backend/app/integrations/llm_claude.py의 _call은 max_token을 읽습니다. 현재 이름이 달라 호출 준비 중 속성 오류가 날 수 있습니다. 수정하지 않았습니다.
 - FastApi/backend/app/core/exceptions.py의 AuthFailed.__int__는 __init__이 아닙니다. FastApi/backend/app/services/auth_service.py의 AuthFailed()는 필수 message를 받는 부모 생성자를 사용하게 됩니다. 문서는 현재 코드를 그대로 설명했으며 이름을 수정하지 않았습니다.
@@ -8699,3 +10681,4 @@ def render() -> None:
 - FastApi/backend/tests/test_layers.py는 최상단 import만 검사하므로 함수 내부 import는 검사하지 않습니다.
 - 이름이 같은 메서드 후보는 사용 사실을 확정한 목록이 아닙니다. 예를 들어 LLMPort.answer, ClaudeLLM.answer, StubLLM.answer는 같은 호출 형태를 공유하지만 실제 객체에 따라 구현이 선택됩니다.
 
+</details>
