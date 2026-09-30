@@ -113,9 +113,9 @@ class ClaudeLLM:
         )  # md 파일로 질문하면 더 잘 알아먹는다.
         # 프롬프트는 코드상에서 그대로 넣지 않는다.
         prompt = (
-            f"## 사용자\n{user.get('name')} - {user.get('dept')}",
-            f"## 근거 문서\n{_context_block(contexts)}\n\n",
-            f"## 질문\n{question}",
+            f"## 사용자\n{user.get('name')} - {user.get('dept')}"
+            f"## 근거 문서\n{_context_block(contexts)}\n\n"
+            f"## 질문\n{question}"
         )
         text, usage, ms = self._call(
             system, prompt
