@@ -34,6 +34,11 @@ class Settings(BaseSettings):
     langfuse_secret_key: SecretStr | None = None
 
     upstage_api_key: SecretStr | None = None
+    # --- Upstage 추가 ------------------------------------------------------
+    upstage_api_key: SecretStr | None = None
+    upstage_base_url: str = "https://api.upstage.ai/v1"
+    upstage_parse_model: str = "document-parse"
+    upstage_parse_ocr: str = "auto"
 
     # live 모드인지 확인 -> settings.app_mode == "live" 를 settings.is_live 를 사용 True/False를 return
     @property
