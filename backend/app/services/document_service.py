@@ -7,10 +7,10 @@ DB정보가 필요하면 repository를 호출
 from __future__ import annotations
 
 from datetime import date
-
+from uuid import uuid4
 from app.core.exceptions import NotFound, ValidationFailed
 from app.db.session import session_scope  # 세션 DB 접속하기 위한 통로
-from app.models.document import Document, DocumentVersion  # 데이터 넣는 가방들
+from app.models.document import Document, DocumentVersion, Chunk  # 데이터 넣는 가방들
 from app.repositories import document_repo  # 리포지토리 DB 접속시 필요
 
 
@@ -85,8 +85,10 @@ def create_document(
 ) -> dict:
 
     with session_scope() as s:
+        # 문서 조회
         document = document_repo.get_document(s, doc_id)
         created = document is None
+        # 문서 없을 때
         if document is None:
             document = Document(
                 id=doc_id,
@@ -97,12 +99,13 @@ def create_document(
             )
             s.add(document)
             s.flush()
+        # 문서 버전이 이미 존재할때
         elif any(v.version == version for v in document.versions):
             raise ValidationFailed(
                 f"{doc_id} 의 {version} 은(는) 이미 등록되어 있습니다. "
                 "판 번호를 올려 다시 올려 주세요."
             )
-
+        # 실제 문서 버전 저장
         document_repo.add_version(
             s,
             document,
@@ -114,6 +117,7 @@ def create_document(
             file_format=file_format,
             index_status="대기",
         )
+        # 저장 후 화면에 전달할 데이터 리턴
         return {
             "doc_id": document.id,
             "title": document.title,
@@ -122,3 +126,104 @@ def create_document(
             "file_path": file_path,
             "created": created,
         }
+
+
+# 업로드 요청한 파일 하나를 파싱 -> 청킹 -> 저장까지 이어주는 함수
+def ingest_document(*, doc_id: str, version: str, path: str) -> dict:
+    from app.rag import chunker, parser
+
+    with session_scope() as s:
+        document = document_repo.get_document(s, doc_id)
+        dv = (
+            next((v for v in document.versions if v.version == version), None)
+            if document
+            else None
+        )
+        if dv is None:
+            raise NotFound(f"문서 버전을 찾을 수 없습니다 : {doc_id} {version}")
+        parsed = parser.parse(path)
+        if parsed is None:
+            raise ValidationFailed(f"파일을 읽지 못했습니다 : {path}")
+
+        drafts = chunker.chunk(parsed)
+        # 기존 버전에 청크들이 있는지 확인 -> 있으면 삭제
+        for old in list(dv.chunks):
+            s.delete(old)
+        s.flush()  # 삭제 쿼리 DB에 날리기
+        for i, d in enumerate(drafts):
+            s.add(
+                Chunk(
+                    version_id=dv.id, ord=i, kind=d.kind, locator=d.locator, text=d.text
+                )
+            )
+        dv.chunk_count = len(drafts)
+        dv.index_status = "완료"
+        dv.index_progress = 100
+        dv.indexed_at = date.today()
+        return {
+            "chunks": len(drafts),
+            "tables": parsed.table_count,
+            "summary": chunker.summarize(drafts),
+        }
+
+
+# 작업 상태를 담아두는 곳
+_JOBS: dict[str, str] = {}
+_STEP_NAMES = [
+    "파일 검증",
+    "문서파싱",
+    "표 -> 마크다운 변환",
+    "청킹",
+    "임베딩",
+    "검색반영 및 현행 버전 지정",
+]
+
+
+# 작업 하나를 만들어 번호를 리턴해주는 함수
+def start_ingest_job(*, doc_id: str, version: str, path: str) -> str:
+    job_id = uuid4().hex[:8]
+    _JOBS[job_id] = {
+        "job_id": job_id,
+        "doc_id": doc_id,
+        "version": version,
+        "path": path,
+        "status": "대기",
+        "progress": 0,
+        "steps": [{"name": n, "state": "todo"} for n in _STEP_NAMES],
+        "chunk_count": 0,
+        "message": "",
+    }
+    return job_id
+
+
+# 작업을 실제로 돌리는 함수 : BackgroundTasks가 응답 보낸 후 호출하는 함수
+def run_ingest_job(job_id: str) -> None:
+    job = _JOBS.get(job_id)
+    if job is None:
+        return
+    try:
+        job["status"] = "진행중"
+        steps = job["steps"]
+        result = ingest_document(
+            doc_id=job["doc_id"], version=job["version"], path=job["path"]
+        )
+        for i in range(4):
+            steps[i]["state"] = "ok"
+        steps[1]["times"] = f"표{result['tables']}개 인식"
+        steps[2]["times"] = f"표{result['tables']}개 인식"
+        steps[3]["times"] = f"표{result['chunks']}청크"
+        job["progress"] = int(4 / len(steps) * 100)
+        job["chunk_count"] = result["chunks"]
+        job["message"] = result["summary"]
+        job["status"] = "완료"
+    except Exception as e:
+        job["status"] = "실패"
+        job["message"] = str(e)
+
+
+# 작업 하나의 진행 상태를 리턴해주는 함수
+def get_job(job_id: str) -> dict:
+    job = _JOBS.get(job_id)
+    if job is None:
+        raise NotFound(f"작업을 찾을 수 없습니다: {job_id}")
+    return job
