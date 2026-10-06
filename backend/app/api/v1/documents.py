@@ -1,11 +1,11 @@
-from fastapi import APIRouter, Query, File, Form, UploadFile
+from fastapi import APIRouter, Query, File, Form, UploadFile, BackgroundTasks
 from typing import Annotated
 
 import shutil
 from datetime import date
 from pathlib import Path
 
-from app.schemas.document import DocumentOut, DocumentCreateOut
+from app.schemas.document import DocumentOut, DocumentCreateOut, JobOut
 from app.api.v1.deps import SettingsDep, LoggerDep
 from app.core.exceptions import NotFound, ValidationFailed
 from app.services import document_service
@@ -19,76 +19,6 @@ UPLOAD_DIR = Path("uploads")
 ALLOWED_EXTS = {".docx", ".pdf", ".txt"}
 
 
-# DB사용 전, 임시 데이터 추가 (나중에 없앨거)
-_DOCS: list[dict] = [
-    {
-        "doc_id": "DOC-HR-014",
-        "title": "2026년 휴가 운영 규정",
-        "dept": "인사",
-        "version": "v2.0",
-        "security_level": "일반",
-        "file_format": "docx",
-        "status": "active",
-        "secret_note": "담당자 메모 - 개정 예고",
-    },
-    {
-        "doc_id": "DOC-HR-021",
-        "title": "복리후생 운영 지침",
-        "dept": "인사",
-        "version": "v2.1",
-        "security_level": "일반",
-        "file_format": "pdf",
-        "status": "active",
-        "secret_note": "담당자 메모 - 인사팀 검토중",
-    },
-    {
-        "doc_id": "DOC-SE-011",
-        "title": "정보보안 관리 규정",
-        "dept": "보안",
-        "version": "v1.5",
-        "security_level": "3급",
-        "file_format": "pdf",
-        "status": "active",
-        "secret_note": "담당자 메모 - 열람 이력 점검 필요",
-    },
-    {
-        "doc_id": "DOC-PU-007",
-        "title": "구매 계약 업무 지침",
-        "dept": "구매",
-        "version": "v3.0",
-        "security_level": "대외비",
-        "file_format": "docx",
-        "status": "active",
-        "secret_note": "담당자 메모 - v4.0 준비중",
-    },
-]
-
-
-# # 문서 목록 요청
-# @router.get("", response_model=list[DocumentOut])  # ...8000/api/v1/documents
-# def list_documents(
-#     # settings: SettingsDep,  # 의존성 주입: 별칭으로 처리
-#     # dept: str | None = None,
-#     # security_level: str | None = None,
-#     # file_format: str | None = None,
-#     limit: Annotated[int, Query(ge=1, le=100)] = 20,
-# ) -> list[dict]:
-#     # result = _DOCS.copy()
-
-#     # if dept is not None:
-#     #     result = [doc for doc in result if doc["dept"] == dept]
-
-#     # if security_level is not None:
-#     #     result = [doc for doc in result if doc["security_level"] == security_level]
-
-#     # if file_format is not None:
-#     #     result = [doc for doc in result if doc["file_format"] == file_format]
-
-#     # return result[:limit]
-
-
-#     # database와 연결 (service-> repository- > DB 데이터 조회)
-#     return document_service.list_documents(limit=limit)
 # 문서 목록 요청
 @router.get("", response_model=list[DocumentOut])  # ...8000/api/v1/documents
 def list_documents(
@@ -116,8 +46,10 @@ def upload_document(
     version: Annotated[str, Form()],
     effective_from: Annotated[date, Form()],
     file: Annotated[UploadFile, File()],
+    background: BackgroundTasks,
     logger: LoggerDep,
 ) -> dict:
+
     safe_name = Path(file.filename or "").name
     ext = Path(safe_name).suffix.lower()  # 확장자명을 가져온다
 
@@ -141,7 +73,7 @@ def upload_document(
     logger.info("문서 파일 저장: %s (%s)", dest, security_level)
 
     # DB에 파일정보 저장하고, 돌려받은 정보(응답데이터) 화면에 돌려주기
-    return document_service.create_document(
+    result = document_service.create_document(
         doc_id=doc_id,
         title=title,
         dept_id=dept_id,
@@ -151,12 +83,26 @@ def upload_document(
         file_path=dest.as_posix(),
         file_format=ext.lstrip("."),
     )
+    # document_service.ingest_document(
+    #     doc_id=doc_id, version=version, path=dest.as_posix()
+    # )
+    job_id = document_service.start_ingest_job(
+        doc_id=doc_id, version=version, path=dest.as_posix()
+    )
+    background.add_task(document_service.run_ingest_job, job_id)
+    return {**result, "job_id": job_id}
 
 
 # # 예외 테스트
 # @router.get("/find")
 # def find_doc():
 #     raise NotFound("문서 못 찾음")
+
+
+# 업로드 작업 하나의 진행 상태 정보 요청 처리해주는 매핑
+@router.get("/jobs/{job_id}", response_model=JobOut)
+def read_job(job_id: str) -> dict:
+    return document_service.get_job(job_id)
 
 
 # 문서 1개 조회  : ...8000/api/v1/documents/문서id값
