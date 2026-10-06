@@ -1,10 +1,12 @@
-# 파싱 진입점
 from __future__ import annotations
 
 from pathlib import Path
 
+from app.core.logging import get_logger
 from app.integrations.ports import ParsedBlock, ParsedDoc
 from app.rag.local_parsers import parse_local
+
+log = get_logger(__name__)
 
 _PLAIN = {".txt", ".md"}  # 파싱 X. 파일 열어 바로 읽기
 _HTML = {".html", ".htm"}  # 태그를 걷어내야 글자가 남는 형식
@@ -27,19 +29,62 @@ def parse(path: str | Path, *, use_upstage: bool = False) -> ParsedDoc:
 
 
 def _parse_plain(p: Path) -> ParsedDoc:
-    text = p.read_text(encoding="utf-8", errors="replace")
+
+    if p.suffix.lower() == ".md":
+        return _parse_markdown(p)
+    text = _read_text(p)
     blocks = [
-        ParsedBlock("조항", f"{p.name} {i + 1}단락", part.strip())
+        ParsedBlock("조항", f"{p.name} · {i + 1}단락", part.strip())
         for i, part in enumerate(text.split("\n\n"))
         if part.strip()
     ]
     return ParsedDoc(blocks=blocks, page_count=1, table_count=0)
 
 
+def _read_text(p: Path) -> str:
+
+    raw = p.read_bytes()
+    for enc in ("utf-8-sig", "cp949"):
+        try:
+            text = raw.decode(enc)
+        except UnicodeDecodeError:
+            continue
+        if enc != "utf-8-sig":
+            log.info("인코딩을 %s 로 읽었습니다: %s", enc, p.name)
+        return text
+    log.warning("인코딩을 알 수 없어 글자를 바꿔 읽었습니다: %s", p.name)
+    return raw.decode("utf-8", errors="replace")  # ◀ 추가 끝
+
+
+def _parse_markdown(p: Path) -> ParsedDoc:
+    import re
+
+    text = _read_text(p)
+    blocks: list[ParsedBlock] = []
+    locator = p.name
+    buffer: list[str] = []
+
+    def flush() -> None:
+        body = "\n".join(buffer).strip()
+        if body:
+            blocks.append(ParsedBlock("조항", locator, body))
+        buffer.clear()
+
+    for line in text.split("\n"):
+        if re.match(r"#{1,6}\s", line):
+            flush()
+            locator = line.lstrip("#").strip()
+        else:
+            buffer.append(line)
+    flush()
+    return ParsedDoc(blocks=blocks, page_count=1, table_count=0)
+
+
 def _parse_html(p: Path) -> ParsedDoc:
     import re
 
-    raw = p.read_text(encoding="utf-8", errors="replace")
+    raw = _read_text(p)
+    raw = re.sub(r"<head.*?</head>", " ", raw, flags=re.S | re.I)
     raw = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", raw, flags=re.S | re.I)
 
     tables = re.findall(r"<table.*?</table>", raw, flags=re.S | re.I)
