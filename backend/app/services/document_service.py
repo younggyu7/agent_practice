@@ -10,7 +10,7 @@ from datetime import date
 from uuid import uuid4
 from app.core.exceptions import NotFound, ValidationFailed
 from app.db.session import session_scope  # 세션 DB 접속하기 위한 통로
-from app.models.document import Document, DocumentVersion, Chunk  # 데이터 넣는 가방들
+from app.models.document import Document, DocumentVersion  # 데이터 넣는 가방들
 from app.repositories import document_repo  # 리포지토리 DB 접속시 필요
 
 
@@ -128,9 +128,9 @@ def create_document(
         }
 
 
-# 업로드 요청한 파일 하나를 파싱 -> 청킹 -> 저장까지 이어주는 함수
+# 수정 : 업로드 요청한 파일 하나를 파싱 -> 청킹 -> 저장까지 이어주는 함수
 def ingest_document(*, doc_id: str, version: str, path: str) -> dict:
-    from app.rag import chunker, parser
+    from app.rag import chunker, parser, embedder, store
 
     with session_scope() as s:
         document = document_repo.get_document(s, doc_id)
@@ -140,29 +140,25 @@ def ingest_document(*, doc_id: str, version: str, path: str) -> dict:
             else None
         )
         if dv is None:
-            raise NotFound(f"문서 버전을 찾을 수 없습니다 : {doc_id} {version}")
+            raise NotFound(f"문서 버전을 찾을 수 없습니다 :{doc_id} {version}")
+
         parsed = parser.parse(path)
         if parsed is None:
-            raise ValidationFailed(f"파일을 읽지 못했습니다 : {path}")
+            raise ValidationFailed(f"파일을 읽지 못했습니다: {path}")
 
         drafts = chunker.chunk(parsed)
-        # 기존 버전에 청크들이 있는지 확인 -> 있으면 삭제
-        for old in list(dv.chunks):
-            s.delete(old)
-        s.flush()  # 삭제 쿼리 DB에 날리기
-        for i, d in enumerate(drafts):
-            s.add(
-                Chunk(
-                    version_id=dv.id, ord=i, kind=d.kind, locator=d.locator, text=d.text
-                )
-            )
-        dv.chunk_count = len(drafts)
+
+        vectors = embedder.embed_documents([d.text for d in drafts])
+        store.save_chunks(s, dv, drafts, vectors)
+
         dv.index_status = "완료"
         dv.index_progress = 100
+        dv.embed_model = embedder.model_label()
         dv.indexed_at = date.today()
         return {
             "chunks": len(drafts),
             "tables": parsed.table_count,
+            "vectors": len(vectors),
             "summary": chunker.summarize(drafts),
         }
 
@@ -196,7 +192,7 @@ def start_ingest_job(*, doc_id: str, version: str, path: str) -> str:
     return job_id
 
 
-# 작업을 실제로 돌리는 함수 : BackgroundTasks가 응답 보낸 후 호출하는 함수
+# 작업을 실제로 돌리기 함수 : BackgroundTasks 가 응답 보낸 후 호출하는 함수
 def run_ingest_job(job_id: str) -> None:
     job = _JOBS.get(job_id)
     if job is None:
@@ -207,18 +203,19 @@ def run_ingest_job(job_id: str) -> None:
         result = ingest_document(
             doc_id=job["doc_id"], version=job["version"], path=job["path"]
         )
-        for i in range(4):
+        for i in range(5):
             steps[i]["state"] = "ok"
-        steps[1]["times"] = f"표{result['tables']}개 인식"
-        steps[2]["times"] = f"표{result['tables']}개 인식"
-        steps[3]["times"] = f"표{result['chunks']}청크"
-        job["progress"] = int(4 / len(steps) * 100)
+        steps[1]["time"] = f"표 {result['tables']}개 인식"
+        steps[2]["time"] = f"표 {result['tables']}개"
+        steps[3]["time"] = f"{result['chunks']}청크"
+        steps[4]["time"] = f"{result['vectors']}벡터"
+        job["progress"] = int(5 / len(steps) * 100)
         job["chunk_count"] = result["chunks"]
         job["message"] = result["summary"]
         job["status"] = "완료"
-    except Exception as e:
+    except Exception as exc:
         job["status"] = "실패"
-        job["message"] = str(e)
+        job["message"] = str(exc)
 
 
 # 작업 하나의 진행 상태를 리턴해주는 함수

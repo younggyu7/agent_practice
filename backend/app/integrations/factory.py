@@ -5,7 +5,7 @@ from functools import lru_cache
 
 from app.core.config import get_settings
 from app.core.exceptions import ModeNotAvailable
-from app.integrations.ports import LLMPort
+from app.integrations.ports import LLMPort, EmbedderPort
 
 
 # Claude 어댑터를 하나 만들어 두고 ,재사용하기
@@ -26,3 +26,27 @@ def get_llm() -> LLMPort:
             ".env의 APP_MODE를 live로 두고 터미넬에서 부르세요."
         )
     return _live_llm()
+
+
+# 로컬 임베딩 어댑터를 하나 만들어두고, 재사용
+@lru_cache
+def _local_embedder() -> EmbedderPort:
+    from app.integrations.local_embed import LocalEmbedder
+
+    return LocalEmbedder()
+
+
+# 상용 임베딩 어댑터를 하나 만들어두고, 재사용
+@lru_cache
+def _upstage_embedder() -> EmbedderPort:
+    from app.integrations.upstage import UpstageEmbedder
+
+    return UpstageEmbedder()
+
+
+# 현재 설정에 맞는 임베딩 어댑터 돌려주는 함수
+def get_embedder() -> EmbedderPort:
+    provider = get_settings().embed_provider
+    if provider == "upstage":
+        return _upstage_embedder()
+    return _local_embedder()

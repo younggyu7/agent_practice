@@ -51,3 +51,12 @@ class ParsedDoc:
 @runtime_checkable
 class ParserPort(Protocol):
     def parse(self, path: str) -> ParsedDoc: ...
+
+
+# 임베딩 어댑터가 지켜야할 규칙 : 추가
+@runtime_checkable
+class EmbedderPort(Protocol):
+    dim: int
+
+    def embed_documents(self, texts: list[str]) -> list[list[float]]: ...
+    def embed_query(self, text: str) -> list[float]: ...

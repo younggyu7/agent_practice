@@ -3,7 +3,8 @@ from __future__ import annotations
 from datetime import date
 from sqlalchemy import ForeignKey, String, UniqueConstraint, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.models.base import Base, TimestampMixin
+from app.models.base import Base, TimestampMixin, EMBED_DIM
+from pgvector.sqlalchemy import Vector
 
 
 # 문서 모델
@@ -88,5 +89,9 @@ class Chunk(Base):
     kind: Mapped[str] = mapped_column(String(16))  # "조항" | "표"
     locator: Mapped[str] = mapped_column(String(200))  # "제14조(숙박비) - 별표1"
     text: Mapped[str] = mapped_column(Text)  # 내용. 표는 마크다운으로 처리
+
+    embedding: Mapped[list[float] | None] = mapped_column(
+        Vector(EMBED_DIM), nullable=True
+    )
 
     version: Mapped["DocumentVersion"] = relationship(back_populates="chunks")
