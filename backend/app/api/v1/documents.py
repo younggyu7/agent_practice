@@ -5,9 +5,9 @@ import shutil
 from datetime import date
 from pathlib import Path
 
-from app.schemas.document import DocumentOut, DocumentCreateOut, JobOut
+from app.schemas.document import DocumentOut, DocumentCreateOut, JobOut, VersionOut
 from app.api.v1.deps import SettingsDep, LoggerDep
-from app.core.exceptions import NotFound, ValidationFailed
+from app.core.exceptions import ValidationFailed
 from app.services import document_service
 
 # 문서 API를 모아두는 라우터
@@ -114,6 +114,21 @@ def get_document(doc_id: str) -> dict:
 
     # raise NotFound(f"문서를 찾지 못했습니다.: {doc_id}")
     return document_service.get_document(doc_id=doc_id)
+
+
+# 문서 1개에 해당하는 버전들 요청
+@router.get("/{doc_id}/versions", response_model=list[VersionOut])
+def list_versions(doc_id: str) -> list[dict]:
+    return document_service.list_versions(doc_id=doc_id)
+
+
+@router.post(
+    "/{doc_id}/versions/{version}/reindex", response_model=JobOut, status_code=202
+)
+def reindex_version(doc_id: str, version: str, background: BackgroundTasks) -> dict:
+    job_id = document_service.start_reindex_job(doc_id=doc_id, version=version)
+    background.add_task(document_service.run_ingest_job, job_id)
+    return document_service.get_job(job_id)
 
 
 # 잘못된 예시

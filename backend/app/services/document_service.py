@@ -103,8 +103,16 @@ def create_document(
         elif any(v.version == version for v in document.versions):
             raise ValidationFailed(
                 f"{doc_id} 의 {version} 은(는) 이미 등록되어 있습니다. "
-                "판 번호를 올려 다시 올려 주세요."
+                "버전 번호를 올려 다시 올려 주세요."
             )
+
+        # *추가* : 새 버전 저장 전에, 기존 버전들의 현행을 만료로 내리는 처리 (현행은 하나만)
+        for past in document.versions:
+            if past.status == "현행":
+                past.status = "만료"
+                past.expires_at = effective_from - timedelta(days=1)
+                past.index_status = "보관"  # 검색 대상에서 제외하겠다
+
         # 실제 문서 버전 저장
         document_repo.add_version(
             s,
@@ -126,6 +134,29 @@ def create_document(
             "file_path": file_path,
             "created": created,
         }
+
+
+# 추가 : 문서 한건의 버전을 전부, 최신 버전이 앞에 오도록 리턴
+def list_versions(*, doc_id: str) -> list[dict]:
+    with session_scope() as s:
+        document = document_repo.get_document(s, doc_id)
+        if document is None:
+            raise NotFound(f"문서를 찾을 수 없습니다: {doc_id}")
+        return [
+            {
+                "version": v.version,
+                "status": v.status,
+                "effective_from": v.effective_from,
+                "expires_at": v.expires_at,
+                "chunk_count": v.chunk_count,
+                "embed_model": v.embed_model,
+                "index_status": v.index_status,
+                "indexed_at": v.indexed_at,
+                "searchable": v.is_searchable,
+                "period": v.period,
+            }
+            for v in sorted(document.versions, key=lambda v: v.version, reverse=True)
+        ]
 
 
 # 수정 : 업로드 요청한 파일 하나를 파싱 -> 청킹 -> 저장까지 이어주는 함수
@@ -216,6 +247,23 @@ def run_ingest_job(job_id: str) -> None:
     except Exception as exc:
         job["status"] = "실패"
         job["message"] = str(exc)
+
+
+# 이미 등록된 문서 버전 한개를 다시 적재하는 작업 : 재임베딩
+def start_reindex_job(*, doc_id: str, version: str) -> str:
+    with session_scope() as s:
+        document = document_repo.get_document(s, doc_id)
+        dv = (
+            next((v for v in document.versions if v.version == version), None)
+            if document
+            else None
+        )
+        if dv is None:
+            raise NotFound(f"해당 문서 버전을 찾을 수 없습니다: {doc_id} {version}")
+        path = dv.file_path or ""
+        dv.index_status = "재임베딩"
+        dv.index_progress = 0
+    return start_ingest_job(doc_id=doc_id, version=version, path=path)
 
 
 # 작업 하나의 진행 상태를 리턴해주는 함수
