@@ -10,9 +10,10 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from core import router, session
 from ui.theme import inject_css
 from views import login as login_view
-from views import documents as documents_view
 from views import chat as chat_view
+from views import documents as documents_view
 from views import document_upload as document_upload_view
+from views import document_detail as document_detail_view
 
 # 페이지 초기 세팅
 st.set_page_config(
@@ -90,6 +91,8 @@ def main() -> None:
         documents_view.render()
     elif page == "document_upload":
         document_upload_view.render()
+    elif page == "document_detail":
+        document_detail_view.render()
     else:
         st.info("아직 만들지 않은 화면입니다.")
 
