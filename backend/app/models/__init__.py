@@ -4,6 +4,7 @@ from app.models.document import Document, DocumentVersion, Chunk
 from app.models.org import CLEARANCE, Department, User
 from app.models.run import Run, RunStep
 from app.models.usage import UsageLog
+from app.models.eval import EvalRun, EvalWeakType
 
 __all__ = [
     "Base",
@@ -15,6 +16,8 @@ __all__ = [
     "Chunk",
     "Run",
     "RunStep",
+    "EvalRun",
+    "EvalWeakType",
     "UsageLog",
     "CLEARANCE",
 ]
