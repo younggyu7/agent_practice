@@ -15,17 +15,13 @@ class LLMResult:
     output_tok: int = 0
     cost_krw: float = 0.0
     latency_ms: int = 0
-    extras: dict = field(
-        default_factory=dict
-    )  # 화면에 필요한 여분 데이터를 실어 보내기
+    extras: dict = field(default_factory=dict)  # 화면에 필요한 여분 데이터를 실어 보내기
 
 
 # LLM 어댑터가 지켜야할 규칙 (인터페이스, 코드 규격)
 @runtime_checkable
 class LLMPort(Protocol):
-    def answer(
-        self, *, question: str, contexts: list[dict], user: dict
-    ) -> LLMResult: ...
+    def answer(self, *, question: str, contexts: list[dict], user: dict) -> LLMResult: ...
 
 
 # ----------- 문서 파싱 결과 -----------------------------------------------
@@ -40,9 +36,7 @@ class ParsedBlock:
 # 문서 한건을 파싱한 결과 전체
 @dataclass
 class ParsedDoc:
-    blocks: list[ParsedBlock] = field(
-        default_factory=list
-    )  # 본문에 놓은 순서 그대로 덩어리 목록 저장
+    blocks: list[ParsedBlock] = field(default_factory=list)  # 본문에 놓은 순서 그대로 덩어리 목록 저장
     page_count: int = 0  # 페이지 수. 페이지 개념이 없는 docx형식은 1로 둔다 .
     table_count: int = 0  # 표를 몇개 알아봤는지.
 
@@ -51,6 +45,17 @@ class ParsedDoc:
 @runtime_checkable
 class ParserPort(Protocol):
     def parse(self, path: str) -> ParsedDoc: ...
+
+
+# 검색 결과 담는 객체
+@dataclass
+class RetrievalResult:
+    sources: list[dict] = field(default_factory=list)  # 근거 후보 목록
+    steps: list[dict] = field(default_factory=list)  # 화면의 검색 과정 보여줄때 사용
+    best_score: float = 0.0  # 후보 중 가장 높은 유사도
+    passed: bool = False  # 최고 점수가 임계값을 넘었는가?
+    version_note: str | None = None  # 만료된 문서버전을 걸렀을때 사용자에게 알려줄 노트
+    threshold: float = 0.0  # 임계값
 
 
 # 임베딩 어댑터가 지켜야할 규칙 : 추가
