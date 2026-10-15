@@ -29,9 +29,7 @@ class Settings(BaseSettings):
     allow_external_send: bool = False
     # ---- 관측 langfuse ----------------------------
     langfuse_enabled: bool = False
-    langfuse_host: str = (
-        "http://localhost:3000"  # 로컬 pc사용, 클라우드사용시 langfuse서버 주소 입력
-    )
+    langfuse_host: str = "http://localhost:3000"  # 로컬 pc사용, 클라우드사용시 langfuse서버 주소 입력
     langfuse_public_key: str | None = None
     langfuse_secret_key: SecretStr | None = None
 
@@ -47,8 +45,10 @@ class Settings(BaseSettings):
     embed_dim: int = EMBED_DIM
     upstage_embed_model: str | None = None
     # --- 검색 -----------------------------------------------------------
-    retrieval_threshold: float = Field(default=0.55, ge=0.0, le=1.0)
-    retrieval_top_k: int = Field(default=12, ge=1, le=100)
+    retrieval_threshold: float = Field(default=0.55, ge=0.0, le=1.0)  # 임계값. 점수를 넘지 못하면 근거 부족
+    retrieval_top_k: int = Field(default=12, ge=1, le=100)  # 벡터 검색이 받아올 후보 갯수
+    multi_query_n: int = Field(default=3, ge=1, le=10)  # 질문을 몇 갈래까지 늘리는가
+    rerank_top_n: int = Field(default=3, ge=1, le=20)  # 다시 줄세운 뒤 몇 건을 남길 것인가
 
     # live 모드인지 확인 -> settings.app_mode == "live" 를 settings.is_live 를 사용 True/False를 return
     @property
