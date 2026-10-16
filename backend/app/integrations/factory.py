@@ -5,7 +5,7 @@ from functools import lru_cache
 
 from app.core.config import get_settings
 from app.core.exceptions import ModeNotAvailable
-from app.integrations.ports import LLMPort, EmbedderPort
+from app.integrations.ports import LLMPort, EmbedderPort, RerankerPort
 
 
 # Claude 어댑터를 하나 만들어 두고 ,재사용하기
@@ -22,8 +22,7 @@ def get_llm() -> LLMPort:
     settings = get_settings()  # 환경 설정 정보 가져오기
     if not settings.is_live:  # live가 아니다.
         raise ModeNotAvailable(
-            "테스트용 mock 어댑터는 만들지 않았습니다."
-            ".env의 APP_MODE를 live로 두고 터미넬에서 부르세요."
+            "테스트용 mock 어댑터는 만들지 않았습니다." ".env의 APP_MODE를 live로 두고 터미넬에서 부르세요."
         )
     return _live_llm()
 
@@ -44,9 +43,17 @@ def _upstage_embedder() -> EmbedderPort:
     return UpstageEmbedder()
 
 
-# 현재 설정에 맞는 임베딩 어댑터 돌려주는 함수
+# 현재 설정에 맞는 임베딩 어댑터 돌려주는 함수 (재사용)
 def get_embedder() -> EmbedderPort:
     provider = get_settings().embed_provider
     if provider == "upstage":
         return _upstage_embedder()
     return _local_embedder()
+
+
+# 크로스 인코더 어댑터 하나 만들어 돌려주는 함수 (재사용)
+@lru_cache
+def get_cross_encoder() -> RerankerPort:
+    from app.integrations.local_rerank import LocalCrossEncoder
+
+    return LocalCrossEncoder()

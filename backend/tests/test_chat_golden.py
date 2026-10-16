@@ -8,11 +8,29 @@ import pytest
 import app.integrations.factory as factory
 from app.core.exceptions import GuardTripped
 from app.core.guards import check_model
-from app.integrations.ports import LLMResult
+from app.integrations.ports import LLMResult, RetrievalResult
 from app.services import chat_service
 
 GOLDEN_PATH = Path(__file__).resolve().parent / "golden" / "chat_golden.json"
 GOLDEN = json.loads(GOLDEN_PATH.read_text(encoding="utf-8"))
+
+
+@pytest.fixture(autouse=True)
+def stub_retriever(monkeypatch):
+    import app.rag.retriever as retriever_module
+
+    class _StubRetriever:
+        name = "stub"
+        def search(self, *, question, user, session, **_):
+            return RetrievalResult(
+                sources=[{"doc_id": "DOC-HR-014", "title": "국내출장 여비규정", "version" : "v2.0", "locator", "제12조 (숙박비) - p.6),
+                            "score": 0.90, "quote":"(대역)"}],
+                steps=["name" : "대역 검색", "state": "ok"],
+                best_score=0.90, passed=True,threshold=0.55
+            )
+
+    monkeypatch.setattr(retriever_module,"LiveRetriever", _StubRetriever)
+
 
 
 # 가짜 LLM
@@ -52,13 +70,9 @@ def check(case: dict, out) -> list[str]:
             problems.append(f"answer 에 '{needle}' 이 들어 있습니다")
 
     if "min_sources" in expect and len(out.sources) < expect["min_sources"]:
-        problems.append(
-            f"근거가 {expect['min_sources']}건 이상이어야 합니다 (현재 {len(out.sources)}건)"
-        )
+        problems.append(f"근거가 {expect['min_sources']}건 이상이어야 합니다 (현재 {len(out.sources)}건)")
     if "max_sources" in expect and len(out.sources) > expect["max_sources"]:
-        problems.append(
-            f"sources 가 {expect['max_sources']}건이어야 합니다 (현재 {len(out.sources)}건)"
-        )
+        problems.append(f"sources 가 {expect['max_sources']}건이어야 합니다 (현재 {len(out.sources)}건)")
     for key in ("attempts", "fallback_used", "enough_evidence"):
         if key in expect and getattr(out, key) != expect[key]:
             problems.append(f"{key} 가 {expect[key]} 여야 합니다")

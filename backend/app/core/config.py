@@ -14,19 +14,24 @@ class Settings(BaseSettings):
     )
     # 환경변수나 .env에 해당 설정값이 있으면 사용하고, 없으면 아래 기본값을 사용
     app_mode: str = Field(default="mock", pattern=r"^(mock|live)$")
+
     # ---- LLM ------------------------------------
     anthropic_api_key: SecretStr | None = None
     llm_model: str = "claude-haiku-4-5"
     max_tokens: int = Field(default=400, ge=1, le=8192)
     temparature: float = Field(default=0.0, ge=0.0, le=1.0)
+
     # ---- 안전장치 ----------------------------------
     daily_call_limit: int = Field(default=200, ge=1)
     max_input_chars: int = Field(default=200, ge=1)
+
     # ---- DB --------------------------------------
     database_url: str = "sqlite:///./app.db"
+
     # ---- 기본 설정 ---------------------------------
     debug: bool = False
     allow_external_send: bool = False
+
     # ---- 관측 langfuse ----------------------------
     langfuse_enabled: bool = False
     langfuse_host: str = "http://localhost:3000"  # 로컬 pc사용, 클라우드사용시 langfuse서버 주소 입력
@@ -34,21 +39,34 @@ class Settings(BaseSettings):
     langfuse_secret_key: SecretStr | None = None
 
     upstage_api_key: SecretStr | None = None
+
     # --- Upstage 추가 ------------------------------------------------------
     upstage_api_key: SecretStr | None = None
     upstage_base_url: str = "https://api.upstage.ai/v1"
     upstage_parse_model: str = "document-parse"
     upstage_parse_ocr: str = "auto"
+
     # --- embeddign ----------------------------------------------------
     embed_provider: str = Field(default="local", pattern=r"^(local|upstage)")
     embed_model_dir: str = "../models/bge-m3"
     embed_dim: int = EMBED_DIM
     upstage_embed_model: str | None = None
+
     # --- 검색 -----------------------------------------------------------
     retrieval_threshold: float = Field(default=0.55, ge=0.0, le=1.0)  # 임계값. 점수를 넘지 못하면 근거 부족
     retrieval_top_k: int = Field(default=12, ge=1, le=100)  # 벡터 검색이 받아올 후보 갯수
     multi_query_n: int = Field(default=3, ge=1, le=10)  # 질문을 몇 갈래까지 늘리는가
     rerank_top_n: int = Field(default=3, ge=1, le=20)  # 다시 줄세운 뒤 몇 건을 남길 것인가
+
+    # --- 리랭커------------------------------------------------------------
+    # simple : 간이리랭커, cross_encoder : 모델이 질문과 조각을 ㅎ나번에 읽어 점수 매김
+    reranker: str = Field(default="simple", pattern=r"^(simple|cross_encoder)$")
+    rerank_model_dir: str = "../models/bge-reranker-v2-m3"
+    rerank_candidates: int = Field(default=12, ge=1, le=100)
+    # 질문 + 조각을 합쳐 이 토큰 수에서 자른다.(문서에 따라 수정 요함)
+    rerank_max_length: int = Field(default=512, ge=64, le=8192)
+    # 크로스 인코더 점수가 (0~1)가 이 값에 못미치면 근거부족.
+    rerank_threshold: float = Field(default=0.2, ge=0.0, le=1.0)
 
     # live 모드인지 확인 -> settings.app_mode == "live" 를 settings.is_live 를 사용 True/False를 return
     @property

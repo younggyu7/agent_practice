@@ -2,6 +2,8 @@ from __future__ import annotations
 import streamlit as st
 from core import api_client
 from ui.card import page_header
+from ui.source import sources as source_block
+from ui.status import steps as step_list
 
 
 def render() -> None:
@@ -34,5 +36,19 @@ def render() -> None:
         # 답변 화면에 뿌리기
         answer = response.get("answer", "")
         st.markdown(answer)
+
+        # 검색 과정
+        step_list(response.get("steps", []))
+
+        # 근거 문서
+        enough = response.get("enough_evidence", True)
+        srcs = [{k: v for k, v in one.items() if k != "doc_id"} for one in response.get("sources", [])]
+        if srcs:
+            st.caption("근서 문서" if enough else "검색된 문서 - 임계값 미달, 답변 근거로 쓰지 않음")
+            source_block(srcs, weak=not enough)
+
+        if not enough:
+            st.info("등록된 문서에서 근거를 확인하지 못했습니다. 담당 부서에 문의해 주세요.")
+
     # 대화 내역에 답변 추가
     st.session_state["chat"].append({"role": "assistant", "content": answer})

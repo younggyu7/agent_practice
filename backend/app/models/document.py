@@ -6,6 +6,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base import Base, TimestampMixin, EMBED_DIM
 from pgvector.sqlalchemy import Vector
 
+VERSION_CURRENT = "현행"
+
 
 # 문서 모델
 class Document(Base, TimestampMixin):
@@ -58,9 +60,7 @@ class DocumentVersion(Base, TimestampMixin):
     indexed_at: Mapped[date | None]
 
     document: Mapped["Document"] = relationship(back_populates="versions")
-    chunks: Mapped[list["Chunk"]] = relationship(
-        back_populates="version", cascade="all, delete-orphan"
-    )
+    chunks: Mapped[list["Chunk"]] = relationship(back_populates="version", cascade="all, delete-orphan")
 
     __table_args__ = (UniqueConstraint("doc_id", "version", name="uq_doc_version"),)
 
@@ -82,16 +82,12 @@ class Chunk(Base):
     __tablename__ = "chunks"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    version_id: Mapped[int] = mapped_column(
-        ForeignKey("document_versions.id"), index=True
-    )
+    version_id: Mapped[int] = mapped_column(ForeignKey("document_versions.id"), index=True)
     ord: Mapped[int] = mapped_column(default=0)  # 문서 안에서의 순서
     kind: Mapped[str] = mapped_column(String(16))  # "조항" | "표"
     locator: Mapped[str] = mapped_column(String(200))  # "제14조(숙박비) - 별표1"
     text: Mapped[str] = mapped_column(Text)  # 내용. 표는 마크다운으로 처리
 
-    embedding: Mapped[list[float] | None] = mapped_column(
-        Vector(EMBED_DIM), nullable=True
-    )
+    embedding: Mapped[list[float] | None] = mapped_column(Vector(EMBED_DIM), nullable=True)
 
     version: Mapped["DocumentVersion"] = relationship(back_populates="chunks")

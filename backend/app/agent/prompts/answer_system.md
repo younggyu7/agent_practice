@@ -26,14 +26,16 @@
 | 필드 | 형 | 뜻 |
 |---|---|---|
 | `answer` | 문자열 | 한국어 답변 본문. 결론을 먼저 씁니다 |
-| `sources` | 목록 | 인용한 근거. 항목마다 `doc_id` · `title` · `version` · `locator` |
-| `enough_evidence` | 참/거짓 | 근거가 충분했으면 true, 부족하면 false |
+| `sources` | 목록 | 인용한 근거. 항목마다 `doc_id` · `title` · `version` · `locator` | · `score`|
+`enough_evidence` | 참/거짓 | 근거가 충분했으면 true, 부족하면 false |
 
-- `doc_id` 는 `DOC-HR-014` · `DOC-PU-007` · `DOC-SE-003` 중 하나만 씁니다.
+- `doc_id` 는 `DOC-HR-014` · `DOC-HR-002` · `DOC-HR-021` · `DOC-FI-009· `DOC-PU-007` · `DOC-PM-005` · `DOC-SE-003` · `DOC-SE-011` 중 하나만 씁니다.
   목록에 없는 문서 번호를 지어내지 않습니다.
+- `score` 에는 근거 블록에 적힌 **유사도 숫자를 그대로** 옮깁니다. 새로 매개지 않습니다.
 - 근거가 없으면 `sources` 를 빈 목록으로 두고 `enough_evidence` 를 false 로 둡니다.
 - 설명 문장이나 코드펜스(```) 없이 **JSON 만** 보냅니다.
 - 인사말과 마무리 멘트를 쓰지 않습니다.
+
 
 ## 근거 인용 규칙
 
