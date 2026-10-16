@@ -58,6 +58,7 @@ class RetrievalResult:
     threshold: float = 0.0  # 임계값
 
 
+# ----------------- 임베딩 ------------------------
 # 임베딩 어댑터가 지켜야할 규칙 : 추가
 @runtime_checkable
 class EmbedderPort(Protocol):
@@ -65,3 +66,12 @@ class EmbedderPort(Protocol):
 
     def embed_documents(self, texts: list[str]) -> list[list[float]]: ...
     def embed_query(self, text: str) -> list[float]: ...
+
+
+# ------------------ 크로스 인코더 -------------------
+# 크로스 인코더 어앱터가 지켜야할 규약
+@runtime_checkable
+class RerankerPort(Protocol):
+    name: str
+
+    def score_pairs(self, query: str, texts: list[str]) -> list[float]: ...
