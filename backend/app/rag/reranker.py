@@ -44,7 +44,7 @@ def _cross_encoder(query: str, pool: list[dict]) -> None:
         c["rerank_by"] = "cross_encoder"
 
 
-# 후보의 순위를 다시 매기고, 상위 몇건만 남겨서 리턴
+# 후보의 순위를 다시 매기고, 상위 몇 건만 남겨서 리턴
 def rerank(
     query: str, candidates: list[dict], top_n: int = 3, *, vector_weight: float = 0.7, by: str | None = None
 ) -> list[dict]:
@@ -55,9 +55,9 @@ def rerank(
         _cross_encoder(query, pool)
     else:
         pool = candidates
+        _simple(query, pool, vector_weight)
 
-    _simple(query, pool, vector_weight)
-    ranked = sorted(candidates, key=lambda c: c["rerank_score"], reverse=True)
+    ranked = sorted(pool, key=lambda c: c["rerank_score"], reverse=True)
     return ranked[:top_n]
 
 
@@ -65,6 +65,9 @@ def rerank(
 def judge_gate(rows: list[dict]) -> tuple[float, float, bool]:
     settings = get_settings()
     if any(r.get("rerank_by") == "cross_encoder" for r in rows):
+        best = max((float(r.get("score", 0.0)) for r in rows), default=0.0)
+        threshold = settings.retrieval_threshold
+    else:  # 누락부분 추가
         best = max((float(r.get("score", 0.0)) for r in rows), default=0.0)
         threshold = settings.retrieval_threshold
 
