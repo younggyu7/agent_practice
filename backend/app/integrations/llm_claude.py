@@ -7,15 +7,13 @@ from pathlib import Path
 from app.core.config import get_settings
 from app.core.exceptions import ExternalServiceError
 from app.core.logging import get_logger
-from app.integrations.ports import LLMResult
+from app.integrations.ports import LLMResult, ToolCall
 
 # 로거 생성
 log = get_logger(__name__)
 
 # 프롬프트 파일의 서식지 지정
-PROMPTS = (
-    Path(__file__).resolve().parent.parent / "agent" / "prompts"
-)  # app/agent/prompts 로 경로를 지정
+PROMPTS = Path(__file__).resolve().parent.parent / "agent" / "prompts"  # app/agent/prompts 로 경로를 지정
 # 요금 : USD/MTok - 모델 개정시 여기만 수정 => 결국 후에 가격이 바뀔 수 있기에 .env에서 불러오거나 자동화하는작업이 필요
 PRICING = {"input": 1.0, "cache_write": 1.25, "cache_read": 0.1, "output": 5.0}
 USD_KRW = 1400.0
@@ -24,10 +22,7 @@ USD_KRW = 1400.0
 # 호출 한번의 비용을 원화로 어림 계산해주는 함수
 def estimate_cost_krw(input_tok: int, output_tok: int) -> float:
 
-    usd = (
-        input_tok / 1000000 * PRICING["input"]
-        + output_tok / 1000000 * PRICING["output"]
-    )
+    usd = input_tok / 1000000 * PRICING["input"] + output_tok / 1000000 * PRICING["output"]
     return round(usd * USD_KRW, 1)
 
 
@@ -58,9 +53,7 @@ class ClaudeLLM:
         try:
             from anthropic import Anthropic
         except ImportError as exc:
-            raise ExternalServiceError(
-                "anthropic 패키지가 설치 되어 있지 않습니다."
-            ) from exc
+            raise ExternalServiceError("anthropic 패키지가 설치 되어 있지 않습니다.") from exc
 
         settings = get_settings()
         key = settings.anthropic_api_key
@@ -89,9 +82,7 @@ class ClaudeLLM:
 
         # * 응답 받은 내용중 필요한 부분만 추출해서 우리규격으로 만들기 *
         # 응답 텍스트 꺼내기
-        text = "".join(
-            b.text for b in response.content if getattr(b, "type", "") == "text"
-        )
+        text = "".join(b.text for b in response.content if getattr(b, "type", "") == "text")
         usg = response.usage
         # 사용량 정보 정리(커스텀)
         usage = {
@@ -108,21 +99,15 @@ class ClaudeLLM:
         # question : 사용자 질문
         # contexts : 근거 문서 목록,
         # user     : 질문 한 사람.
-        system = _load_prompt(
-            "answer_system.md"
-        )  # md 파일로 질문하면 더 잘 알아먹는다.
+        system = _load_prompt("answer_system.md")  # md 파일로 질문하면 더 잘 알아먹는다.
         # 프롬프트는 코드상에서 그대로 넣지 않는다.
         prompt = (
             f"## 사용자\n{user.get('name')} - {user.get('dept')}"
             f"## 근거 문서\n{_context_block(contexts)}\n\n"
             f"## 질문\n{question}"
         )
-        text, usage, ms = self._call(
-            system, prompt
-        )  # 위 _call 함수 불러서 호출하고 리턴데이터 받기
-        total_in = (
-            usage["input"] + usage["cache_read"] + usage["cache_write"]
-        )  # 입력 토큰 합계
+        text, usage, ms = self._call(system, prompt)  # 위 _call 함수 불러서 호출하고 리턴데이터 받기
+        total_in = usage["input"] + usage["cache_read"] + usage["cache_write"]  # 입력 토큰 합계
         return LLMResult(
             text,
             self.__model,
@@ -131,6 +116,55 @@ class ClaudeLLM:
             output_tok=usage["output"],
             cost_krw=estimate_cost_krw(total_in, usage["output"]),
             latency_ms=ms,
+        )
+
+    # 도구 목록을 함께 전달해 Message API를 한번 호출
+    def _call_tools(self, system: str, messages: list[dict], tools: list[dict]) -> tuple[object, dict, int]:
+        started = time.perf_counter()
+        try:
+            resp = self._client.messages.create(
+                model=self.__model,
+                max_tokens=get_settings().max_tokens,
+                system=system,
+                messages=messages,
+                tools=tools,
+            )
+        except Exception as e:
+            log.exception("Claude 도구 호출 실패")
+            raise ExternalServiceError(f"Claude 호출에 실패했습니다. {e}") from e
+        u = resp.usage
+        usage = {
+            "input": getattr(u, "input_tokens", 0) or 0,
+            "cache_read": getattr(u, "cache_read_input_tokens", 0) or 0,
+            "cache_write": getattr(u, "cache_creation_input_tokens", 0) or 0,
+            "output": getattr(u, "output_tokens", 0) or 0,
+        }
+        return resp, usage, int((time.perf_counter() - started) * 1000)
+
+    def answer_with_tools(self, *, messages: list[dict], tools: list[dict], user: dict) -> LLMResult:
+        system = _load_prompt("agent_system.md")
+        system = f"{system}\n\n ## 질문한 사람\n{user.get('name')} - {user.get('dept')}"
+        resp, usage, ms = self._call_tools(system, messages, tools)
+        text = "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
+        calls = [
+            ToolCall(id=b.id, name=b.name, args=dict(b.input))
+            for b in resp.content
+            if getattr(b, "type", "") == "tool_use"
+        ]
+        total_in = usage["input"] + usage["cache_read"] + usage["cache_write"]
+        return LLMResult(
+            text=text,
+            model=self.__model,
+            input_tok=total_in,
+            cache_tok=usage["cache_read"],
+            output_tok=usage["output"],
+            cost_krw=estimate_cost_krw(total_in, usage["output"]),
+            latency_ms=ms,
+            extras={
+                "tool_calls": calls,
+                "stop_reason": resp.stop_reason,
+                "blocks": [b.model_dump(exclude_none=True) for b in resp.content],
+            },
         )
 
 

@@ -15,7 +15,7 @@ class SearchPolicy:
     current_only: bool = True  # 현행 버전만 검색 대상에 넣는다
     allow_past_on_request: bool = True  # 사용자가 명시하면 이전 버전도 검색한다
     respect_clearance: bool = True  # 보안 등급으로 문서를 거른다
-    threshold: float = 0.55  # 이 점수에 못 미치면 '근거 부족'이다
+    threshold: float = 0.60  # 이 점수에 못 미치면 '근거 부족'이다
 
 
 # 아무 조건이 없으면 사용하는 기본 정책
@@ -30,9 +30,7 @@ def wants_past_version(question: str) -> bool:
 
 
 # 특정 버전을 검색 대상에 포함시켜도 되는지 판단
-def version_allowed(
-    version_status: str, *, policy: SearchPolicy, question: str
-) -> bool:
+def version_allowed(version_status: str, *, policy: SearchPolicy, question: str) -> bool:
     if not policy.current_only:
         return True
     if version_status == CURRENT:
@@ -41,9 +39,7 @@ def version_allowed(
 
 
 # 보안 등급 확인하기
-def clearance_allowed(
-    user_clearance: str, doc_level: str, *, policy: SearchPolicy
-) -> bool:
+def clearance_allowed(user_clearance: str, doc_level: str, *, policy: SearchPolicy) -> bool:
     if not policy.respect_clearance:
         return True
     return CLEARANCE.get(user_clearance, 1) >= CLEARANCE.get(doc_level, 1)
@@ -57,9 +53,7 @@ def filter_candidates(
     reason: list[str] = []
 
     for row in rows:
-        if not version_allowed(
-            row.get("version_status", CURRENT), policy=policy, question=question
-        ):
+        if not version_allowed(row.get("version_status", CURRENT), policy=policy, question=question):
             reason.append(f"{row['title']} {row['version']} - 만료 버전")
             continue
         if not clearance_allowed(
@@ -67,9 +61,7 @@ def filter_candidates(
             row.get("security_level", "일반"),
             policy=policy,
         ):
-            reason.append(
-                f"{row['title']} - 보안등급({row.get('security_level')}) 차단"
-            )
+            reason.append(f"{row['title']} - 보안등급({row.get('security_level')}) 차단")
             continue
         kept.append(row)
 

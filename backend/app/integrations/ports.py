@@ -18,10 +18,22 @@ class LLMResult:
     extras: dict = field(default_factory=dict)  # 화면에 필요한 여분 데이터를 실어 보내기
 
 
+# 도구 호출 한 건에 대한 정보를 담는 클래스
+@dataclass
+class ToolCall:
+    id: str  # 호출번호
+    name: str  # 호출하라고 요청한 도구 이름
+    args: dict  # 도구에 넘길 인자
+
+
 # LLM 어댑터가 지켜야할 규칙 (인터페이스, 코드 규격)
 @runtime_checkable
 class LLMPort(Protocol):
+    # 단순 답변
     def answer(self, *, question: str, contexts: list[dict], user: dict) -> LLMResult: ...
+
+    # 도구 목록 전댈해 모델 1회 호출
+    def answer_with_tools(self, *, messages: list[dict], tools: list[dict], user: dict) -> LLMResult: ...
 
 
 # ----------- 문서 파싱 결과 -----------------------------------------------

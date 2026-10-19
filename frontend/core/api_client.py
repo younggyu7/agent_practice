@@ -7,7 +7,7 @@ import httpx2
 
 BASE_URL = os.environ.get("API_BASE_URL", "http://127.0.0.1:8000")
 
-TIMEOUT = 10.0
+TIMEOUT = 60.0
 
 
 # 백엔드 호출 실패시 예외 글래스
@@ -50,9 +50,7 @@ def _request(
             timeout=TIMEOUT,
         )
     except httpx2.ConnectError as exc:
-        raise ApiError(
-            f"백엔드에 연결하지 못했습니다. 터미널에서 서버가 떠 있는지 확인하세요 ({BASE_URL})."
-        ) from exc
+        raise ApiError(f"백엔드에 연결하지 못했습니다. 터미널에서 서버가 떠 있는지 확인하세요 ({BASE_URL}).") from exc
     except httpx2.TimeoutException as exc:
         raise ApiError("응답이 너무 늦습니다. 서버가 멎었는지 확인하세요.") from exc
 
@@ -70,9 +68,7 @@ def _request(
 
 # 로그인 요청
 def login(emp_no: str, password: str) -> dict:
-    return _request(
-        "POST", "/api/v1/auth/login", json={"emp_no": emp_no, "password": password}
-    )
+    return _request("POST", "/api/v1/auth/login", json={"emp_no": emp_no, "password": password})
 
 
 # 현재 사용자를 백엔드에 다시 물어보기
@@ -164,6 +160,4 @@ def list_versions(doc_id: str, *, emp_no: str | None = None) -> list[dict]:
 
 # 재임베딩 요청 (파일을 다시 올리지는 않는다.)
 def reindex(doc_id: str, version: str, *, emp_no: str | None = None) -> dict:
-    return _request(
-        "POST", f"/api/v1/documents/{doc_id}/versions/{version}/reindex", emp_no=emp_no
-    )
+    return _request("POST", f"/api/v1/documents/{doc_id}/versions/{version}/reindex", emp_no=emp_no)

@@ -80,7 +80,7 @@ def _policy_card() -> None:
         ("현행 버전만 기본 검색", badge_html("ON", "ok")),
         ("사용자 요청 시 과거 버전 조회", badge_html("ON", "ok")),
         ("보안등급 필터", badge_html("ON", "ok")),
-        ("유사도 임계값", badge_html("0.55", "neutral")),
+        ("판정 합격선", badge_html("크로스 인코더 0.2 - 벡터 0.60", "neutral")),  # 수정
     ]
     body = "".join(
         '<div style="display:flex;justify-content:space-between;align-items:center;'
