@@ -18,6 +18,9 @@ def init_state() -> None:
     for key, value in DEFAULTS.items():
         # 화면 리턴되어도 데이터 유지되는 변수들 초기화
         st.session_state.setdefault(key, value)
+    # 필터 값을 화면 이동 되어도 남도록 기록.
+    for key in ("f_dept", "f_level", "f_status", "f_q"):
+        st.session_state[key] = st.session_state[key]
 
 
 # 현재 사용자 정보 조회 : 로그인 -> 사용자 정보, 비 로그인 -> None

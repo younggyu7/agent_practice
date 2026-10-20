@@ -114,9 +114,14 @@ def stats(*, emp_no: str | None = None) -> dict:
 
 
 # 질문 하나 백엔드에 보내면 답변을 받아오는 함수
-def ask(question: str) -> dict:
+def ask(question: str, *, tools: bool = False) -> dict:
     # question: 사용자가 입력창에 입력한 질문
-    return _request("POST", "/api/v1/chat/messages", json={"question": question})
+    return _request(
+        "POST",
+        "/api/v1/chat/messages",
+        json={"question": question},
+        params={"tools": True} if tools else None,
+    )
 
 
 # 파일 하나를 백엔드에 전달 -> 업로드 처리 요청 -> 작업 번호 리턴

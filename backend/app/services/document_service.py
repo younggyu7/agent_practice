@@ -6,7 +6,7 @@ DB정보가 필요하면 repository를 호출
 
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, timedelta
 from uuid import uuid4
 from app.core.exceptions import NotFound, ValidationFailed
 from app.db.session import session_scope  # 세션 DB 접속하기 위한 통로
@@ -102,8 +102,7 @@ def create_document(
         # 문서 버전이 이미 존재할때
         elif any(v.version == version for v in document.versions):
             raise ValidationFailed(
-                f"{doc_id} 의 {version} 은(는) 이미 등록되어 있습니다. "
-                "버전 번호를 올려 다시 올려 주세요."
+                f"{doc_id} 의 {version} 은(는) 이미 등록되어 있습니다. " "버전 번호를 올려 다시 올려 주세요."
             )
 
         # *추가* : 새 버전 저장 전에, 기존 버전들의 현행을 만료로 내리는 처리 (현행은 하나만)
@@ -165,11 +164,7 @@ def ingest_document(*, doc_id: str, version: str, path: str) -> dict:
 
     with session_scope() as s:
         document = document_repo.get_document(s, doc_id)
-        dv = (
-            next((v for v in document.versions if v.version == version), None)
-            if document
-            else None
-        )
+        dv = next((v for v in document.versions if v.version == version), None) if document else None
         if dv is None:
             raise NotFound(f"문서 버전을 찾을 수 없습니다 :{doc_id} {version}")
 
@@ -231,16 +226,15 @@ def run_ingest_job(job_id: str) -> None:
     try:
         job["status"] = "진행중"
         steps = job["steps"]
-        result = ingest_document(
-            doc_id=job["doc_id"], version=job["version"], path=job["path"]
-        )
+        result = ingest_document(doc_id=job["doc_id"], version=job["version"], path=job["path"])
         for i in range(5):
             steps[i]["state"] = "ok"
         steps[1]["time"] = f"표 {result['tables']}개 인식"
         steps[2]["time"] = f"표 {result['tables']}개"
         steps[3]["time"] = f"{result['chunks']}청크"
         steps[4]["time"] = f"{result['vectors']}벡터"
-        job["progress"] = int(5 / len(steps) * 100)
+        steps[5]["time"] = "현행 지정 완료"
+        job["progress"] = int(6 / len(steps) * 100)
         job["chunk_count"] = result["chunks"]
         job["message"] = result["summary"]
         job["status"] = "완료"
@@ -253,11 +247,7 @@ def run_ingest_job(job_id: str) -> None:
 def start_reindex_job(*, doc_id: str, version: str) -> str:
     with session_scope() as s:
         document = document_repo.get_document(s, doc_id)
-        dv = (
-            next((v for v in document.versions if v.version == version), None)
-            if document
-            else None
-        )
+        dv = next((v for v in document.versions if v.version == version), None) if document else None
         if dv is None:
             raise NotFound(f"해당 문서 버전을 찾을 수 없습니다: {doc_id} {version}")
         path = dv.file_path or ""

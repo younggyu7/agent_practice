@@ -12,3 +12,4 @@ def current_page() -> str:
 # 화면 이동
 def go(page: str) -> None:
     st.session_state["page"] = page
+    st.rerun()
