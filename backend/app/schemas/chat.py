@@ -34,6 +34,13 @@ class AnswerOut(BaseModel):
     enough_evidence: bool = Field(description="근거가 충분했는가. 부족하면 False")
 
 
+# 도구가 만든 문서 초안 한건
+class DraftOut(BaseModel):
+    doc_type: str = Field(description="문서 양식 이름. 예: 국내출장 신청서")
+    fields: dict[str, str] = Field(description="양식의 칸과 값. 값은 모두 문자열")
+    body: str = Field(description="문서 초안 전문")
+
+
 # 재시도/폴백 관련 정보 추가 : 라. 웉가 사용자에게 돌려주는 최종 응답 객체
 class AskOut(AnswerOut):
     run_id: str = Field(description="이 질문 한 건의 실행번호.예: RUN-1234")
@@ -45,3 +52,4 @@ class AskOut(AnswerOut):
         default=False,
         description="세 번 모두 실패해 풀백 답변으로 대처한 여부",  # 정상 처리 대신 폴백 처리를 사용했는지 여부
     )
+    draft: DraftOut | None = Field(default=None, description="도구가 만든 문서 초안 없으면 null")

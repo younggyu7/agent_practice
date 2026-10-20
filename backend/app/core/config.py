@@ -68,6 +68,9 @@ class Settings(BaseSettings):
     # 크로스 인코더 점수가 (0~1)가 이 값에 못미치면 근거부족.
     rerank_threshold: float = Field(default=0.2, ge=0.0, le=1.0)
 
+    # 모델 미리 로딩 -> 내부 다운받아 쓰는 모델에 한정에서 미리 열어두면 응답이 빠르다
+    warm_up_models: bool = True
+
     # live 모드인지 확인 -> settings.app_mode == "live" 를 settings.is_live 를 사용 True/False를 return
     @property
     def is_live(self) -> bool:

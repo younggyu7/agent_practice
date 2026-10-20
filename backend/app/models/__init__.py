@@ -5,6 +5,7 @@ from app.models.org import CLEARANCE, Department, User
 from app.models.run import Run, RunStep
 from app.models.usage import UsageLog
 from app.models.eval import EvalRun, EvalWeakType
+from app.models.draft import Draft
 
 __all__ = [
     "Base",
@@ -18,6 +19,7 @@ __all__ = [
     "RunStep",
     "EvalRun",
     "EvalWeakType",
+    "Draft",
     "UsageLog",
     "CLEARANCE",
 ]

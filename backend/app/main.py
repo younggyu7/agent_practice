@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+import time
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
@@ -5,17 +8,38 @@ from fastapi.responses import JSONResponse
 # from app.api.v1.auth import router as auth_router
 
 from app.api.v1 import auth, documents, chat, ops
+from app.core.config import get_settings
 from app.core.exceptions import AgentError
-from fastapi.exceptions import RequestValidationError
-
 from contextlib import asynccontextmanager
-from app.core.logging import setup_logging
+from app.core.logging import setup_logging, get_logger
+from fastapi.exceptions import RequestValidationError
+from app.integrations import factory
+
+log = get_logger(__name__)
+
+
+# 서버 스타트 시, 로컬 모델 미리 열어두기
+def _warm_up_modles() -> None:
+    settings = get_settings()
+    if not settings.warm_up_models:
+        return
+    started = time.perf_counter()
+    try:
+        if settings.embed_provider == "local":
+            factory.get_embedder()
+        if settings.reranker == "cross_encoder":
+            factory.get_cross_encoder()
+    except AgentError as e:
+        log.warning("모델을 미리 열지 못했습니다. - %s (첫 질문에서 다시 엽니다)", e.message)
+        return
+    log.info("모델 미리 열기 완료 %.1f초", time.perf_counter() - started)
 
 
 # lifespan 함수 정의 : FastApi에서 lifespan은 무조건 비동기로 하라고 정의되어있음
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     setup_logging()
+    _warm_up_modles()
     yield
 
 
@@ -69,13 +93,9 @@ async def handle_agent_error(
 
 # 사번 입력 안하고 로그인시 비번 로그에 노출 -> 예외로 잡기
 @app.exception_handler(RequestValidationError)
-async def handle_validation_error(
-    request: Request, exc: RequestValidationError
-) -> JSONResponse:
+async def handle_validation_error(request: Request, exc: RequestValidationError) -> JSONResponse:
     # exc.errors() 에는 사용자가 보낸 값이 통째로 들어 있다. 필드 이름만 돌려주고 값은 감춘다.
-    fields = ", ".join(
-        ".".join(str(p) for p in e["loc"][1:]) or "요청 본문" for e in exc.errors()
-    )
+    fields = ", ".join(".".join(str(p) for p in e["loc"][1:]) or "요청 본문" for e in exc.errors())
     return JSONResponse(
         status_code=422,
         content={
