@@ -30,7 +30,7 @@ class ToolCall:
 @runtime_checkable
 class LLMPort(Protocol):
     # 단순 답변
-    def answer(self, *, question: str, contexts: list[dict], user: dict) -> LLMResult: ...
+    def answer(self, *, question: str, contexts: list[dict], user: dict, system: str | None = None) -> LLMResult: ...
 
     # 도구 목록 전댈해 모델 1회 호출
     def answer_with_tools(self, *, messages: list[dict], tools: list[dict], user: dict) -> LLMResult: ...
@@ -87,3 +87,20 @@ class RerankerPort(Protocol):
     name: str
 
     def score_pairs(self, query: str, texts: list[str]) -> list[float]: ...
+
+
+# ------------------- 슬랙 --------------------------
+# 보내는 쪽 규약
+@dataclass
+class SlackResult:
+    ok: bool
+    channel: str = ""
+    ts: str = ""  # 메세지 식별자
+    error: str | None = None
+    simulated: bool = False  # 보내지 않았으면 True
+
+
+# 보내는 어앱터 규약
+@runtime_checkable
+class SlackPort(Protocol):
+    def post(self, *, channel: str, text: str) -> SlackResult: ...
