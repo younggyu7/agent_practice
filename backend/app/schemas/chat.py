@@ -41,6 +41,15 @@ class DraftOut(BaseModel):
     body: str = Field(description="문서 초안 전문")
 
 
+# 외부 전송하는 도구가 실제로 돌려준 결과물
+class SendOut(BaseModel):
+    ok: bool = Field(description="Slack이  전송되었는지")
+    channel: str = Field(default="", description="보낸 채널. ID로 올 수 있다.")
+    ts: str = Field(default="", description="메세지 식별자")
+    error: str | None = Field(default=None, description="실패 이유")
+    simulated: bool = Field(default=False, description="전송하지 않았으면 True")
+
+
 # 재시도/폴백 관련 정보 추가 : 라. 웉가 사용자에게 돌려주는 최종 응답 객체
 class AskOut(AnswerOut):
     run_id: str = Field(description="이 질문 한 건의 실행번호.예: RUN-1234")
@@ -53,3 +62,4 @@ class AskOut(AnswerOut):
         description="세 번 모두 실패해 풀백 답변으로 대처한 여부",  # 정상 처리 대신 폴백 처리를 사용했는지 여부
     )
     draft: DraftOut | None = Field(default=None, description="도구가 만든 문서 초안 없으면 null")
+    sent: SendOut | None = Field(default=None, description="전송하는 도구의 실제 결과. 막혔으면 null")

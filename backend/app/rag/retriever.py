@@ -148,7 +148,7 @@ class LiveRetriever:
 
         # 마무리 : 상위 몇 건만 남기고 최고 점수가 임계값을 넘는지 확인
         # 마무리 : 만료된 버전을 걸러서 답이 줄었다면, 그 사실을 사용자에게 알릴 메세지 한줄 만들기
-        expired = [b.split(" - ") for b in blocked if "만료" in b]
+        expired = [b.split(" - ")[0] for b in blocked if "만료" in b]
         note = (
             (
                 f"{expired[0]}은(는) 만료된 버전이라 검색에서 제외 했습니다."

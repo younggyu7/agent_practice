@@ -26,9 +26,7 @@ def load_prompt(name: str) -> str:
     path = PROMPT_DIR / f"{name}.md"
     if not path.is_file():
         raise FileNotFoundError(f"프롬프트 파일을 찾을 수 없습니다 : {path}")
-    return path.read_text(
-        encoding="utf-8"
-    ).strip()  # 파일 읽은 내용 앞뒤 공백 없애고 리턴
+    return path.read_text(encoding="utf-8").strip()  # 파일 읽은 내용 앞뒤 공백 없애고 리턴
 
 
 # system + human 두 칸짜리 프롬프트 템플릿을 만들어주는 함수
@@ -60,14 +58,14 @@ def build_result_chain(
     # ChatPromptTemplate를 받으면 -> LLMResult로 반환해서 연결 다리
     def call_port(value) -> LLMResult:
         messages = value.to_messages()
-        question = "\n\n".join(str(m.content) for m in messages)
-        return llm.answer(question=question, contexts=port_contexts, user=port_user)
+        question = str(messages[-1].content)
+        if system_prompt is None:
+            return llm.answer(question=question, contexts=port_contexts, user=port_user)
+        return llm.answer(question=question, contexts=port_contexts, user=port_user, system=str(messages[0].content))
 
     llm_step = RunnableLambda(call_port).with_config(run_name="LLMPort")
 
-    return (
-        prompt | llm_step
-    )  # 파이프라인 연결해서 리턴 -> 받은 쪽에서 with_retry()로 재시도 가능
+    return prompt | llm_step  # 파이프라인 연결해서 리턴 -> 받은 쪽에서 with_retry()로 재시도 가능
 
 
 # 질문 -> 답변 문자열 : 텍스트 추출

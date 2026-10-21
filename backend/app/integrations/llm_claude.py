@@ -95,11 +95,11 @@ class ClaudeLLM:
         return text, usage, elapsed
 
     # 근거 문서를 싣고 질문에 답하는 함수 : ports.py의 LLMPort 메서드 구현체
-    def answer(self, *, question: str, contexts: list[dict], user: dict) -> LLMResult:
+    def answer(self, *, question: str, contexts: list[dict], user: dict, system: str | None = None) -> LLMResult:
         # question : 사용자 질문
         # contexts : 근거 문서 목록,
         # user     : 질문 한 사람.
-        system = _load_prompt("answer_system.md")  # md 파일로 질문하면 더 잘 알아먹는다.
+        system = system or _load_prompt("answer_system.md")  # md 파일로 질문하면 더 잘 알아먹는다.
         # 프롬프트는 코드상에서 그대로 넣지 않는다.
         prompt = (
             f"## 사용자\n{user.get('name')} - {user.get('dept')}"
