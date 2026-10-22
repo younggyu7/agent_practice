@@ -72,3 +72,4 @@ def load_all() -> None:
         )
 
     from app.tools import send_slack  # 자동으로 도구 등록
+    from app.tools import get_document_versions  # 내부에서 사용가능하게 import
