@@ -13,3 +13,17 @@ class WorkflowState(TypedDict, total=False):
     versions: dict  # found, insufficient가 사용
     note: str  # insufficient가 사용
     trace: Annotated[list[str], operator.add]
+
+
+# 루프 상태
+class LoopState(WorkflowState, total=False):
+    query: str  # 고친 질문 (원 질문은 question)
+    fixes: int  # 몇 번 고쳤는지
+
+
+# 승인 그래프 상태
+class ApprovalState(TypedDict, total=False):
+    text: str  # 보낼 문구 (draft가 사용)
+    decision: dict  # 재개할때 인자 값(gate 사용)
+    result: dict  # 전송 결과 (send가 사용)
+    rewrites: int  # 재 작성 카운트 (반려 루프)
