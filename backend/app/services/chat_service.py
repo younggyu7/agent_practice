@@ -347,3 +347,72 @@ def run_graph(*, question: str) -> dict:
     registry.load_all()
     graph = build_graph(_wf_search, {"found": _wf_found, "insufficient": _wf_insufficient}, route_after_search)
     return graph.invoke({"question": q, "user": {**DEFAULT_USER, "clearance": "일반"}})
+
+
+# ---------- 루프 그래프 ---------------------------
+def _wf_search_query(state: dict) -> dict:
+    q = state.get("query") or state["question"]
+    out = registry.get("search_documents").run(query=q, user=state["user"])
+    return {"sources": out["sources"], "passed": out["passed"]}
+
+
+def run_loop_graph(*, question: str) -> dict:
+    from langgraph.types import RetryPolicy
+    from app.agent.graph import build_loop_graph
+    from app.agent.question_fix import MAX_FIXES, fix_question, route_with_fixes
+    from app.core.exceptions import ExternalServiceError
+
+    q = check_question(question)
+    registry.load_all()
+    retry = RetryPolicy(max_attempts=MAX_ATTEMPTS, retry_on=ExternalServiceError)
+    graph = build_loop_graph(
+        _wf_search_query,
+        fix_question,
+        {"found": _wf_found, "insufficient": _wf_insufficient},
+        route_with_fixes,
+        search_retry=retry,
+    )
+    return graph.invoke(
+        {"question": q, "user": {**DEFAULT_USER, "clearance": "일반"}},
+        config={"recursion_limit": 2 * MAX_FIXES + 3},
+    )
+
+
+# 체크 포인트
+def run_resumable_graph(*, question: str | None, thread_id: str, checkpointer) -> dict:
+    from langgraph.types import RetryPolicy
+    from app.agent.graph import build_loop_graph
+    from app.agent.question_fix import MAX_FIXES, fix_question, route_with_fixes
+    from app.core.exceptions import ExternalServiceError
+
+    inp = (
+        None
+        if question is None
+        else {"question": check_question(question), "user": {**DEFAULT_USER, "clearance": "일반"}}
+    )
+    registry.load_all()
+    retry = RetryPolicy(max_attempts=MAX_ATTEMPTS, retry_on=ExternalServiceError)
+    graph = build_loop_graph(
+        _wf_search_query,
+        fix_question,
+        {"found": _wf_found, "insufficiend": _wf_insufficient},
+        route_with_fixes,
+        search_retry=retry,
+        checkpointer=checkpointer,
+    )
+    config = {"configurable": {"thread_id": thread_id}, "recursion_limit": 2 * MAX_FIXES + 3}
+    return graph.invoke(inp, config)
+
+
+def run_approval_graph(
+    *, text: str, thread_id: str, requester_id: int, checkpointer, run_id: str | None = None
+) -> dict:
+    from app.services import approval_service
+
+    t = check_question(text)
+    out = approval_service.build_graph(checkpointer).invoke({"text": t}, {"configurable": {"thread_id": thread_id}})
+    if "__interrupt__" not in out:
+        return {"req_id": None, "thread_id": thread_id, "status": "멈추지 않음", "text": t}
+    shown = out["__interrupt__"][0].value["text"]
+    req_id = approval_service.open_request(thread_id=thread_id, requester_id=requester_id, text=shown, run_id=run_id)
+    return {"req_id": req_id, "thread_id": thread_id, "status": approval_service.WAITING, "text": shown}
