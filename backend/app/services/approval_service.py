@@ -1,12 +1,12 @@
 # 승인 서비스
 from __future__ import annotations
 
-from datetime import datetime
-from sqlalchemy import select
+from datetime import datetime, date
+from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 from app.core.exceptions import ExternalServiceError, ModeNotAvailable, NotFound, PermissionDenied
 from app.db.session import session_scope
-from app.models import ApprovalRequest, AuditLog, User
+from app.models import ApprovalRequest, AuditLog, User, SlackMessageLog
 from app.tools import registry
 
 # 상태값 세트
@@ -45,7 +45,7 @@ def _send(state: dict) -> dict:
 def build_graph(checkpointer):
     from app.agent.graph import build_approval_graph
 
-    return build_approval_graph(_draft, _send, checkpointer=checkpointer)
+    return build_approval_graph(_draft, _send, checkpointer=checkpointer, rewrite=_rewrite)
 
 
 # 멈춘 승인 그래프를 결정값으로 이어서 재개 시키는 함수
@@ -91,11 +91,70 @@ def events(req_id: str) -> list[str]:
         return list(s.scalars(select(AuditLog.event).where(AuditLog.approval_id == req_id).order_by(AuditLog.id)))
 
 
+# 승인 기다리는 요청 목록
+def list_waiting() -> list[dict]:
+    with session_scope() as s:
+        rows = s.execute(
+            select(ApprovalRequest, User.name)
+            .join(User, User.id == ApprovalRequest.requester_id)
+            .where(ApprovalRequest.status == WAITING)
+            .order_by(ApprovalRequest.requested_at)
+        ).all()
+        items = [
+            {
+                "req_id": row.id,
+                "text": row.payload["text"],
+                "requester": name,
+                "action_type": row.action_type,
+                "status": row.status,
+                "requested_at": row.requested_at,
+            }
+            for row, name in rows
+        ]
+    for item in items:
+        item["events"] = events(item["req_id"])
+    return items
+
+
+def summary() -> dict:
+    today = date.today()
+    with session_scope() as s:
+        waiting = s.scalar(select(func.count()).select_from(ApprovalRequest).where(ApprovalRequest.status == WAITING))
+        decided = s.execute(
+            select(ApprovalRequest.status, ApprovalRequest.requested_at, ApprovalRequest.decided_at).where(
+                ApprovalRequest.status != WAITING,
+                ApprovalRequest.decided_at.is_not(None),
+                func.date(ApprovalRequest.decided_at) == today,
+            )
+        ).all()
+    minutes = [int((row.decided_at - row.requested_at).total_seconds() // 60) for row in decided]
+    return {
+        "waiting": waiting,
+        "approved_today": sum((1 for row in decided if row.status == DONE)),
+        "rejected_today": sum((1 for row in decided if row.status == REJECTED)),
+        "avg_minutes": round(sum(minutes) / len(minutes)) if minutes else None,
+    }
+
+
+def _log_sent(req_id: str, res: dict, text: str) -> None:
+    with session_scope() as s:
+        s.add(
+            SlackMessageLog(
+                approval_id=req_id,
+                channel=res.get("channel", ""),
+                ts=res.get("ts", ""),
+                text=text,
+            )
+        )
+
+
 # 재개 한 뒤 결과를 저장, 로그도 저장
 def _close(req_id: str, status: str, event: str, text: str | None = None) -> None:
     with session_scope() as s:
         row = s.get(ApprovalRequest, req_id)
         row.status = status[:24]
+        if status == WAITING:
+            row.approver_id, row.decided_at = None, None
         if text is not None:
             row.payload = {"text": text}
         s.add(AuditLog(approval_id=req_id, run_id=row.run_id, actor="시스템", event=event[:64]))
@@ -111,6 +170,8 @@ def _decide(req_id: str, approver_id: int, status: str, event: str, note: str = 
             raise PermissionDenied(f"이미 처리된 요청: {row.status}")
         if user is None or not user.can_approve:
             raise PermissionDenied("승인 권한이 없습니다")
+        if row.requester_id == approver_id:
+            raise PermissionDenied("자기 요청은 자기가 승인할 수 없습니다.")
         row.status, row.approver_id, row.decided_at = (status, approver_id, datetime.now())
         s.add(AuditLog(approval_id=req_id, run_id=row.run_id, actor=user.name, event=event, detail=note))
     return row
@@ -125,6 +186,10 @@ def approve(*, req_id: str, approver_id: int, checkpointer) -> dict:
         _close(req_id, "실패 · 재개 오류", "재개 실패")
         raise
     res = out.get("result", {})
+    # 전송 내용 로그화 : 추가
+    if res.get("ok"):
+        _log_sent(req_id, res, out.get("text", ""))
+
     status, event = (
         (DONE, "Slack 전송 완료")
         if res.get("ok")
@@ -137,8 +202,17 @@ def approve(*, req_id: str, approver_id: int, checkpointer) -> dict:
 # 승인 반려 처리 (메인 함수)
 def reject(*, req_id: str, approver_id: int, note: str, checkpointer) -> dict:
     row = _decide(req_id, approver_id, REJECTED, "반려", note)
-    out = _resume(checkpointer, row.thread_id, {"approved": False, "note": note})
+    try:
+        out = _resume(checkpointer, row.thread_id, {"approved": False, "note": note})
+    except Exception:
+        _close(req_id, "실패, 재개 오류", "재개 실패")
+        raise
     again = out["__interrupt__"][0].value["text"] if "__interrupt__" in out else None
     if again is not None:
         _close(req_id, WAITING, "재작성", text=again)
     return {"req_id": req_id, "status": REJECTED if again is None else WAITING, "text": again or row.payload["text"]}
+
+
+def _rewrite(state: dict) -> dict:
+    note = state["decision"].get("note", "")
+    return {"text": f"{state['text']} (사유 반영: {note})", "rewrites": state.get("rewrites", 0) + 1}

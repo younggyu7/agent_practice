@@ -404,6 +404,7 @@ def run_resumable_graph(*, question: str | None, thread_id: str, checkpointer) -
     return graph.invoke(inp, config)
 
 
+# 승인 그래프 시작, 멈추면 요청 관련 정보를 저장
 def run_approval_graph(
     *, text: str, thread_id: str, requester_id: int, checkpointer, run_id: str | None = None
 ) -> dict:
@@ -416,3 +417,33 @@ def run_approval_graph(
     shown = out["__interrupt__"][0].value["text"]
     req_id = approval_service.open_request(thread_id=thread_id, requester_id=requester_id, text=shown, run_id=run_id)
     return {"req_id": req_id, "thread_id": thread_id, "status": approval_service.WAITING, "text": shown}
+
+
+# supervisor의 초안 담당
+def _sv_draft(state: dict) -> dict:
+    with session_scope() as s:
+        run_id = next_run_id(s)
+        s.add(Run(id=run_id, user_id=1, question=state["question"], status="진행중", mode=get_settings().app_mode))
+    docs = ", ".join(sorted({x["doc_id"] for x in state.get("sources", [])}))
+    made = registry.get("create_draft").run(
+        run_id=run_id,
+        doc_type="국내출장 신청서",
+        fields={"요청": state["question"], "근거문서": docs},
+        user=state["user"],
+    )
+    with session_scope() as s:
+        s.get(Run, run_id).status = "완료"
+    return {"draft": made, "run_id": run_id}
+
+
+# supervisor 그래프
+def run_supervisor_graph(*, question: str) -> dict:
+    from app.agent.graph import build_supervisor_graph
+    from app.agent.supervisor import MAX_TURNS, pick_worker
+
+    q = check_question(question)
+    registry.load_all()
+    graph = build_supervisor_graph({"search": _wf_search_query, "draft": _sv_draft}, pick_worker)
+    return graph.invoke(
+        {"question": q, "user": {**DEFAULT_USER, "clearance": "일반"}}, config={"recursion_limit": 2 * MAX_TURNS + 2}
+    )

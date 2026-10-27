@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 # from app.api.v1.documents import router as documents_router
 # from app.api.v1.auth import router as auth_router
 
-from app.api.v1 import auth, documents, chat, ops
+from app.api.v1 import auth, documents, chat, ops, approvals
 from app.core.config import get_settings
 from app.core.exceptions import AgentError
 from contextlib import asynccontextmanager
@@ -71,6 +71,10 @@ app.include_router(
 )
 app.include_router(
     ops.router,
+    prefix="/api/v1",
+)
+app.include_router(
+    approvals.router,
     prefix="/api/v1",
 )
 
