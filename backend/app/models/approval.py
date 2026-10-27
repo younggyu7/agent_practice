@@ -34,3 +34,15 @@ class AuditLog(Base):
     actor: Mapped[str] = mapped_column(String(50))
     event: Mapped[str] = mapped_column(String(64))
     detail: Mapped[str] = mapped_column(Text, default="")
+
+
+class SlackMessageLog(Base):
+    __tablename__ = "slack_message_log"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    approval_id: Mapped[str] = mapped_column(ForeignKey("approval_requests.id"), index=True)
+    channel: Mapped[str] = mapped_column(String(32))
+    ts: Mapped[str] = mapped_column(String(32))
+    text: Mapped[str] = mapped_column(Text)
+    sent_at: Mapped[datetime] = mapped_column(default=datetime.now)
+    deleted_at: Mapped[datetime | None] = mapped_column(nullable=True)

@@ -71,6 +71,9 @@ class Settings(BaseSettings):
     # 모델 미리 로딩 -> 내부 다운받아 쓰는 모델에 한정에서 미리 열어두면 응답이 빠르다
     warm_up_models: bool = True
 
+    slack_bot_token: SecretStr | None = None
+    slack_default_channel: str = "#infra-team2"
+
     # live 모드인지 확인 -> settings.app_mode == "live" 를 settings.is_live 를 사용 True/False를 return
     @property
     def is_live(self) -> bool:

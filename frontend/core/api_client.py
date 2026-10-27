@@ -166,3 +166,23 @@ def list_versions(doc_id: str, *, emp_no: str | None = None) -> list[dict]:
 # 재임베딩 요청 (파일을 다시 올리지는 않는다.)
 def reindex(doc_id: str, version: str, *, emp_no: str | None = None) -> dict:
     return _request("POST", f"/api/v1/documents/{doc_id}/versions/{version}/reindex", emp_no=emp_no)
+
+
+# 승인 대기 목록과 상단에 붙을 지표 넷을 요청하는 함수
+def list_approvals(emp_no: str | None) -> dict:
+    return _request("GET", "/api/v1/approvals", emp_no=emp_no)
+
+
+# 요청 하나를 승인하고 그자리에서 실행 (되돌릴 수 없다)
+def approve_request(req_id: str, *, emp_no: str | None = None) -> dict:
+    return _request("POST", f"/api/v1/approvals/{req_id}/approve", emp_no=emp_no)
+
+
+# 요청 하나를 사유와 함계 반려 한다.
+def reject_request(req_id: str, note: str, *, emp_no: str | None = None) -> dict:
+    return _request(
+        "POST",
+        f"/api/v1/approvals/{req_id}/reject",
+        json={"note": note},
+        emp_no=emp_no,
+    )

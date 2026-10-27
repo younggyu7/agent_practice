@@ -27,3 +27,11 @@ class ApprovalState(TypedDict, total=False):
     decision: dict  # 재개할때 인자 값(gate 사용)
     result: dict  # 전송 결과 (send가 사용)
     rewrites: int  # 재 작성 카운트 (반려 루프)
+
+
+# Supervisor 그래프 상태
+class SupervisorState(WorkflowState, total=False):
+    next: str
+    turns: int
+    draft: dict
+    run_id: str
